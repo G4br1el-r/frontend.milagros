@@ -1,17 +1,49 @@
-import Image from "next/image";
+import { getImageProps } from "next/image";
+
+const MOBILE_BREAKPOINT = "(min-width: 640px)";
 
 export function HeroBackdrop() {
+  const common = { alt: "", loading: "eager" as const };
+
+  const {
+    props: { srcSet: desktop },
+  } = getImageProps({
+    ...common,
+    src: "/images/hero/hero-poster.png",
+    width: 1536,
+    height: 1024,
+    sizes: "100vw",
+  });
+
+  const {
+    props: { srcSet: mobile, ...rest },
+  } = getImageProps({
+    ...common,
+    src: "/images/hero/hero-poster-mobile.png",
+    width: 941,
+    height: 1672,
+    // A arte mobile tem 941px de largura; pedir mais que isso só reenvia
+    // pixels inventados pelo upscale.
+    sizes: "(max-width: 639px) 941px, 1px",
+  });
+
   return (
     <div className="absolute inset-0 overflow-hidden bg-primary-dark">
-      <Image
-        src="/images/hero/hero-poster.png"
-        alt=""
-        fill
-        loading="eager"
-        fetchPriority="high"
-        sizes="100vw"
-        className="scale-[1.04] object-cover brightness-[0.62] saturate-[0.85]"
-      />
+      {/*
+       * Art direction via <picture>: em telas estreitas o recorte retrato
+       * mantém o assunto enquadrado, o que `object-cover` sozinho não faria
+       * a partir da arte widescreen.
+       */}
+      <picture>
+        <source media={MOBILE_BREAKPOINT} srcSet={desktop} />
+        <source srcSet={mobile} />
+        <img
+          {...rest}
+          alt=""
+          fetchPriority="high"
+          className="absolute inset-0 size-full scale-[1.04] object-cover brightness-[0.62] saturate-[0.85]"
+        />
+      </picture>
 
       <div className="absolute inset-0 bg-primary-dark/45 mix-blend-multiply" />
 

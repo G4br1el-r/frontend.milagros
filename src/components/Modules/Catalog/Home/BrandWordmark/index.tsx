@@ -1,83 +1,34 @@
 "use client";
 
-import { ChevronRight, Flame } from "lucide-react";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
+import { wordmarkLetter, wordmarkStage } from "../Hero/hero.motion";
 
-const container = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.28,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 24 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 1.4, ease: [0.16, 1, 0.3, 1] as const },
-  },
-};
-
-const line = {
-  hidden: { scaleX: 0 },
-  show: {
-    scaleX: 1,
-    transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] as const },
-  },
-};
+const WORDMARK = "MILAGROS";
 
 export function BrandWordmark() {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <motion.div
-      className="flex w-full flex-col items-start gap-4 pr-6 pl-6 text-left sm:gap-6 sm:pl-12 lg:pl-20"
-      variants={container}
-      initial="hidden"
-      animate="show"
+    <motion.h1
+      variants={wordmarkStage}
+      className="font-display flex w-full items-end justify-center text-cream uppercase"
+      aria-label={WORDMARK}
     >
-      <motion.div
-        variants={item}
-        className="flex items-center gap-2.5 text-gold-light sm:gap-3"
-      >
-        <Flame className="size-3.5 shrink-0 sm:size-4" strokeWidth={1.75} />
-        <span className="text-[10px] font-medium tracking-[0.25em] uppercase sm:text-xs sm:tracking-[0.35em] md:text-sm">
-          Catálogo Litúrgico
-        </span>
-      </motion.div>
-
-      <motion.h1
-        variants={item}
-        className="font-display max-w-full text-[15.5vw] leading-[0.82] font-medium tracking-wide text-gold-light uppercase [text-shadow:0_2px_0_rgba(0,0,0,0.35),0_10px_60px_rgba(177,89,47,0.4)] sm:text-[10.5vw] lg:text-[8.5vw]"
-      >
-        Milagros
-      </motion.h1>
-
-      <motion.div
-        variants={line}
-        className="h-px w-16 origin-left bg-gold/60 sm:w-24 lg:w-32"
-      />
-
-      <motion.p
-        variants={item}
-        className="max-w-xs text-base font-normal tracking-wide text-white/85 sm:max-w-lg sm:text-lg lg:text-xl"
-      >
-        Uma chama para cada devoção, um incenso para cada santo.
-      </motion.p>
-
-      <motion.div variants={item} className="mt-1 sm:mt-2">
-        <motion.a
-          href="#catalogo"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="inline-flex items-center gap-1.5 rounded-full bg-gold px-5 py-2.5 text-[11px] font-semibold tracking-wide text-primary-dark uppercase transition-colors hover:bg-gold-light sm:px-6 sm:text-xs md:text-sm"
+      {WORDMARK.split("").map((char, index) => (
+        <span
+          // biome-ignore lint/suspicious/noArrayIndexKey: static glyph sequence
+          key={`${char}-${index}`}
+          aria-hidden="true"
+          className="block overflow-hidden pb-[0.08em]"
         >
-          Conhecer o Catálogo
-          <ChevronRight className="size-4" />
-        </motion.a>
-      </motion.div>
-    </motion.div>
+          <motion.span
+            variants={reduceMotion ? undefined : wordmarkLetter}
+            className="block text-[clamp(2.25rem,11.5vw,7rem)] leading-[0.86] font-medium tracking-[-0.005em] [text-shadow:0_24px_90px_rgba(90,70,42,0.55)] sm:text-[12.5vw] lg:text-[9.5vw] xl:text-[8.75vw]"
+          >
+            {char}
+          </motion.span>
+        </span>
+      ))}
+    </motion.h1>
   );
 }

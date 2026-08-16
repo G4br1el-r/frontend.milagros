@@ -1,8 +1,3 @@
-"use client";
-
-import { motion } from "motion/react";
-import { Stagger } from "@/components/motion/stagger";
-import { buildFadeVariants, DEFAULT_EASE } from "@/components/motion/variants";
 import {
   FOOTER_SOCIAL_LINKS,
   type FooterSocialIconName,
@@ -21,28 +16,26 @@ const socialIconMap: Record<FooterSocialIconName, typeof InstagramIcon> = {
   whatsapp: WhatsappIcon,
 };
 
-const itemVariants = buildFadeVariants("up", 8);
-
 export function SocialLinks() {
   return (
-    <Stagger className="flex items-center gap-3">
+    <ul className="flex items-center gap-2 sm:gap-3">
       {FOOTER_SOCIAL_LINKS.map(({ id, icon, href, label }) => {
         const Icon = socialIconMap[icon];
 
         return (
-          <motion.a
-            key={id}
-            href={href}
-            aria-label={label}
-            variants={itemVariants}
-            transition={{ duration: 0.4, ease: DEFAULT_EASE }}
-            whileHover={{ y: -2 }}
-            className="flex size-9 items-center justify-center rounded-full border border-white/15 text-white/70 transition-colors hover:border-gold-light/50 hover:text-gold-light"
-          >
-            <Icon className="size-4" strokeWidth={1.75} />
-          </motion.a>
+          <li key={id}>
+            <a
+              href={href}
+              aria-label={label}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex size-11 items-center justify-center rounded-full border border-white/15 text-white/70 transition-[color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-gold-light/50 hover:text-gold-light focus-visible:ring-2 focus-visible:ring-gold-light focus-visible:outline-none"
+            >
+              <Icon className="size-4" strokeWidth={1.75} />
+            </a>
+          </li>
         );
       })}
-    </Stagger>
+    </ul>
   );
 }

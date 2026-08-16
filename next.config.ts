@@ -1,8 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   reactCompiler: true,
+  images: {
+    // AVIF primeiro (~20% menor que WebP), WebP como fallback.
+    formats: ["image/avif", "image/webp"],
+  },
 };
 
 export default nextConfig;

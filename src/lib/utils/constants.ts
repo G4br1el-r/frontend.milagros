@@ -1,10 +1,5 @@
 import type { IconName } from "@/lib/utils/iconsMap";
 
-export const HERO_BACKGROUND_VIDEO_LEGACY_INLINE_ATTRS = {
-  "webkit-playsinline": "true",
-  "x5-playsinline": "true",
-} as Record<string, string>;
-
 export const CART_ITEMS_COUNT = 3;
 
 export interface TrustBarItem {
@@ -354,12 +349,25 @@ export type FooterContactIconName = "phone" | "whatsapp" | "mail";
 export interface FooterContactItem {
   icon: FooterContactIconName;
   label: string;
+  href: string;
 }
 
 export const FOOTER_CONTACT_ITEMS: FooterContactItem[] = [
-  { icon: "phone", label: "Telefone: (12) 3133-1100" },
-  { icon: "whatsapp", label: "Whatsapp: (19) 99836-4637" },
-  { icon: "mail", label: "E-mail: contato@milagros.com.br" },
+  {
+    icon: "phone",
+    label: "Telefone: (12) 3133-1100",
+    href: "tel:+551231331100",
+  },
+  {
+    icon: "whatsapp",
+    label: "Whatsapp: (19) 99836-4637",
+    href: "https://wa.me/5519998364637",
+  },
+  {
+    icon: "mail",
+    label: "E-mail: contato@milagros.com.br",
+    href: "mailto:contato@milagros.com.br",
+  },
 ];
 
 export const FOOTER_TAGLINE =

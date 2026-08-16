@@ -1,13 +1,12 @@
-import { Catalog } from "@/components/Modules/Catalog/Catalog";
 import { Hero } from "@/components/Modules/Catalog/Home/Hero";
-import { TrustBar } from "@/components/Modules/Catalog/TrustBar";
 
 export default function Home() {
   return (
-    <main className="w-full">
+    <main className="w-full flex-1">
       <Hero />
-      <TrustBar />
-      <Catalog />
+      <div className="relative z-10 w-full bg-cream">
+        <div className="h-dvh w-full" />
+      </div>
     </main>
   );
 }

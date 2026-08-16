@@ -12,20 +12,28 @@ export function Newsletter() {
         Devoções, lançamentos e ofertas direto no seu e-mail.
       </p>
 
-      <div className="flex w-full items-stretch overflow-hidden rounded-full border border-white/15 bg-white/5">
+      <form className="flex w-full items-stretch overflow-hidden rounded-full border border-white/15 bg-white/5 focus-within:border-gold-light/50">
+        <label htmlFor="newsletter-email" className="sr-only">
+          Seu e-mail
+        </label>
         <input
+          id="newsletter-email"
+          name="email"
           type="email"
+          autoComplete="email"
+          inputMode="email"
           placeholder="Seu e-mail"
-          className="w-full bg-transparent px-4 py-2.5 text-sm text-white outline-none placeholder:text-white/40"
+          // text-base (16px) evita o zoom automático do Safari iOS ao focar.
+          className="w-full bg-transparent px-4 py-3 text-base text-white outline-none placeholder:text-white/40 sm:py-2.5 sm:text-sm"
         />
         <button
-          type="button"
-          aria-label="Assinar"
-          className="flex shrink-0 items-center justify-center bg-gold px-4 text-primary-dark transition-colors hover:bg-gold-light"
+          type="submit"
+          aria-label="Assinar newsletter"
+          className="flex w-12 shrink-0 items-center justify-center bg-gold text-primary-darkest transition-colors hover:bg-gold-light focus-visible:ring-2 focus-visible:ring-cream focus-visible:ring-inset focus-visible:outline-none"
         >
-          <ChevronRight className="size-4" strokeWidth={1.75} />
+          <ChevronRight className="size-5" strokeWidth={2} />
         </button>
-      </div>
+      </form>
     </div>
   );
 }

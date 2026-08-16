@@ -2,7 +2,12 @@
 
 import { motion } from "motion/react";
 import type { ElementType, ReactNode } from "react";
-import { buildFadeVariants, DEFAULT_EASE, DEFAULT_VIEWPORT, type FadeDirection } from "@/components/motion/variants";
+import {
+  buildFadeVariants,
+  DEFAULT_EASE,
+  DEFAULT_VIEWPORT,
+  type FadeDirection,
+} from "@/components/motion/variants";
 
 interface FadeInProps {
   children: ReactNode;
@@ -35,7 +40,9 @@ export function FadeIn({
     ? { animate: "visible" as const }
     : {
         whileInView: "visible" as const,
-        viewport: viewportMargin ? { ...DEFAULT_VIEWPORT, margin: viewportMargin } : DEFAULT_VIEWPORT,
+        viewport: viewportMargin
+          ? { ...DEFAULT_VIEWPORT, margin: viewportMargin }
+          : DEFAULT_VIEWPORT,
       };
 
   return (

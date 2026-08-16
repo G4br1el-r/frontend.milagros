@@ -23,7 +23,6 @@ const geistSans = Geist({
   display: "swap",
 });
 
-// Só o peso 500 (wordmark) e o itálico (tagline) são usados hoje.
 const fraunces = Fraunces({
   variable: "--font-fraunces",
   subsets: ["latin"],
@@ -38,7 +37,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="pt-BR"
       className={`${geistSans.variable} ${fraunces.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-cream">
+      <body className="min-h-full flex flex-col">
         <Header />
         {children}
         <Footer />

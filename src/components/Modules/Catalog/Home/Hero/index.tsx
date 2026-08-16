@@ -5,7 +5,7 @@ import { ScrollCue } from "./ScrollCue";
 export function Hero() {
   return (
     <section
-      id="inicio"
+      id="home"
       className="sticky top-0 z-0 flex h-dvh w-full items-center overflow-hidden bg-primary-dark"
     >
       <HeroBackdrop />

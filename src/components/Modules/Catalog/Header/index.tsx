@@ -1,10 +1,26 @@
+"use client";
+
 import { ShoppingCart } from "lucide-react";
+import { motion } from "motion/react";
 import Image from "next/image";
+import { cn } from "@/lib/utils/cn";
 import { CART_ITEMS_COUNT } from "@/lib/utils/constants";
+import { useScrolled } from "./useScrolled";
 
 export function Header() {
+  const { scrolled, hidden } = useScrolled();
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50 w-full pt-[env(safe-area-inset-top)]">
+    <motion.header
+      animate={{ y: hidden ? "-100%" : "0%" }}
+      transition={{ type: "spring", stiffness: 220, damping: 28, mass: 0.9 }}
+      className={cn(
+        "fixed inset-x-0 top-0 z-50 w-full pt-[env(safe-area-inset-top)] transition-[background-color,border-color] duration-500",
+        scrolled
+          ? "border-b border-cream/10 bg-primary-darkest/85 backdrop-blur-md"
+          : "border-b border-transparent bg-transparent",
+      )}
+    >
       <div className="relative mx-auto grid h-16 w-full max-w-7xl grid-cols-[1fr_auto_1fr] items-center px-4 sm:h-24 sm:px-6">
         <div />
 
@@ -22,7 +38,7 @@ export function Header() {
           <button
             type="button"
             aria-label={`Carrinho${CART_ITEMS_COUNT > 0 ? ` (${CART_ITEMS_COUNT} itens)` : ""}`}
-            className="relative flex size-11 items-center justify-center rounded-full border border-cream/40 text-cream transition-colors duration-300 hover:border-cream hover:bg-cream/10 focus-visible:ring-2 focus-visible:ring-cream focus-visible:outline-none"
+            className="relative flex size-11 cursor-pointer items-center justify-center rounded-full border border-cream/40 text-cream transition-colors duration-300 hover:border-cream hover:bg-cream/10 focus-visible:ring-2 focus-visible:ring-cream focus-visible:outline-none"
           >
             <ShoppingCart className="size-5" strokeWidth={1.75} />
 
@@ -34,6 +50,6 @@ export function Header() {
           </button>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 }

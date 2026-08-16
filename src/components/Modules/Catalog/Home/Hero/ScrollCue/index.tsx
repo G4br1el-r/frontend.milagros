@@ -8,7 +8,7 @@ export function ScrollCue() {
 
   return (
     <motion.a
-      href="#catalogo"
+      href="#catalog"
       aria-label="Rolar para o catálogo"
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}

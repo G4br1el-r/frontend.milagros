@@ -62,7 +62,7 @@ export function HeroContent() {
           className="h-px w-14 origin-right bg-linear-to-r from-transparent to-cream/70 sm:w-24 lg:w-32"
         />
         <span className="font-display shrink-0 text-[10px] tracking-[0.3em] text-cream/85 italic sm:text-xs">
-          in hoc signo vinces
+          duc in altum
         </span>
         <motion.span
           variants={hairline}

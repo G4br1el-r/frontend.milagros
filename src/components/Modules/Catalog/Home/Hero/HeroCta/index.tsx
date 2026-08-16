@@ -8,7 +8,7 @@ export function HeroCta() {
   return (
     <motion.div variants={heroRise} className="inline-flex">
       <motion.a
-        href="#catalogo"
+        href="#catalog"
         initial="rest"
         animate="rest"
         whileHover="hover"

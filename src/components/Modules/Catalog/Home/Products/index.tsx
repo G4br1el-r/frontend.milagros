@@ -14,7 +14,7 @@ export function Products() {
       id="catalog"
       className="relative z-10 w-full scroll-mt-24 bg-cream"
     >
-      <div className="w-full py-20 sm:py-24 lg:py-28">
+      <div className="mx-auto w-full max-w-[1920px] py-20 sm:py-24 lg:py-28">
         <FadeIn
           className="mx-auto mb-10 flex max-w-2xl flex-col items-center gap-5 px-5 text-center sm:mb-12 sm:px-8"
           distance={20}

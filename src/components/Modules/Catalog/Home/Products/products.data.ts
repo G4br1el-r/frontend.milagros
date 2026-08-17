@@ -312,4 +312,39 @@ export const PRODUCTS: Product[] = [
       { label: "Altura", value: "42 cm" },
     ],
   },
+  {
+    id: "our-lady-of-carmel-incense",
+    name: "Incenso N. Sra. do Carmo",
+    devotion: "Incenso",
+    description:
+      "Blend devocional com notas de âmbar e baunilha, em homenagem à Padroeira do Carmelo. Aroma suave, queima curta.",
+    image:
+      "https://images.unsplash.com/photo-1783701076232-52f6f75abf41?auto=format&fit=crop&w=1200&q=80",
+    price: 8.9,
+    rating: 4.9,
+    reviewCount: 44,
+    attributes: [
+      { label: "Peso", value: "9 g" },
+      { label: "Queima", value: "≈ 15 min" },
+      { label: "Tipo", value: "Resina" },
+    ],
+  },
+  {
+    id: "saint-benedict-oratory",
+    name: "Oratório São Bento",
+    devotion: "Oratório",
+    description:
+      "Capela em madeira maciça com a medalha de São Bento entalhada na porta, espaço interno para imagem e vela votiva.",
+    image:
+      "https://images.unsplash.com/photo-1671493235081-5842463637cd?auto=format&fit=crop&w=1200&q=80",
+    price: 319.9,
+    compareAtPrice: 359.9,
+    rating: 4.9,
+    reviewCount: 28,
+    attributes: [
+      { label: "Material", value: "Madeira" },
+      { label: "Altura", value: "36 cm" },
+      { label: "Gaveta", value: "Sim" },
+    ],
+  },
 ];

@@ -43,7 +43,7 @@ export function CartItemRow({ item }: CartItemRowProps) {
           {formatPrice(item.price)}
         </span>
 
-        <div className="mt-auto flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
+        <div className="mt-auto flex flex-col items-start gap-2">
           <QuantityStepper
             quantity={item.quantity}
             onChange={(next) => setQuantity(item.id, next)}

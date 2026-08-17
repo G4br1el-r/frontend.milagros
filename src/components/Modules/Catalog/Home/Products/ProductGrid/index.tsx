@@ -12,7 +12,7 @@ export function ProductGrid({ children }: { children: ReactNode }) {
       whileInView="show"
       viewport={DEFAULT_VIEWPORT}
       variants={gridStage}
-      className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 xl:grid-cols-3"
+      className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5"
     >
       {children}
     </motion.div>

@@ -14,8 +14,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: "Milagros | Incensos e Velas Litúrgicas",
-  description:
-    "Uma chama para cada devoção, um incenso para cada santo. Catálogo litúrgico Milagros.",
+  description: "Uma chama para cada devoção, um incenso para cada santo. Catálogo litúrgico Milagros.",
 };
 
 const geistSans = Geist({
@@ -34,10 +33,7 @@ const fraunces = Fraunces({
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="pt-BR"
-      className={`${geistSans.variable} ${fraunces.variable} h-full antialiased`}
-    >
+    <html lang="pt-BR" className={`${geistSans.variable} ${fraunces.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <Header />
         {children}

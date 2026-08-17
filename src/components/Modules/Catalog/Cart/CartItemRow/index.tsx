@@ -22,9 +22,9 @@ export function CartItemRow({ item }: CartItemRowProps) {
       animate={{ opacity: 1, height: "auto" }}
       exit={{ opacity: 0, height: 0 }}
       transition={{ duration: 0.25 }}
-      className="relative flex gap-4 border-b border-primary/8 px-4 py-4 last:border-b-0 sm:px-6"
+      className="relative flex gap-3 border-b border-primary/8 px-4 py-4 last:border-b-0 sm:gap-4 sm:px-6"
     >
-      <div className="relative w-24 shrink-0 self-stretch overflow-hidden rounded-md bg-primary-darkest">
+      <div className="relative w-16 shrink-0 self-stretch overflow-hidden rounded-md bg-primary-darkest sm:w-24">
         <Image
           src={item.image}
           alt={item.name}
@@ -34,7 +34,7 @@ export function CartItemRow({ item }: CartItemRowProps) {
         />
       </div>
 
-      <div className="flex min-w-0 flex-1 flex-col gap-2 pr-8">
+      <div className="flex min-w-0 flex-1 flex-col gap-2 pr-7">
         <h4 className="truncate font-display text-sm leading-snug text-primary">
           {item.name}
         </h4>
@@ -43,7 +43,7 @@ export function CartItemRow({ item }: CartItemRowProps) {
           {formatPrice(item.price)}
         </span>
 
-        <div className="mt-auto flex items-center justify-between gap-3">
+        <div className="mt-auto flex flex-wrap items-center justify-between gap-x-3 gap-y-2">
           <QuantityStepper
             quantity={item.quantity}
             onChange={(next) => setQuantity(item.id, next)}
@@ -60,9 +60,9 @@ export function CartItemRow({ item }: CartItemRowProps) {
         type="button"
         onClick={() => removeItem(item.id)}
         aria-label={`Remover ${item.name} do carrinho`}
-        className="absolute top-4 right-4 flex size-7 cursor-pointer items-center justify-center rounded-full text-primary/40 transition-colors duration-200 hover:bg-terracotta/10 hover:text-terracotta sm:right-6"
+        className="absolute top-4 right-4 flex size-6 shrink-0 cursor-pointer items-center justify-center rounded-full text-primary/40 transition-colors duration-200 hover:bg-terracotta/10 hover:text-terracotta sm:size-7 sm:right-6"
       >
-        <Trash2 className="size-4" strokeWidth={1.75} />
+        <Trash2 className="size-3.5 sm:size-4" strokeWidth={1.75} />
       </button>
     </motion.div>
   );

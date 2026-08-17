@@ -2,6 +2,8 @@ import { FadeIn } from "@/components/motion/fade-in";
 import { ProductCard } from "./ProductCard";
 import { ProductFilters } from "./ProductFilters";
 import { ProductGrid } from "./ProductGrid";
+import { ProductPagination } from "./ProductPagination";
+import { ProductSearch } from "./ProductSearch";
 import { PRODUCTS } from "./products.data";
 
 const PRIORITY_COUNT = 3;
@@ -14,7 +16,7 @@ export function Products() {
     >
       <div className="w-full py-20 sm:py-24 lg:py-28">
         <FadeIn
-          className="mx-auto mb-12 flex max-w-2xl flex-col items-center gap-5 px-5 text-center sm:mb-16 sm:px-8"
+          className="mx-auto mb-10 flex max-w-2xl flex-col items-center gap-5 px-5 text-center sm:mb-12 sm:px-8"
           distance={20}
         >
           <span className="text-[10px] font-medium tracking-[0.3em] text-primary-dark uppercase sm:text-[11px] sm:tracking-[0.38em]">
@@ -39,6 +41,10 @@ export function Products() {
           </p>
         </FadeIn>
 
+        <FadeIn distance={16} delay={0.1}>
+          <ProductSearch />
+        </FadeIn>
+
         <div className="mb-4 flex items-center justify-between gap-4 px-3 sm:px-4">
           <span className="text-sm text-primary/55">
             Exibindo {PRODUCTS.length} de {PRODUCTS.length} produtos
@@ -61,6 +67,8 @@ export function Products() {
                 />
               ))}
             </ProductGrid>
+
+            <ProductPagination />
           </div>
         </div>
       </div>

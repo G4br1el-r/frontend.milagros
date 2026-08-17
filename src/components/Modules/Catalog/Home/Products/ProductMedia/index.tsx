@@ -21,7 +21,7 @@ export function ProductMedia({
   overlay,
 }: ProductMediaProps) {
   return (
-    <div className="relative aspect-4/3 w-full overflow-hidden rounded-t-3xl bg-primary-darkest">
+    <div className="relative aspect-4/3 w-full overflow-hidden rounded-t-xl bg-primary-darkest">
       <motion.div variants={cardMedia} className="absolute inset-0">
         <Image
           src={src}

@@ -1,4 +1,4 @@
-import { Flame } from "lucide-react";
+import { Flame, Star } from "lucide-react";
 import { ProductCardShell } from "../ProductCardShell";
 import { ProductCta } from "../ProductCta";
 import { ProductMedia } from "../ProductMedia";
@@ -16,11 +16,14 @@ export function ProductCard({ product, priority }: ProductCardProps) {
     attributes,
     badge,
     compareAtPrice,
+    description,
     devotion,
     id,
     image,
     name,
     price,
+    rating,
+    reviewCount,
   } = product;
 
   return (
@@ -57,16 +60,39 @@ export function ProductCard({ product, priority }: ProductCardProps) {
       )}
 
       <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
-        <span className="inline-flex items-center gap-1.5 text-[10px] font-medium tracking-[0.22em] text-primary-dark uppercase">
-          <Flame className="size-3 shrink-0 text-terracotta" strokeWidth={2} />
-          {devotion}
-        </span>
+        <div className="flex items-center justify-between gap-3">
+          <span className="inline-flex items-center gap-1.5 text-[10px] font-medium tracking-[0.22em] text-primary-dark uppercase">
+            <Flame
+              className="size-3 shrink-0 text-terracotta"
+              strokeWidth={2}
+            />
+            {devotion}
+          </span>
+
+          <span className="inline-flex shrink-0 items-center gap-1 text-xs text-primary/70">
+            <Star
+              className="size-3.5 fill-gold text-gold"
+              strokeWidth={1.5}
+              aria-hidden="true"
+            />
+            <span className="font-semibold text-primary">
+              {rating.toFixed(1)}
+            </span>
+            <span className="sr-only">de 5, com</span>
+            <span>({reviewCount})</span>
+            <span className="sr-only">avaliações</span>
+          </span>
+        </div>
 
         <h3 className="font-display text-xl leading-tight text-primary sm:text-2xl">
           {name}
         </h3>
 
-        <div className="mt-auto flex flex-col gap-4 pt-3">
+        <p className="line-clamp-2 text-sm leading-relaxed text-primary/60">
+          {description}
+        </p>
+
+        <div className="mt-auto flex flex-col gap-6 pt-3">
           <div className="flex items-end justify-between gap-3">
             <div className="flex flex-col">
               {compareAtPrice && (
@@ -86,7 +112,7 @@ export function ProductCard({ product, priority }: ProductCardProps) {
             </span>
           </div>
 
-          <ProductCta href={`/produtos/${id}`} productName={name} />
+          <ProductCta id={id} name={name} image={image} price={price} />
         </div>
       </div>
     </ProductCardShell>

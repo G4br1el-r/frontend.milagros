@@ -1,7 +1,5 @@
 import type { IconName } from "@/lib/utils/iconsMap";
 
-export const CART_ITEMS_COUNT = 3;
-
 export interface TrustBarItem {
   icon: IconName;
   title: string;

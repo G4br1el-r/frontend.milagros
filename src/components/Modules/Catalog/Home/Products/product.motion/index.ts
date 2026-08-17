@@ -25,11 +25,9 @@ export const cardEnter: Variants = {
 
 export const cardLift: Variants = {
   rest: {
-    scale: 1,
     boxShadow: "0 10px 30px -20px rgba(33,19,10,0.45)",
   },
   hover: {
-    scale: 1.05,
     boxShadow: "0 34px 60px -30px rgba(33,19,10,0.6)",
     transition: CARD_SPRING,
   },

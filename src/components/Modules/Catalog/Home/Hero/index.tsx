@@ -6,7 +6,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="sticky top-0 z-0 flex h-dvh w-full items-center overflow-hidden bg-primary-dark"
+      className="sticky top-0 z-0 flex h-svh w-full items-center overflow-hidden bg-primary-dark"
     >
       <HeroBackdrop />
 

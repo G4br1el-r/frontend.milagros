@@ -40,7 +40,7 @@ export function BestSellers() {
             {BEST_SELLERS.map((product) => (
               <div
                 key={product.id}
-                className="min-w-0 shrink-0 grow-0 basis-[78%] sm:basis-[calc((100%-1.25rem)/2)] lg:basis-[calc((100%-2.5rem)/3)] xl:basis-[calc((100%-3.75rem)/4)]"
+                className="min-w-0 shrink-0 grow-0 basis-full sm:basis-[calc((100%-1.25rem)/2)] lg:basis-[calc((100%-2.5rem)/3)] xl:basis-[calc((100%-3.75rem)/4)]"
               >
                 <BestSellerCard product={product} />
               </div>

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Geist } from "next/font/google";
+import { CartSheet } from "@/components/Modules/Catalog/Cart/CartSheet";
 import { Footer } from "@/components/Modules/Catalog/Footer";
 import { Header } from "@/components/Modules/Catalog/Header";
 import "../globals.css";
@@ -41,6 +42,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Header />
         {children}
         <Footer />
+        <CartSheet />
       </body>
     </html>
   );

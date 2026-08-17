@@ -1,14 +1,16 @@
 "use client";
 
 import { ShoppingCart } from "lucide-react";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
+import { useCartCount, useCartStore } from "@/lib/stores/cart";
 import { cn } from "@/lib/utils/cn";
-import { CART_ITEMS_COUNT } from "@/lib/utils/constants";
 import { useScrolled } from "./useScrolled";
 
 export function Header() {
   const { scrolled, hidden } = useScrolled();
+  const count = useCartCount();
+  const openCart = useCartStore((state) => state.open);
 
   return (
     <motion.header
@@ -37,16 +39,26 @@ export function Header() {
         <div className="flex justify-end">
           <button
             type="button"
-            aria-label={`Carrinho${CART_ITEMS_COUNT > 0 ? ` (${CART_ITEMS_COUNT} itens)` : ""}`}
+            onClick={openCart}
+            aria-label={`Carrinho${count > 0 ? ` (${count} itens)` : ""}`}
             className="relative flex size-11 cursor-pointer items-center justify-center rounded-full border border-cream/40 text-cream transition-colors duration-300 hover:border-cream hover:bg-cream/10 focus-visible:ring-2 focus-visible:ring-cream focus-visible:outline-none"
           >
             <ShoppingCart className="size-5" strokeWidth={1.75} />
 
-            {CART_ITEMS_COUNT > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 flex size-5 items-center justify-center rounded-full bg-cream text-[10px] font-bold text-primary-darkest">
-                {CART_ITEMS_COUNT}
-              </span>
-            )}
+            <AnimatePresence>
+              {count > 0 && (
+                <motion.span
+                  key="count"
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0, opacity: 0 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                  className="absolute -top-0.5 -right-0.5 flex size-5 items-center justify-center rounded-full bg-cream text-[10px] font-bold text-primary-darkest"
+                >
+                  {count}
+                </motion.span>
+              )}
+            </AnimatePresence>
           </button>
         </div>
       </div>

@@ -9,7 +9,7 @@ export function FilterActions() {
       </button>
       <button
         type="button"
-        className="flex-1 cursor-pointer rounded-full bg-linear-to-b from-gold-light to-gold px-3 py-2.5 text-xs font-bold whitespace-nowrap tracking-[0.06em] text-primary-darkest uppercase transition-transform duration-300 hover:-translate-y-0.5"
+        className="flex-1 cursor-pointer rounded-full bg-linear-to-b from-gold-light to-gold px-3 py-2.5 text-xs font-bold whitespace-nowrap tracking-[0.06em] text-primary-darkest uppercase transition-opacity duration-300 hover:opacity-90"
       >
         Aplicar filtros
       </button>

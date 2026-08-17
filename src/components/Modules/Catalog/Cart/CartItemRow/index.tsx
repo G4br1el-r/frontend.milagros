@@ -24,7 +24,7 @@ export function CartItemRow({ item }: CartItemRowProps) {
       transition={{ duration: 0.25 }}
       className="relative flex gap-3 border-b border-primary/8 px-4 py-4 last:border-b-0 sm:gap-4 sm:px-6"
     >
-      <div className="relative w-16 shrink-0 self-stretch overflow-hidden rounded-md bg-primary-darkest sm:w-24">
+      <div className="relative w-24 shrink-0 self-stretch overflow-hidden rounded-md bg-primary-darkest">
         <Image
           src={item.image}
           alt={item.name}

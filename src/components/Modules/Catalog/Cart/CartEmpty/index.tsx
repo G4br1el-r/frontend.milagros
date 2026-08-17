@@ -7,12 +7,8 @@ export function CartEmpty() {
         <ShoppingBag className="size-7" strokeWidth={1.5} />
       </span>
       <div className="flex flex-col gap-1">
-        <p className="font-display text-lg text-primary">
-          Seu carrinho está vazio
-        </p>
-        <p className="text-sm text-primary/55">
-          Adicione incensos, carvões e alfaias ao seu carrinho.
-        </p>
+        <p className="font-display text-lg text-primary">Seu carrinho está vazio</p>
+        <p className="text-sm text-primary/55">Adicione incensos, carvões e alfaias ao seu carrinho.</p>
       </div>
     </div>
   );

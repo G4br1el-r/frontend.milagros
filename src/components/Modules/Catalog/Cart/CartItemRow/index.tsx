@@ -34,7 +34,7 @@ export function CartItemRow({ item }: CartItemRowProps) {
         />
       </div>
 
-      <div className="flex min-w-0 flex-1 flex-col gap-2 pr-7">
+      <div className="flex min-w-0 flex-1 flex-col gap-2 pr-11">
         <h4 className="truncate font-display text-sm leading-snug text-primary">
           {item.name}
         </h4>
@@ -60,7 +60,7 @@ export function CartItemRow({ item }: CartItemRowProps) {
         type="button"
         onClick={() => removeItem(item.id)}
         aria-label={`Remover ${item.name} do carrinho`}
-        className="absolute top-4 right-4 flex size-6 shrink-0 cursor-pointer items-center justify-center rounded-full text-primary/40 transition-colors duration-200 hover:bg-terracotta/10 hover:text-terracotta sm:size-7 sm:right-6"
+        className="absolute top-2 right-2 flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-full text-primary/40 transition-colors duration-200 hover:bg-terracotta/10 hover:text-terracotta sm:right-4"
       >
         <Trash2 className="size-3.5 sm:size-4" strokeWidth={1.75} />
       </button>

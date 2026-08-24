@@ -20,16 +20,16 @@ export function FilterDrawer({ children }: FilterDrawerProps) {
   return (
     <div className="lg:hidden">
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetTrigger className="inline-flex cursor-pointer items-center gap-2.5 rounded-full border border-primary/15 bg-white px-5 py-2.5 text-xs font-semibold tracking-[0.08em] text-primary uppercase transition-colors duration-300 hover:border-terracotta/50">
+        <SheetTrigger className="inline-flex min-h-11 cursor-pointer items-center gap-2.5 rounded-full border border-primary/15 bg-white px-5 py-2.5 text-xs font-semibold tracking-[0.08em] text-primary uppercase transition-colors duration-300 hover:border-terracotta/50">
           <SlidersHorizontal className="size-4 shrink-0" strokeWidth={2} />
           Filtrar
         </SheetTrigger>
 
         <SheetContent
           side="left"
-          className="w-[85vw] max-w-sm gap-8 overflow-y-auto bg-cream p-6 pt-[calc(1.5rem+env(safe-area-inset-top))] sm:max-w-sm"
+          className="gap-8 overflow-y-auto bg-cream p-4 pt-[calc(1rem+env(safe-area-inset-top))] pb-[calc(1rem+env(safe-area-inset-bottom))] data-[side=left]:w-[85vw] data-[side=left]:sm:max-w-sm sm:p-6 sm:pt-[calc(1.5rem+env(safe-area-inset-top))]"
         >
-          <SheetHeader className="flex-row items-center justify-between gap-2.5 p-0">
+          <SheetHeader className="flex-row items-center justify-between gap-2.5 p-0 pr-14">
             <SheetTitle className="flex items-center gap-2.5 font-display text-lg font-normal text-primary">
               <SlidersHorizontal
                 className="size-4 shrink-0 text-terracotta"

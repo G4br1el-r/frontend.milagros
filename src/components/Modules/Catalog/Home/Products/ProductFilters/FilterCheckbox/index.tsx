@@ -21,7 +21,7 @@ export function FilterCheckbox({
   return (
     <label
       htmlFor={id}
-      className="group/filter flex cursor-pointer items-center gap-3 py-1.5"
+      className="group/filter flex min-h-11 cursor-pointer items-center gap-3 py-1.5"
     >
       <input
         id={id}
@@ -59,7 +59,9 @@ export function FilterCheckbox({
         {label}
       </span>
 
-      <span className="shrink-0 text-xs text-primary/40 tabular-nums">{count}</span>
+      <span className="shrink-0 text-xs text-primary/40 tabular-nums">
+        {count}
+      </span>
     </label>
   );
 }

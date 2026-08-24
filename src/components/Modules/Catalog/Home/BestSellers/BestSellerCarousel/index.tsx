@@ -99,7 +99,7 @@ export function BestSellerCarousel({ children }: BestSellerCarouselProps) {
       </button>
 
       {snaps.length > 1 && (
-        <div className="mt-8 flex items-center justify-center gap-2">
+        <div className="mt-6 flex items-center justify-center">
           {snaps.map((snap, index) => (
             <button
               key={snap}
@@ -107,7 +107,7 @@ export function BestSellerCarousel({ children }: BestSellerCarouselProps) {
               onClick={() => scrollTo(index)}
               aria-label={`Ir para o grupo ${index + 1} de ${snaps.length}`}
               aria-current={index === selectedIndex}
-              className="group/dot grid h-6 cursor-pointer place-items-center px-0.5 focus-visible:outline-none"
+              className="group/dot grid size-11 cursor-pointer place-items-center focus-visible:outline-none"
             >
               <span
                 className={cn(

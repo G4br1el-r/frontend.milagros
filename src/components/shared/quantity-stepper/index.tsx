@@ -65,7 +65,7 @@ export function QuantityStepper({
   return (
     <div
       className={cn(
-        "inline-flex items-center gap-1 rounded-full border border-primary/12 bg-white px-1 py-1",
+        "inline-flex items-center gap-1 rounded-full border border-primary/12 bg-white px-1",
         className,
       )}
     >
@@ -76,7 +76,7 @@ export function QuantityStepper({
         onAnimationComplete={() => setPulseDelete(false)}
         aria-label={isAtMin ? "Remover item" : "Diminuir quantidade"}
         className={cn(
-          "flex size-7 cursor-pointer items-center justify-center rounded-full transition-colors duration-200",
+          "flex size-11 cursor-pointer items-center justify-center rounded-full transition-colors duration-200",
           isAtMin
             ? "text-terracotta hover:bg-terracotta/10"
             : "text-primary/70 hover:bg-primary/8 hover:text-primary",
@@ -109,7 +109,7 @@ export function QuantityStepper({
         </AnimatePresence>
       </motion.button>
 
-      <div className="relative flex h-7 w-9 items-center justify-center">
+      <div className="relative flex h-11 w-9 items-center justify-center">
         <AnimatePresence mode="popLayout" initial={false}>
           {!isFocused && (
             <motion.span
@@ -151,7 +151,7 @@ export function QuantityStepper({
         whileTap={{ scale: 0.85 }}
         disabled={quantity >= max}
         aria-label="Aumentar quantidade"
-        className="flex size-7 cursor-pointer items-center justify-center rounded-full text-primary/70 transition-colors duration-200 hover:bg-primary/8 hover:text-primary disabled:pointer-events-none disabled:opacity-30"
+        className="flex size-11 cursor-pointer items-center justify-center rounded-full text-primary/70 transition-colors duration-200 hover:bg-primary/8 hover:text-primary disabled:pointer-events-none disabled:opacity-30"
       >
         <Plus className="size-3.5" strokeWidth={2.5} />
       </motion.button>

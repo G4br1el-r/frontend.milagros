@@ -24,12 +24,12 @@ export function CartItemRow({ item }: CartItemRowProps) {
       transition={{ duration: 0.25 }}
       className="relative flex gap-3 border-b border-primary/8 px-4 py-4 last:border-b-0 sm:gap-4 sm:px-6"
     >
-      <div className="relative w-24 shrink-0 self-stretch overflow-hidden rounded-md bg-primary-darkest">
+      <div className="relative aspect-square w-20 shrink-0 self-start overflow-hidden rounded-md bg-primary-darkest sm:w-24">
         <Image
           src={item.image}
           alt={item.name}
           fill
-          sizes="96px"
+          sizes="(min-width: 640px) 96px, 80px"
           className="object-cover"
         />
       </div>

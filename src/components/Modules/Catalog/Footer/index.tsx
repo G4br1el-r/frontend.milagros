@@ -28,7 +28,7 @@ export function Footer() {
           alt="Milagros"
           width={140}
           height={140}
-          sizes="140px"
+          sizes="56px"
           className="h-14 w-auto object-contain"
         />
 

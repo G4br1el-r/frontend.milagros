@@ -31,6 +31,7 @@ export function Header() {
           alt="Milagros"
           width={160}
           height={160}
+          sizes="(min-width: 640px) 56px, 40px"
           loading="eager"
           fetchPriority="high"
           className="h-10 w-auto object-contain sm:h-14"

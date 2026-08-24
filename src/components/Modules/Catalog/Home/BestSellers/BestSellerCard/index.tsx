@@ -7,7 +7,8 @@ interface BestSellerCardProps {
   product: BestSeller;
 }
 
-const SIZES = "(min-width: 1280px) 300px, (min-width: 768px) 33vw, 75vw";
+const SIZES =
+  "(min-width: 1280px) 290px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw";
 
 export function BestSellerCard({ product }: BestSellerCardProps) {
   const { compareAtPrice, devotion, id, image, name, price } = product;

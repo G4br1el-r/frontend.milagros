@@ -23,8 +23,10 @@ export function HeroBackdrop() {
     width: 941,
     height: 1672,
     // A arte mobile tem 941px de largura; pedir mais que isso só reenvia
-    // pixels inventados pelo upscale.
-    sizes: "(max-width: 639px) 941px, 1px",
+    // pixels inventados pelo upscale. Abaixo disso o `100vw` deixa o browser
+    // escolher o degrau do srcset pela largura real da tela, em vez de baixar
+    // os 941px inteiros num aparelho de 320px.
+    sizes: "(max-width: 639px) 100vw, 1px",
   });
 
   return (

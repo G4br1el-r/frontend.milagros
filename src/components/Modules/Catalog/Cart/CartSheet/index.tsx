@@ -23,7 +23,7 @@ export function CartSheet() {
     <Sheet open={isOpen} onOpenChange={(next) => (next ? open() : close())}>
       <SheetContent
         side="right"
-        className="flex w-full flex-col gap-0 border-primary/10 bg-cream sm:max-w-md"
+        className="flex flex-col gap-0 border-primary/10 bg-cream data-[side=right]:w-full data-[side=right]:sm:max-w-md"
       >
         <SheetHeader className="border-b border-primary/10 p-4 pr-14 sm:p-6 sm:pr-16">
           <SheetTitle className="font-display text-xl text-primary">

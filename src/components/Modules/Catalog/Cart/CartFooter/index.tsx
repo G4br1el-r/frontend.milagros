@@ -6,7 +6,7 @@ interface CartFooterProps {
 
 export function CartFooter({ total }: CartFooterProps) {
   return (
-    <div className="flex flex-col gap-4 border-t border-primary/10 p-4 sm:p-6">
+    <div className="flex flex-col gap-4 border-t border-primary/10 p-4 pb-[calc(1rem+env(safe-area-inset-bottom))] sm:p-6 sm:pb-[calc(1.5rem+env(safe-area-inset-bottom))]">
       <div className="flex items-center justify-between">
         <span className="text-sm text-primary/60">Subtotal</span>
         <span className="font-display text-xl text-primary">
@@ -16,7 +16,7 @@ export function CartFooter({ total }: CartFooterProps) {
 
       <button
         type="button"
-        className="relative inline-flex w-full cursor-pointer items-center justify-center gap-2.5 overflow-hidden rounded-full bg-linear-to-b from-gold-light to-gold px-6 py-3.5 text-[11px] font-bold tracking-[0.12em] text-primary-darkest uppercase transition-opacity duration-300 hover:opacity-90"
+        className="relative inline-flex min-h-11 w-full cursor-pointer items-center justify-center gap-2.5 overflow-hidden rounded-full bg-linear-to-b from-gold-light to-gold px-6 py-3.5 text-[11px] font-bold tracking-[0.12em] text-primary-darkest uppercase transition-opacity duration-300 hover:opacity-90"
       >
         Finalizar compra
       </button>

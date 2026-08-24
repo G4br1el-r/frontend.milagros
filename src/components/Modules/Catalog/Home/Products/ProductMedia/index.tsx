@@ -4,9 +4,10 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { cardGlow, cardMedia } from "../product.motion";
+import { ImagePlaceholder } from "./ImagePlaceholder";
 
 interface ProductMediaProps {
-  src: string;
+  src: string | null;
   alt: string;
   priority?: boolean;
   overlay?: ReactNode;
@@ -22,16 +23,20 @@ export function ProductMedia({
 }: ProductMediaProps) {
   return (
     <div className="relative aspect-4/3 w-full overflow-hidden rounded-t-xl bg-primary-darkest">
-      <motion.div variants={cardMedia} className="absolute inset-0">
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          sizes={SIZES}
-          priority={priority}
-          className="object-cover"
-        />
-      </motion.div>
+      {src ? (
+        <motion.div variants={cardMedia} className="absolute inset-0">
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            sizes={SIZES}
+            priority={priority}
+            className="object-cover"
+          />
+        </motion.div>
+      ) : (
+        <ImagePlaceholder />
+      )}
 
       <div
         aria-hidden="true"

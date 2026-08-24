@@ -1,10 +1,11 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { appToast } from "@/lib/toast/toast";
 
 export interface CartItem {
   id: string;
   name: string;
-  image: string;
+  image: string | null;
   price: number;
   quantity: number;
 }
@@ -25,7 +26,7 @@ export const useCartStore = create<CartState>()(
       items: [],
       isOpen: false,
 
-      addItem: (item, quantity = 1) =>
+      addItem: (item, quantity = 1) => {
         set((state) => {
           const existing = state.items.find((i) => i.id === item.id);
 
@@ -40,20 +41,26 @@ export const useCartStore = create<CartState>()(
           }
 
           return { items: [...state.items, { ...item, quantity }] };
-        }),
+        });
+        appToast.cartAdded();
+      },
 
-      removeItem: (id) =>
+      removeItem: (id) => {
         set((state) => ({
           items: state.items.filter((i) => i.id !== id),
-        })),
+        }));
+        appToast.cartRemoved();
+      },
 
-      setQuantity: (id, quantity) =>
+      setQuantity: (id, quantity) => {
         set((state) => ({
           items:
             quantity <= 0
               ? state.items.filter((i) => i.id !== id)
               : state.items.map((i) => (i.id === id ? { ...i, quantity } : i)),
-        })),
+        }));
+        if (quantity <= 0) appToast.cartRemoved();
+      },
 
       open: () => set({ isOpen: true }),
       close: () => set({ isOpen: false }),

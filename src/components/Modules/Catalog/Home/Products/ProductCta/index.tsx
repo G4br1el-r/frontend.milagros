@@ -9,7 +9,7 @@ import { cardCta } from "../product.motion";
 interface ProductCtaProps {
   id: string;
   name: string;
-  image: string;
+  image: string | null;
   price: number;
 }
 

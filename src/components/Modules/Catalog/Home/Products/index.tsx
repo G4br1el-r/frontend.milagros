@@ -1,14 +1,29 @@
+"use client";
+
+import { useEffect } from "react";
 import { FadeIn } from "@/components/motion/fade-in";
+import { appToast } from "@/lib/toast/toast";
 import { ProductCard } from "./ProductCard";
+import { ProductEmptyState } from "./ProductEmptyState";
+import { ProductErrorState } from "./ProductErrorState";
 import { ProductFilters } from "./ProductFilters";
 import { ProductGrid } from "./ProductGrid";
+import { ProductGridSkeleton } from "./ProductGrid/ProductGridSkeleton";
 import { ProductPagination } from "./ProductPagination";
+import { PageSizeSelect } from "./ProductPagination/PageSizeSelect";
+import { usePagination } from "./ProductPagination/use-pagination";
 import { ProductSearch } from "./ProductSearch";
-import { PRODUCTS } from "./products.data";
-
-const PRIORITY_COUNT = 3;
+import { PRIORITY_ROW_COUNT } from "./product.constants";
+import { useProducts } from "./use-products";
 
 export function Products() {
+  const { products, isLoading, isError, error } = useProducts();
+  const { page, setPage, totalPages, pageItems } = usePagination(products);
+
+  useEffect(() => {
+    if (isError) appToast.productsLoadError(error?.message);
+  }, [isError, error]);
+
   return (
     <section
       id="catalog"
@@ -45,12 +60,17 @@ export function Products() {
           <ProductSearch />
         </FadeIn>
 
-        <div className="mb-4 flex items-center justify-between gap-4 px-3 sm:px-4">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3 px-3 sm:px-4">
           <span className="text-sm text-primary/55">
-            Exibindo {PRODUCTS.length} de {PRODUCTS.length} produtos
+            {isLoading
+              ? "Carregando produtos…"
+              : `Exibindo ${pageItems.length} de ${products.length} produtos`}
           </span>
-          <div className="lg:hidden">
-            <ProductFilters mobileOnly />
+          <div className="flex items-center gap-3">
+            {!isLoading && products.length > 0 && <PageSizeSelect />}
+            <div className="lg:hidden">
+              <ProductFilters mobileOnly />
+            </div>
           </div>
         </div>
 
@@ -58,17 +78,31 @@ export function Products() {
           <ProductFilters desktopOnly />
 
           <div className="min-w-0 flex-1">
-            <ProductGrid>
-              {PRODUCTS.map((product, index) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  priority={index < PRIORITY_COUNT}
-                />
-              ))}
-            </ProductGrid>
+            {isError ? (
+              <ProductErrorState message={error?.message} />
+            ) : isLoading ? (
+              <ProductGridSkeleton />
+            ) : products.length === 0 ? (
+              <ProductEmptyState />
+            ) : (
+              <>
+                <ProductGrid>
+                  {pageItems.map((product, index) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      priority={index < PRIORITY_ROW_COUNT}
+                    />
+                  ))}
+                </ProductGrid>
 
-            <ProductPagination />
+                <ProductPagination
+                  page={page}
+                  totalPages={totalPages}
+                  onPageChange={setPage}
+                />
+              </>
+            )}
           </div>
         </div>
       </div>

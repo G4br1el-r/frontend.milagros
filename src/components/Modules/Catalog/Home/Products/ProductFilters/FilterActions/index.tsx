@@ -1,18 +1,21 @@
+"use client";
+
+import { useProductFiltersUrl } from "@/lib/query-state/use-product-filters-url";
+import { appToast } from "@/lib/toast/toast";
+
 export function FilterActions() {
+  const { reset } = useProductFiltersUrl();
+
   return (
-    <div className="flex items-center gap-3">
-      <button
-        type="button"
-        className="flex-1 cursor-pointer rounded-full border border-primary/15 bg-white px-3 py-2.5 text-xs font-semibold whitespace-nowrap tracking-[0.06em] text-primary uppercase transition-colors duration-300 hover:border-primary/30"
-      >
-        Limpar tudo
-      </button>
-      <button
-        type="button"
-        className="flex-1 cursor-pointer rounded-full bg-linear-to-b from-gold-light to-gold px-3 py-2.5 text-xs font-bold whitespace-nowrap tracking-[0.06em] text-primary-darkest uppercase transition-opacity duration-300 hover:opacity-90"
-      >
-        Aplicar filtros
-      </button>
-    </div>
+    <button
+      type="button"
+      onClick={() => {
+        reset();
+        appToast.filtersCleared();
+      }}
+      className="w-full cursor-pointer rounded-full border border-primary/15 bg-white px-3 py-2.5 text-xs font-semibold tracking-[0.06em] text-primary uppercase transition-colors duration-300 hover:border-primary/30"
+    >
+      Limpar filtros
+    </button>
   );
 }

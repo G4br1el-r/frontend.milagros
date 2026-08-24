@@ -8,6 +8,8 @@ const nextConfig: NextConfig = {
     // Provisório: as fotos dos produtos ainda não existem no catálogo próprio.
     remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }],
   },
+
+  allowedDevOrigins: ["192.168.0.207"],
 };
 
 export default nextConfig;

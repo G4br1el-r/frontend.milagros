@@ -1,0 +1,3 @@
+export const SEARCH_DEBOUNCE_MS = 400;
+
+export const ALPHABET_LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");

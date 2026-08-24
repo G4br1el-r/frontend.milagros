@@ -1,10 +1,10 @@
-import { Flame, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { ProductCardShell } from "../ProductCardShell";
 import { ProductCta } from "../ProductCta";
 import { ProductMedia } from "../ProductMedia";
 import { ProductPanel } from "../ProductPanel";
 import { formatPrice, type Product } from "../product.types";
-import { ProductBadgeTag } from "./ProductBadgeTag";
+import { ProductStockTag } from "./ProductStockTag";
 
 interface ProductCardProps {
   product: Product;
@@ -14,12 +14,12 @@ interface ProductCardProps {
 export function ProductCard({ product, priority }: ProductCardProps) {
   const {
     attributes,
-    badge,
+    category,
     compareAtPrice,
     description,
-    devotion,
     id,
     image,
+    inStock,
     name,
     price,
     rating,
@@ -33,55 +33,57 @@ export function ProductCard({ product, priority }: ProductCardProps) {
         alt={name}
         priority={priority}
         overlay={
-          <ProductPanel>
-            <dl className="flex items-center justify-between gap-3">
-              {attributes.map((attribute) => (
-                <div
-                  key={attribute.label}
-                  className="flex min-w-0 flex-col gap-0.5"
-                >
-                  <dt className="text-[9px] tracking-[0.18em] text-gold-light/80 uppercase">
-                    {attribute.label}
-                  </dt>
-                  <dd className="truncate text-xs font-medium text-cream">
-                    {attribute.value}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </ProductPanel>
+          attributes.length > 0 ? (
+            <ProductPanel>
+              <dl className="flex items-center justify-between gap-3">
+                {attributes.map((attribute) => (
+                  <div
+                    key={attribute.label}
+                    className="flex min-w-0 flex-col gap-0.5"
+                  >
+                    <dt className="text-[9px] tracking-[0.18em] text-gold-light/80 uppercase">
+                      {attribute.label}
+                    </dt>
+                    <dd className="truncate text-xs font-medium text-cream">
+                      {attribute.value}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </ProductPanel>
+          ) : undefined
         }
       />
 
-      {badge && (
+      {!inStock && (
         <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-start p-4">
-          <ProductBadgeTag badge={badge} />
+          <ProductStockTag />
         </div>
       )}
 
       <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
         <div className="flex items-center justify-between gap-3">
-          <span className="inline-flex items-center gap-1.5 text-[10px] font-medium tracking-[0.22em] text-primary-dark uppercase">
-            <Flame
-              className="size-3 shrink-0 text-terracotta"
-              strokeWidth={2}
-            />
-            {devotion}
-          </span>
-
-          <span className="inline-flex shrink-0 items-center gap-1 text-xs text-primary/70">
-            <Star
-              className="size-3.5 fill-gold text-gold"
-              strokeWidth={1.5}
-              aria-hidden="true"
-            />
-            <span className="font-semibold text-primary">
-              {rating.toFixed(1)}
+          {category && (
+            <span className="inline-flex items-center gap-1.5 text-[10px] font-medium tracking-[0.22em] text-primary-dark uppercase">
+              {category}
             </span>
-            <span className="sr-only">de 5, com</span>
-            <span>({reviewCount})</span>
-            <span className="sr-only">avaliações</span>
-          </span>
+          )}
+
+          {rating !== null && (
+            <span className="ml-auto inline-flex shrink-0 items-center gap-1 text-xs text-primary/70">
+              <Star
+                className="size-3.5 fill-gold text-gold"
+                strokeWidth={1.5}
+                aria-hidden="true"
+              />
+              <span className="font-semibold text-primary">
+                {rating.toFixed(1)}
+              </span>
+              <span className="sr-only">de 5, com</span>
+              <span>({reviewCount})</span>
+              <span className="sr-only">avaliações</span>
+            </span>
+          )}
         </div>
 
         <h3 className="font-display text-xl leading-tight text-primary sm:text-2xl">

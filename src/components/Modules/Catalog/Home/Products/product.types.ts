@@ -1,4 +1,22 @@
-export type ProductBadge = "novidade" | "mais-vendido";
+export interface ProdutoCatalogoDto {
+  codigoOmie: string;
+  nome: string;
+  preco: number;
+  unidade: string | null;
+  pesoKg: number | null;
+  altura: string | null;
+  largura: string | null;
+  profundidade: string | null;
+  estoqueAtual: number | null;
+  descricao: string | null;
+  categoria: string | null;
+  imagens: string[] | null;
+  precoDe: number | null;
+  tempoQueima: string | null;
+  tipo: string | null;
+  rating: number | null;
+  totalAvaliacoes: number | null;
+}
 
 export interface ProductAttribute {
   label: string;
@@ -8,21 +26,22 @@ export interface ProductAttribute {
 export interface Product {
   id: string;
   name: string;
-  devotion: string;
-  description: string;
-  image: string;
+  description: string | null;
+  image: string | null;
+  hasImage: boolean;
   price: number;
-  compareAtPrice?: number;
-  badge?: ProductBadge;
-  rating: number;
+  compareAtPrice: number | null;
+  category: string | null;
+  type: string | null;
+  unit: string | null;
+  weightKg: number | null;
+  stock: number | null;
+  inStock: boolean;
+  burnTime: string | null;
+  rating: number | null;
   reviewCount: number;
   attributes: ProductAttribute[];
 }
-
-export const PRODUCT_BADGE_LABEL: Record<ProductBadge, string> = {
-  novidade: "Novidade",
-  "mais-vendido": "Mais vendido",
-};
 
 const currencyFormatter = new Intl.NumberFormat("pt-BR", {
   style: "currency",

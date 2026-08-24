@@ -29,7 +29,7 @@ export function BestSellerCard({ product }: BestSellerCardProps) {
       </a>
 
       <div className="flex flex-1 flex-col gap-2 p-4">
-        <span className="text-[9px] font-medium tracking-[0.22em] text-gold-light/80 uppercase">
+        <span className="text-[10px] font-medium tracking-[0.18em] text-gold-light/80 uppercase">
           {devotion}
         </span>
 

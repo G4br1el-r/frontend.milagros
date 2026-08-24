@@ -23,7 +23,7 @@ export function BrandWordmark() {
         >
           <motion.span
             variants={reduceMotion ? undefined : wordmarkLetter}
-            className="block text-[clamp(2.25rem,11.5vw,7rem)] leading-[0.86] font-medium tracking-[-0.005em] [text-shadow:0_24px_90px_rgba(90,70,42,0.55)] sm:text-[12.5vw] lg:text-[9.5vw] xl:text-[8.75vw]"
+            className="block text-[clamp(1.75rem,10.5vw,7rem)] leading-[0.86] font-medium tracking-[-0.005em] [text-shadow:0_24px_90px_rgba(90,70,42,0.55)] sm:text-[12.5vw] lg:text-[9.5vw] xl:text-[8.75vw]"
           >
             {char}
           </motion.span>

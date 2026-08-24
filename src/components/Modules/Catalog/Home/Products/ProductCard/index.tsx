@@ -40,7 +40,7 @@ export function ProductCard({ product, priority }: ProductCardProps) {
                   key={attribute.label}
                   className="flex min-w-0 flex-col gap-0.5"
                 >
-                  <dt className="text-[9px] tracking-[0.18em] text-gold-light/80 uppercase">
+                  <dt className="truncate text-[10px] tracking-[0.12em] text-gold-light/80 uppercase">
                     {attribute.label}
                   </dt>
                   <dd className="truncate text-xs font-medium text-cream">

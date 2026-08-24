@@ -50,7 +50,7 @@ export function FilterCheckbox({
 
       <span
         className={cn(
-          "flex-1 text-sm transition-colors duration-200",
+          "min-w-0 flex-1 text-sm transition-colors duration-200",
           checked
             ? "font-medium text-primary"
             : "text-primary/70 group-hover/filter:text-primary",
@@ -59,7 +59,7 @@ export function FilterCheckbox({
         {label}
       </span>
 
-      <span className="text-xs text-primary/40 tabular-nums">{count}</span>
+      <span className="shrink-0 text-xs text-primary/40 tabular-nums">{count}</span>
     </label>
   );
 }

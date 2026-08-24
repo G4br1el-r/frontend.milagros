@@ -45,7 +45,7 @@ export function Products() {
           <ProductSearch />
         </FadeIn>
 
-        <div className="mb-4 flex items-center justify-between gap-4 px-3 sm:px-4">
+        <div className="mx-auto mb-4 flex w-full max-w-7xl flex-wrap items-center justify-between gap-x-4 gap-y-3 px-5 sm:px-8">
           <span className="text-sm text-primary/55">
             Exibindo {PRODUCTS.length} de {PRODUCTS.length} produtos
           </span>
@@ -54,7 +54,7 @@ export function Products() {
           </div>
         </div>
 
-        <div className="flex items-start gap-4 px-3 sm:px-4 xl:gap-5">
+        <div className="mx-auto flex w-full max-w-7xl items-start gap-4 px-5 sm:px-8 xl:gap-5">
           <ProductFilters desktopOnly />
 
           <div className="min-w-0 flex-1">

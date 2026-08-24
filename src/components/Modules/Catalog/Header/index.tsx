@@ -23,7 +23,7 @@ export function Header() {
           : "border-b border-transparent bg-transparent",
       )}
     >
-      <div className="relative mx-auto grid h-16 w-full max-w-7xl grid-cols-[1fr_auto_1fr] items-center px-4 sm:h-24 sm:px-6">
+      <div className="relative mx-auto grid h-16 w-full max-w-page grid-cols-[1fr_auto_1fr] items-center px-4 sm:h-24 sm:px-6">
         <div />
 
         <Image

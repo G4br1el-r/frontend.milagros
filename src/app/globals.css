@@ -67,6 +67,12 @@ body {
 }
 
 @theme {
+  /*
+   * Largura máxima de conteúdo da página. Acima disso a linha fica longa
+   * demais para leitura; abaixo, o layout usa a viewport inteira.
+   */
+  --container-page: 96rem;
+
   --color-primary: #3a2213;
   --color-primary-dark: #876c43;
   --color-primary-darkest: #21130a;

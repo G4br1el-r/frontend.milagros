@@ -10,7 +10,7 @@ export function BestSellers() {
       id="best-sellers"
       className="relative z-10 w-full scroll-mt-[calc(4rem+env(safe-area-inset-top))] bg-primary-darkest sm:scroll-mt-[calc(6rem+env(safe-area-inset-top))]"
     >
-      <div className="mx-auto w-full max-w-7xl px-5 py-20 sm:px-8 sm:py-24 lg:py-28">
+      <div className="mx-auto w-full max-w-page px-5 py-20 sm:px-8 sm:py-24 lg:py-28">
         <FadeIn className="mb-10 flex flex-col items-center gap-4 text-center sm:mb-12" distance={20}>
           <span className="inline-flex items-center gap-2 rounded-full border border-cream/20 px-4 py-1.5">
             <Flame className="size-3 shrink-0 text-terracotta" strokeWidth={2} />

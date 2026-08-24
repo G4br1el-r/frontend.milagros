@@ -13,7 +13,7 @@ interface ProductMediaProps {
 }
 
 const SIZES =
-  "(min-width: 1280px) 280px, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw";
+  "(min-width: 1600px) 370px, (min-width: 1024px) 25vw, (min-width: 640px) 45vw, 90vw";
 
 export function ProductMedia({
   src,

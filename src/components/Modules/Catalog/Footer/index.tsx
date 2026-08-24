@@ -22,7 +22,7 @@ const SOCIAL_LINKS = [
 export function Footer() {
   return (
     <footer className="w-full border-t border-white/10 bg-primary-darkest">
-      <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-7 px-5 py-14 sm:py-16">
+      <div className="mx-auto flex w-full max-w-page flex-col items-center gap-7 px-5 py-14 sm:py-16">
         <Image
           src="/images/hero/milagros-logo.png"
           alt="Milagros"

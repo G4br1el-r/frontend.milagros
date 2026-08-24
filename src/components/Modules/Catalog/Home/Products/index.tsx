@@ -12,7 +12,7 @@ export function Products() {
   return (
     <section
       id="catalog"
-      className="relative z-10 w-full scroll-mt-24 bg-cream"
+      className="relative z-10 w-full scroll-mt-[calc(4rem+env(safe-area-inset-top))] sm:scroll-mt-[calc(6rem+env(safe-area-inset-top))] bg-cream"
     >
       <div className="mx-auto w-full max-w-[1920px] py-20 sm:py-24 lg:py-28">
         <FadeIn

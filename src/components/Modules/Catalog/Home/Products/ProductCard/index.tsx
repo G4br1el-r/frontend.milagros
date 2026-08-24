@@ -59,7 +59,7 @@ export function ProductCard({ product, priority }: ProductCardProps) {
         </div>
       )}
 
-      <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
+      <div className="flex flex-1 flex-col gap-3 p-4 sm:p-6">
         <div className="flex items-center justify-between gap-3">
           <span className="inline-flex items-center gap-1.5 text-[10px] font-medium tracking-[0.22em] text-primary-dark uppercase">
             <Flame

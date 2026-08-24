@@ -35,7 +35,7 @@ export function CartItemRow({ item }: CartItemRowProps) {
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col gap-2 pr-11">
-        <h4 className="truncate font-display text-sm leading-snug text-primary">
+        <h4 className="line-clamp-2 font-display text-sm leading-snug text-primary">
           {item.name}
         </h4>
 

@@ -1,4 +1,5 @@
-import { Star } from "lucide-react";
+import { Images, Star } from "lucide-react";
+import { useProductDetailStore } from "@/lib/stores/product-detail";
 import { ProductCardShell } from "../ProductCardShell";
 import { ProductCta } from "../ProductCta";
 import { ProductMedia } from "../ProductMedia";
@@ -16,9 +17,9 @@ export function ProductCard({ product, priority }: ProductCardProps) {
     attributes,
     category,
     compareAtPrice,
-    description,
     id,
     image,
+    images,
     inStock,
     name,
     price,
@@ -26,34 +27,52 @@ export function ProductCard({ product, priority }: ProductCardProps) {
     reviewCount,
   } = product;
 
+  const openDetail = useProductDetailStore((state) => state.open);
+
   return (
     <ProductCardShell>
-      <ProductMedia
-        src={image}
-        alt={name}
-        priority={priority}
-        overlay={
-          attributes.length > 0 ? (
-            <ProductPanel>
-              <dl className="flex items-center justify-between gap-3">
-                {attributes.map((attribute) => (
-                  <div
-                    key={attribute.label}
-                    className="flex min-w-0 flex-col gap-0.5"
-                  >
-                    <dt className="text-[9px] tracking-[0.18em] text-gold-light/80 uppercase">
-                      {attribute.label}
-                    </dt>
-                    <dd className="truncate text-xs font-medium text-cream">
-                      {attribute.value}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </ProductPanel>
-          ) : undefined
-        }
-      />
+      <button
+        type="button"
+        onClick={() => openDetail(product)}
+        aria-label={`Ver detalhes de ${name}`}
+        className="cursor-pointer text-left focus-visible:outline-none"
+      >
+        <ProductMedia
+          src={image}
+          alt={name}
+          priority={priority}
+          overlay={
+            <>
+              {images.length > 1 && (
+                <span className="absolute top-3 right-3 z-10 inline-flex items-center gap-1 rounded-full bg-primary-darkest/70 px-2.5 py-1 text-[10px] font-medium text-cream backdrop-blur-md">
+                  <Images className="size-3" strokeWidth={2} />
+                  {images.length}
+                </span>
+              )}
+
+              {attributes.length > 0 && (
+                <ProductPanel>
+                  <dl className="flex items-center justify-between gap-3">
+                    {attributes.map((attribute) => (
+                      <div
+                        key={attribute.label}
+                        className="flex min-w-0 flex-col gap-0.5"
+                      >
+                        <dt className="text-[9px] tracking-[0.18em] text-gold-light/80 uppercase">
+                          {attribute.label}
+                        </dt>
+                        <dd className="truncate text-xs font-medium text-cream">
+                          {attribute.value}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                </ProductPanel>
+              )}
+            </>
+          }
+        />
+      </button>
 
       {!inStock && (
         <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-start p-4">
@@ -86,31 +105,25 @@ export function ProductCard({ product, priority }: ProductCardProps) {
           )}
         </div>
 
-        <h3 className="font-display text-xl leading-tight text-primary sm:text-2xl">
-          {name}
-        </h3>
-
-        <p className="line-clamp-2 text-sm leading-relaxed text-primary/60">
-          {description}
-        </p>
+        <button
+          type="button"
+          onClick={() => openDetail(product)}
+          className="cursor-pointer text-left focus-visible:outline-none"
+        >
+          <h3 className="font-display text-xl leading-tight text-primary transition-colors duration-200 hover:text-primary-dark sm:text-2xl">
+            {name}
+          </h3>
+        </button>
 
         <div className="mt-auto flex flex-col gap-6 pt-3">
-          <div className="flex items-end justify-between gap-3">
-            <div className="flex flex-col">
-              {compareAtPrice && (
-                <span className="text-xs text-primary/45 line-through">
-                  {formatPrice(compareAtPrice)}
-                </span>
-              )}
-              <span className="font-display text-2xl leading-none text-primary">
-                {formatPrice(price)}
+          <div className="flex flex-col">
+            {compareAtPrice && (
+              <span className="text-xs text-primary/45 line-through">
+                {formatPrice(compareAtPrice)}
               </span>
-            </div>
-
-            <span className="pb-0.5 text-right text-[10px] leading-tight tracking-[0.1em] text-primary/50 uppercase">
-              até 3x
-              <br />
-              sem juros
+            )}
+            <span className="font-display text-2xl leading-none text-primary">
+              {formatPrice(price)}
             </span>
           </div>
 

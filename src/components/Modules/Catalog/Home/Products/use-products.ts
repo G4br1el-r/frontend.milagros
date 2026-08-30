@@ -8,7 +8,7 @@ import { fetchProducts } from "./product.client";
 import { mapProdutoToProduct } from "./product.mapper";
 
 export function useProducts() {
-  const { termo, letra, categoria, precoMin, precoMax } =
+  const { termo, letra, categoria, precoMin, precoMax, page, pageSize } =
     useProductFiltersUrl();
 
   const filters: ProductSearchFilters = {
@@ -17,6 +17,8 @@ export function useProducts() {
     categoria: categoria ?? undefined,
     precoMin,
     precoMax,
+    page,
+    pageSize,
   };
 
   const query = useQuery({
@@ -24,13 +26,24 @@ export function useProducts() {
     queryFn: () => fetchProducts(filters),
   });
 
-  useFiltersAppliedToast(filters, query.refetch);
+  const searchFilters: ProductSearchFilters = {
+    termo: filters.termo,
+    letra: filters.letra,
+    categoria: filters.categoria,
+    precoMin: filters.precoMin,
+    precoMax: filters.precoMax,
+  };
 
-  const products = query.data?.map(mapProdutoToProduct) ?? [];
+  useFiltersAppliedToast(searchFilters, query.refetch);
+
+  const products = query.data?.itens.map(mapProdutoToProduct) ?? [];
 
   return {
     products,
-    isLoading: query.isLoading,
+    total: query.data?.total ?? 0,
+    totalPages: query.data?.totalPaginas ?? 1,
+    page: query.data?.pagina ?? page,
+    isLoading: query.isFetching,
     isError: query.isError,
     error: query.error,
   };
@@ -38,7 +51,7 @@ export function useProducts() {
 
 function useFiltersAppliedToast(
   filters: ProductSearchFilters,
-  refetch: () => Promise<{ data?: unknown[] }>,
+  refetch: () => Promise<{ data?: { total?: number } }>,
 ) {
   const filtersKey = JSON.stringify(filters);
   const hasLoadedOnce = useRef(false);
@@ -56,7 +69,7 @@ function useFiltersAppliedToast(
     previousFiltersKey.current = filtersKey;
 
     appToast.filtersApplied(
-      refetchRef.current().then((result) => result.data?.length ?? 0),
+      refetchRef.current().then((result) => result.data?.total ?? 0),
     );
   }, [filtersKey]);
 }

@@ -6,7 +6,10 @@ const nextConfig: NextConfig = {
     // AVIF primeiro (~20% menor que WebP), WebP como fallback.
     formats: ["image/avif", "image/webp"],
     // Provisório: as fotos dos produtos ainda não existem no catálogo próprio.
-    remotePatterns: [{ protocol: "https", hostname: "images.unsplash.com" }],
+    remotePatterns: [
+      { protocol: "https", hostname: "images.unsplash.com" },
+      { protocol: "https", hostname: "cdn.awsli.com.br" },
+    ],
   },
 
   allowedDevOrigins: ["192.168.0.207"],

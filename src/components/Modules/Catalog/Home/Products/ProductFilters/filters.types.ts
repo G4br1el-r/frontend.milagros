@@ -19,4 +19,6 @@ export interface ProductSearchFilters {
   categoria?: string;
   precoMin?: number;
   precoMax?: number;
+  page?: number;
+  pageSize?: number;
 }

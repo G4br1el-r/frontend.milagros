@@ -18,6 +18,14 @@ export interface ProdutoCatalogoDto {
   totalAvaliacoes: number | null;
 }
 
+export interface ProdutosPaginadosDto {
+  itens: ProdutoCatalogoDto[];
+  pagina: number;
+  pageSize: number;
+  total: number;
+  totalPaginas: number;
+}
+
 export interface ProductAttribute {
   label: string;
   value: string;
@@ -28,6 +36,7 @@ export interface Product {
   name: string;
   description: string | null;
   image: string | null;
+  images: string[];
   hasImage: boolean;
   price: number;
   compareAtPrice: number | null;

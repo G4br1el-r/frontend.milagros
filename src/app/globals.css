@@ -1,23 +1,14 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-/*
- ---break---
- */
 @custom-variant dark (&:is(.dark *));
 
-/*
- * Não usar `overflow-x: hidden` aqui: o clip criaria um scroll container e
- * quebraria o `position: sticky` do hero.
- */
 html {
   scroll-behavior: smooth;
-  /* Impede o iOS de aumentar a fonte sozinho ao rotacionar para landscape. */
   -webkit-text-size-adjust: 100%;
 }
 
 body {
-  /* Remove o flash azul ao tocar em links/botões no iOS e Android. */
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -103,9 +94,6 @@ body {
   }
   /* biome-ignore-end lint/complexity/noImportantStyles: must outrank utilities */
 }
-/*
- ---break---
- */
 :root {
   --background: #f7ecdc;
   --foreground: #3a2213;
@@ -140,9 +128,6 @@ body {
   --sidebar-border: rgb(58 34 19 / 12%);
   --sidebar-ring: #c3924f;
 }
-/*
- ---break---
- */
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
@@ -176,9 +161,6 @@ body {
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
-/*
- ---break---
- */
 @layer base {
   * {
     @apply border-border outline-ring/50;

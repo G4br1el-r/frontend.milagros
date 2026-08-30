@@ -1,5 +1,6 @@
 "use client";
 
+import { Trash2 } from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/image";
 import { ImagePlaceholder } from "@/components/Modules/Catalog/Home/Products/ProductMedia/ImagePlaceholder";
@@ -22,8 +23,17 @@ export function CartItemRow({ item }: CartItemRowProps) {
       animate={{ opacity: 1, height: "auto" }}
       exit={{ opacity: 0, height: 0 }}
       transition={{ duration: 0.25 }}
-      className="flex gap-3 border-b border-primary/8 px-4 py-4 last:border-b-0 sm:gap-4 sm:px-6"
+      className="relative flex gap-3 border-b border-primary/8 px-4 py-4 last:border-b-0 sm:gap-4 sm:px-6"
     >
+      <button
+        type="button"
+        onClick={() => removeItem(item.id)}
+        aria-label="Remover item"
+        className="absolute top-3 right-3 flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-full text-primary/40 transition-colors duration-200 hover:bg-terracotta/10 hover:text-terracotta sm:right-5"
+      >
+        <Trash2 className="size-4" strokeWidth={2} />
+      </button>
+
       <div className="relative w-24 shrink-0 self-stretch overflow-hidden rounded-md bg-primary-darkest">
         {item.image ? (
           <Image
@@ -38,7 +48,7 @@ export function CartItemRow({ item }: CartItemRowProps) {
         )}
       </div>
 
-      <div className="flex min-w-0 flex-1 flex-col gap-2">
+      <div className="flex min-w-0 flex-1 flex-col gap-2 pr-8">
         <h4 className="truncate font-display text-sm leading-snug text-primary">
           {item.name}
         </h4>

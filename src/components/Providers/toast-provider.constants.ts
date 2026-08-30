@@ -1,7 +1,7 @@
 import type { ToastPosition } from "react-hot-toast";
 import { TOAST_DURATION_MS } from "@/lib/toast/toast.constants";
 
-export const TOAST_POSITION: ToastPosition = "bottom-center";
+export const TOAST_POSITION: ToastPosition = "top-center";
 
 export const TOAST_TOAST_OPTIONS = {
   duration: TOAST_DURATION_MS,

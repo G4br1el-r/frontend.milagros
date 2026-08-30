@@ -73,11 +73,6 @@ export const CTA_SPRING: Transition = {
   mass: 0.9,
 };
 
-/**
- * O lift do hover vive num wrapper interno, separado da entrada (`heroRise`):
- * `y` animado por gesto e por entrada no mesmo nó faz o motion travar o `y`
- * inicial, e o botão não sobe junto com o stagger.
- */
 export const heroCtaLift: Variants = {
   rest: { y: 0, boxShadow: "0 8px 30px -12px rgba(135,108,67,0.55)" },
   hover: {

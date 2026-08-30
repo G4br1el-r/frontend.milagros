@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { FadeIn } from "@/components/motion/fade-in";
 import { appToast } from "@/lib/toast/toast";
 import { ProductCard } from "./ProductCard";
+import { ProductDetailModal } from "./ProductDetailModal";
 import { ProductEmptyState } from "./ProductEmptyState";
 import { ProductErrorState } from "./ProductErrorState";
 import { ProductFilters } from "./ProductFilters";
@@ -11,14 +12,15 @@ import { ProductGrid } from "./ProductGrid";
 import { ProductGridSkeleton } from "./ProductGrid/ProductGridSkeleton";
 import { ProductPagination } from "./ProductPagination";
 import { PageSizeSelect } from "./ProductPagination/PageSizeSelect";
-import { usePagination } from "./ProductPagination/use-pagination";
+import { usePaginationNavigation } from "./ProductPagination/use-pagination";
 import { ProductSearch } from "./ProductSearch";
 import { PRIORITY_ROW_COUNT } from "./product.constants";
 import { useProducts } from "./use-products";
 
 export function Products() {
-  const { products, isLoading, isError, error } = useProducts();
-  const { page, setPage, totalPages, pageItems } = usePagination(products);
+  const { products, total, totalPages, page, isLoading, isError, error } =
+    useProducts();
+  const { setPage } = usePaginationNavigation(page);
 
   useEffect(() => {
     if (isError) appToast.productsLoadError(error?.message);
@@ -64,7 +66,7 @@ export function Products() {
           <span className="text-sm text-primary/55">
             {isLoading
               ? "Carregando produtos…"
-              : `Exibindo ${pageItems.length} de ${products.length} produtos`}
+              : `Exibindo ${products.length} de ${total} produtos`}
           </span>
           <div className="flex items-center gap-3">
             {!isLoading && products.length > 0 && <PageSizeSelect />}
@@ -87,7 +89,7 @@ export function Products() {
             ) : (
               <>
                 <ProductGrid>
-                  {pageItems.map((product, index) => (
+                  {products.map((product, index) => (
                     <ProductCard
                       key={product.id}
                       product={product}
@@ -106,6 +108,8 @@ export function Products() {
           </div>
         </div>
       </div>
+
+      <ProductDetailModal />
     </section>
   );
 }

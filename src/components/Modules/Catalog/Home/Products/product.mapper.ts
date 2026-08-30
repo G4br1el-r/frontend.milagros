@@ -52,7 +52,8 @@ function buildAttributes(dto: ProdutoCatalogoDto): ProductAttribute[] {
 }
 
 export function mapProdutoToProduct(dto: ProdutoCatalogoDto): Product {
-  const image = dto.imagens?.find(Boolean) ?? null;
+  const images = dto.imagens?.filter(Boolean) ?? [];
+  const image = images[0] ?? null;
   const description = dto.descricao ? stripHtml(dto.descricao) : "";
 
   return {
@@ -60,6 +61,7 @@ export function mapProdutoToProduct(dto: ProdutoCatalogoDto): Product {
     name: dto.nome,
     description: description || PRODUCT_FALLBACK_DESCRIPTION,
     image,
+    images,
     hasImage: Boolean(image),
     price: dto.preco,
     compareAtPrice: dto.precoDe && dto.precoDe > dto.preco ? dto.precoDe : null,

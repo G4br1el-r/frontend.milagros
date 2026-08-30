@@ -4,7 +4,7 @@ import type {
   LetraFiltroDto,
   ProductSearchFilters,
 } from "./ProductFilters/filters.types";
-import type { ProdutoCatalogoDto } from "./product.types";
+import type { ProdutosPaginadosDto } from "./product.types";
 
 async function parseJsonOrThrow<T>(response: Response): Promise<T> {
   if (!response.ok) {
@@ -25,18 +25,33 @@ function buildSearchQuery(filters: ProductSearchFilters): string {
     params.set("PrecoMin", String(filters.precoMin));
   if (filters.precoMax !== undefined)
     params.set("PrecoMax", String(filters.precoMax));
+  if (filters.page !== undefined) params.set("Page", String(filters.page));
+  if (filters.pageSize !== undefined)
+    params.set("PageSize", String(filters.pageSize));
 
   return params.toString();
 }
 
+function hasSearchTerms(filters: ProductSearchFilters): boolean {
+  return Boolean(
+    filters.termo ||
+      filters.letra ||
+      filters.categoria ||
+      filters.precoMin !== undefined ||
+      filters.precoMax !== undefined,
+  );
+}
+
 export async function fetchProducts(
   filters: ProductSearchFilters,
-): Promise<ProdutoCatalogoDto[]> {
+): Promise<ProdutosPaginadosDto> {
   const query = buildSearchQuery(filters);
-  const path = query ? `/api/produtos/pesquisa?${query}` : "/api/produtos";
+  const path = hasSearchTerms(filters)
+    ? `/api/produtos/pesquisa?${query}`
+    : `/api/produtos?${query}`;
 
   const response = await fetch(path);
-  return parseJsonOrThrow<ProdutoCatalogoDto[]>(response);
+  return parseJsonOrThrow<ProdutosPaginadosDto>(response);
 }
 
 export async function fetchProductCategories(): Promise<CategoriaFiltroDto[]> {

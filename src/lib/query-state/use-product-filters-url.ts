@@ -58,7 +58,13 @@ export function useProductFiltersUrl() {
     page,
     pageSize,
     setTermo: (value: string) =>
-      updateParams({ [URL_PARAM_KEYS.termo]: value }),
+      updateParams({
+        [URL_PARAM_KEYS.termo]: value,
+        [URL_PARAM_KEYS.letra]: null,
+        [URL_PARAM_KEYS.categoria]: null,
+        [URL_PARAM_KEYS.precoMin]: null,
+        [URL_PARAM_KEYS.precoMax]: null,
+      }),
     setLetra: (value: string | null) =>
       updateParams({
         [URL_PARAM_KEYS.letra]: letra === value ? null : value,

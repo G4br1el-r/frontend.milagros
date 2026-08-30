@@ -22,18 +22,11 @@ export function HeroBackdrop() {
     src: "/images/hero/hero-poster-mobile.png",
     width: 941,
     height: 1672,
-    // A arte mobile tem 941px de largura; pedir mais que isso só reenvia
-    // pixels inventados pelo upscale.
     sizes: "(max-width: 639px) 941px, 1px",
   });
 
   return (
     <div className="absolute inset-0 overflow-hidden bg-primary-dark">
-      {/*
-       * Art direction via <picture>: em telas estreitas o recorte retrato
-       * mantém o assunto enquadrado, o que `object-cover` sozinho não faria
-       * a partir da arte widescreen.
-       */}
       <picture>
         <source media={MOBILE_BREAKPOINT} srcSet={desktop} />
         <source srcSet={mobile} />

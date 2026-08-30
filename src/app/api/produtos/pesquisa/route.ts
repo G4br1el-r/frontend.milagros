@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import type { ProdutoCatalogoDto } from "@/components/Modules/Catalog/Home/Products/product.types";
+import type { ProdutosPaginadosDto } from "@/components/Modules/Catalog/Home/Products/product.types";
 import { api } from "@/lib/api";
 import { routeErrorResponse } from "@/lib/api/route-error-response";
 import { withAuthRetry } from "@/lib/api/with-auth-retry";
@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
       request.nextUrl.searchParams,
     );
     const produtos = await withAuthRetry(() =>
-      api.get<ProdutoCatalogoDto[]>(`/api/produtos/pesquisa?${searchParams}`),
+      api.get<ProdutosPaginadosDto>(`/api/produtos/pesquisa?${searchParams}`),
     );
 
     return NextResponse.json(produtos);

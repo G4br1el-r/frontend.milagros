@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Geist } from "next/font/google";
 import { CartSheet } from "@/components/Modules/Catalog/Cart/CartSheet";
+import { CheckoutSheet } from "@/components/Modules/Catalog/Checkout";
 import { Footer } from "@/components/Modules/Catalog/Footer";
 import { Header } from "@/components/Modules/Catalog/Header";
+import { IdentityGate } from "@/components/Modules/Catalog/Identity";
 import { QueryProvider } from "@/components/Providers/QueryProvider";
 import { ToastProvider } from "@/components/Providers/ToastProvider";
 import "../globals.css";
@@ -46,6 +48,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
           <Footer />
           <CartSheet />
+          <CheckoutSheet />
+          <IdentityGate />
           <ToastProvider />
         </QueryProvider>
       </body>

@@ -3,6 +3,7 @@
 import { ShoppingCart } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
+import { CustomerMenu } from "@/components/Modules/Catalog/Identity";
 import { useCartCount, useCartStore } from "@/lib/stores/cart";
 import { cn } from "@/lib/utils/cn";
 import { useScrolled } from "./useScrolled";
@@ -36,7 +37,9 @@ export function Header() {
           className="h-10 w-auto object-contain sm:h-14"
         />
 
-        <div className="flex justify-end">
+        <div className="flex items-center justify-end gap-2 sm:gap-3">
+          <CustomerMenu />
+
           <button
             type="button"
             onClick={openCart}

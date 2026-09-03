@@ -3,6 +3,7 @@
 import { ShoppingBag } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { QuantityStepper } from "@/components/shared/quantity-stepper";
+import { useIdentityGuard } from "@/lib/hooks/use-identity-guard";
 import { useCartStore } from "@/lib/stores/cart";
 import { cardCta } from "../product.motion";
 
@@ -17,9 +18,10 @@ export function ProductCta({ id, name, image, price }: ProductCtaProps) {
   const quantity = useCartStore(
     (state) => state.items.find((item) => item.id === id)?.quantity ?? 0,
   );
-  const addItem = useCartStore((state) => state.addItem);
   const setQuantity = useCartStore((state) => state.setQuantity);
   const removeItem = useCartStore((state) => state.removeItem);
+  // Passa pelo guard: sem cliente identificado, abre o modal antes de adicionar.
+  const { addToCart } = useIdentityGuard();
 
   return (
     <div className="relative h-12 w-full">
@@ -44,7 +46,7 @@ export function ProductCta({ id, name, image, price }: ProductCtaProps) {
           <motion.button
             key="add"
             type="button"
-            onClick={() => addItem({ id, name, image, price })}
+            onClick={() => addToCart({ id, name, image, price })}
             variants={cardCta}
             initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}

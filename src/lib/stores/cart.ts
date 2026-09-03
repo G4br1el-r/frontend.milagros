@@ -16,6 +16,8 @@ interface CartState {
   addItem: (item: Omit<CartItem, "quantity">, quantity?: number) => void;
   removeItem: (id: string) => void;
   setQuantity: (id: string, quantity: number) => void;
+  /** Esvazia o carrinho sem toast — usado apos o pedido ser emitido. */
+  clear: () => void;
   open: () => void;
   close: () => void;
 }
@@ -61,6 +63,8 @@ export const useCartStore = create<CartState>()(
         }));
         if (quantity <= 0) appToast.cartRemoved();
       },
+
+      clear: () => set({ items: [] }),
 
       open: () => set({ isOpen: true }),
       close: () => set({ isOpen: false }),

@@ -19,21 +19,17 @@ export const heroRise: Variants = {
     transition: { duration: 1.1, ease: EASE_OUT_EXPO },
   },
 };
-export const wordmarkStage: Variants = {
-  hidden: {},
+export const wordmarkReveal: Variants = {
+  hidden: { opacity: 0, scale: 1.12, filter: "blur(18px)" },
   show: {
-    transition: {
-      delayChildren: OVERTURE_DELAY + 0.18,
-      staggerChildren: 0.055,
-    },
-  },
-};
-export const wordmarkLetter: Variants = {
-  hidden: { y: "110%", opacity: 0 },
-  show: {
-    y: "0%",
     opacity: 1,
-    transition: { duration: 1.25, ease: EASE_OUT_EXPO },
+    scale: 1,
+    filter: "blur(0px)",
+    transition: {
+      duration: 1.6,
+      ease: EASE_OUT_EXPO,
+      delay: OVERTURE_DELAY + 0.18,
+    },
   },
 };
 export const hairline: Variants = {

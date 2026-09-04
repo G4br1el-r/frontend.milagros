@@ -46,23 +46,23 @@ export function ProductsResults() {
       </FadeIn>
       <FadeIn distance={16} delay={0.2} className="mb-4 flex flex-col gap-3 px-3 sm:px-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <span className="text-sm text-primary/55" aria-live="polite">
-            {countLabel}
-          </span>
           <div className="flex items-center gap-3">
-            {!isLoading && products.length > 0 && <PageSizeSelect />}
             <div className="lg:hidden">
               <ProductFilters mobileOnly />
             </div>
+            <span className="text-sm text-primary/55" aria-live="polite">
+              {countLabel}
+            </span>
           </div>
+          {!isLoading && products.length > 0 && <PageSizeSelect />}
         </div>
         <ActiveFilterChips />
       </FadeIn>
       <div className="flex items-start gap-4 px-3 sm:px-4 xl:gap-5">
         <ProductFilters desktopOnly />
-        <div className="min-w-0 flex-1">
+        <div className="min-w-0 flex-1 @container">
           {isError ? (
-            <ProductErrorState message={error?.message} onRetry={refetch} />
+            <ProductErrorState onRetry={refetch} />
           ) : isLoading || isFetching ? (
             <ProductGridSkeleton />
           ) : products.length === 0 ? (

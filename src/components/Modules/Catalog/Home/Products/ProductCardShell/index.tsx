@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "motion/react";
 import type { ReactNode } from "react";
+import { StaggerItem } from "@/components/motion/ScrollReveal";
 import { cardLift } from "../product.motion";
 
 interface ProductCardShellProps {
@@ -8,7 +9,7 @@ interface ProductCardShellProps {
 }
 export function ProductCardShell({ children }: ProductCardShellProps) {
   return (
-    <article className="h-full">
+    <StaggerItem as="article" className="h-full">
       <motion.div
         initial="rest"
         animate="rest"
@@ -19,6 +20,6 @@ export function ProductCardShell({ children }: ProductCardShellProps) {
       >
         {children}
       </motion.div>
-    </article>
+    </StaggerItem>
   );
 }

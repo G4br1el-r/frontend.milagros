@@ -32,7 +32,7 @@ export function ProductSearch() {
       <div
         className={cn(
           "group relative flex items-center overflow-hidden rounded-full border bg-white shadow-[0_20px_50px_-20px_rgba(30,20,10,0.35)] transition-colors duration-300",
-          focused ? "border-gold" : "border-primary/15 hover:border-primary/30",
+          focused ? "border-gold" : "border-gold/60 hover:border-gold",
         )}
       >
         <Search

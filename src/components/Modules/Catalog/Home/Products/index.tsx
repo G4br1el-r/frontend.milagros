@@ -9,7 +9,7 @@ export function Products() {
       id="catalog"
       className="relative z-10 w-full scroll-mt-24 bg-cream"
     >
-      <div className="relative flex h-[400px] sm:h-[450px] lg:h-[500px] items-center justify-center overflow-hidden border-y-4 border-gold">
+      <div className="relative flex h-[400px] sm:h-[450px] lg:h-[500px] items-center justify-center overflow-hidden border-y-2 border-gold">
         <Image
           src="/images/search/background-search.png"
           alt=""

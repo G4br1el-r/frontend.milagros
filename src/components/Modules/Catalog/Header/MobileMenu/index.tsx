@@ -1,5 +1,4 @@
 "use client";
-
 import { Menu, X } from "lucide-react";
 import {
   Sheet,
@@ -10,14 +9,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { NAV_LINKS } from "../nav-links.constants";
-
-/**
- * Drawer, não accordion empilhado (pedido explícito da Fase 2). Reaproveita
- * o Sheet de @base-ui/react já usado por Cart/Checkout/RegisterSheet — focus
- * trap e Esc vêm de graça da primitiva. A devolução de foco ao gatilho só
- * funciona quando a abertura passa por SheetTrigger (não um <button onClick>
- * solto) — é assim que o base-ui sabe qual elemento re-focar ao fechar.
- */
 export function MobileMenu() {
   return (
     <Sheet>
@@ -27,7 +18,6 @@ export function MobileMenu() {
       >
         <Menu className="size-5" strokeWidth={1.75} />
       </SheetTrigger>
-
       <SheetContent
         side="right"
         showCloseButton={false}
@@ -44,13 +34,10 @@ export function MobileMenu() {
             <X className="size-5" strokeWidth={1.75} />
           </SheetClose>
         </SheetHeader>
-
         <nav className="flex flex-col p-2">
           {NAV_LINKS.map((link) => (
             <SheetClose
               key={link.href}
-              // O gatilho não é um <button> — nativeButton:false avisa o
-              // base-ui para não assumir semântica de botão nativo no <a>.
               nativeButton={false}
               render={
                 // biome-ignore lint/a11y/useAnchorContent: render prop do base-ui injeta o children do SheetClose (link.label) neste <a> em runtime

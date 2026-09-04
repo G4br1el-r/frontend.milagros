@@ -2,7 +2,6 @@ export interface LoginRequest {
   usuario: string;
   senha: string;
 }
-
 export interface LoginResponse {
   accessToken: string;
   tokenType: string;

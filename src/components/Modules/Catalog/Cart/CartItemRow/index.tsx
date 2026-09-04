@@ -1,5 +1,4 @@
 "use client";
-
 import { Trash2 } from "lucide-react";
 import { motion } from "motion/react";
 import Image from "next/image";
@@ -13,24 +12,11 @@ import { type CartItem, useCartStore } from "@/lib/stores/cart";
 interface CartItemRowProps {
   item: CartItem;
 }
-
-/**
- * Remover um item precisa recolher a linha, mas a seção 2.7 proíbe animar
- * height — só transform e opacity, com grid-template-rows: 0fr → 1fr como
- * a via aprovada para colapsar altura. O wrapper externo anima essa grid
- * (1 linha, 1fr → 0fr), a célula interna tem overflow-hidden + min-height:0
- * para o conteúdo não vazar durante a transição, e o conteúdo em si só
- * anima opacity — nada de height duplicado nos dois níveis.
- */
 export function CartItemRow({ item }: CartItemRowProps) {
   const setQuantity = useCartStore((state) => state.setQuantity);
   const removeItem = useCartStore((state) => state.removeItem);
   const closeCart = useCartStore((state) => state.close);
-
-  // `item.id` e o codigoOmie — o mesmo que o slug carrega no sufixo, entao
-  // itens ja salvos no localStorage tambem resolvem.
   const productHref = `/produtos/${buildProductSlug(item.name, item.id)}`;
-
   return (
     <motion.div
       layout
@@ -50,9 +36,6 @@ export function CartItemRow({ item }: CartItemRowProps) {
           >
             <Trash2 className="size-4" strokeWidth={2} />
           </button>
-
-          {/* Imagem e nome levam a pagina do produto. O sheet fecha junto:
-              sem isso ele ficaria aberto por cima da pagina recem-aberta. */}
           <Link
             href={productHref}
             onClick={closeCart}
@@ -72,7 +55,6 @@ export function CartItemRow({ item }: CartItemRowProps) {
               <ImagePlaceholder />
             )}
           </Link>
-
           <div className="flex min-w-0 flex-1 flex-col gap-2 pr-8">
             <h4 className="truncate text-sm leading-snug">
               <Link
@@ -83,11 +65,9 @@ export function CartItemRow({ item }: CartItemRowProps) {
                 {item.name}
               </Link>
             </h4>
-
             <span className="font-sans text-sm font-medium tabular-nums text-primary/70">
               {formatPrice(item.price)}
             </span>
-
             <div className="mt-auto flex flex-col gap-2">
               <QuantityStepper
                 quantity={item.quantity}
@@ -96,7 +76,6 @@ export function CartItemRow({ item }: CartItemRowProps) {
                 showRemoveButton={false}
                 className="w-full max-w-40"
               />
-
               <span className="font-sans text-sm font-semibold tabular-nums text-primary">
                 {formatPrice(item.price * item.quantity)}
               </span>

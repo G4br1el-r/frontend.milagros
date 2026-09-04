@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Body, Display, Heading, Latin, Meta } from "@/components/Typography";
-
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
-
 const OPACITY_STEPS = [
   { value: 100, label: "texto primário, ícone ativo" },
   { value: 70, label: "texto secundário" },
@@ -13,7 +11,6 @@ const OPACITY_STEPS = [
   { value: 10, label: "borda sutil, hairline" },
   { value: 5, label: "fundo de superfície tênue" },
 ] as const;
-
 const PALETTE = [
   { token: "ink", hex: "#12100D", usage: "fundo da página" },
   { token: "nave", hex: "#1C1813", usage: "superfícies elevadas" },
@@ -22,13 +19,11 @@ const PALETTE = [
   { token: "ouro", hex: "#C6A15B", usage: "fio, small caps, ícone, foco" },
   { token: "brasa", hex: "#B6431A", usage: "ação" },
 ] as const;
-
 const LITURGICAL = [
   { token: "roxo", hex: "#4A2A63", usage: "Advento / Quaresma" },
   { token: "verde", hex: "#1F5E3D", usage: "Tempo Comum" },
   { token: "vermelho", hex: "#8C1D18", usage: "Mártires / Pentecostes" },
 ] as const;
-
 const TYPE_SCALE = [
   { step: "step-5", cardo: "clamp 3.05–6.15rem" },
   { step: "step-4", cardo: "clamp 2.44–4.36rem" },
@@ -38,21 +33,12 @@ const TYPE_SCALE = [
   { step: "step-0", cardo: "clamp 1.00–1.10rem" },
   { step: "step-neg-1", cardo: "clamp 0.80–0.85rem" },
 ] as const;
-
 const RADII = [
   { token: "r-sm", value: "2px", usage: "chip, input" },
   { token: "r-md", value: "6px", usage: "card" },
   { token: "r-lg", value: "14px", usage: "drawer, modal" },
 ] as const;
-
 const SPACE_SCALE = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16] as const;
-
-/**
- * Rota de revisão da fundação de tokens (Fase 1). Não faz parte do produto —
- * noindex, existe só para o design-director conferir a paleta, a escada de
- * opacidade, a escala tipográfica e os raios antes de qualquer componente
- * do Shell (Fase 2) consumi-los.
- */
 export default function DesignPage() {
   return (
     <main className="min-h-screen bg-ink px-6 py-16 sm:px-12">
@@ -67,7 +53,6 @@ export default function DesignPage() {
             a 2.6 do CLAUDE.md. Nada aqui é produto.
           </Body>
         </header>
-
         <section className="flex flex-col gap-6">
           <Heading as="h2" size="step-2">
             Paleta
@@ -89,7 +74,6 @@ export default function DesignPage() {
             ))}
           </div>
         </section>
-
         <section className="flex flex-col gap-6">
           <Heading as="h2" size="step-2">
             Cores litúrgicas
@@ -115,7 +99,6 @@ export default function DesignPage() {
             ))}
           </div>
         </section>
-
         <section className="flex flex-col gap-6">
           <Heading as="h2" size="step-2">
             Escada de opacidade
@@ -140,7 +123,6 @@ export default function DesignPage() {
             ))}
           </div>
         </section>
-
         <section className="flex flex-col gap-6">
           <Heading as="h2" size="step-2">
             Escala tipográfica
@@ -165,7 +147,6 @@ export default function DesignPage() {
             ))}
           </div>
         </section>
-
         <section className="flex flex-col gap-6">
           <Heading as="h2" size="step-2">
             Primitivos de tipo
@@ -187,7 +168,6 @@ export default function DesignPage() {
             <Latin>duc in altum</Latin>
           </div>
         </section>
-
         <section className="flex flex-col gap-6">
           <Heading as="h2" size="step-2">
             Raio
@@ -209,7 +189,6 @@ export default function DesignPage() {
             ))}
           </div>
         </section>
-
         <section className="flex flex-col gap-6">
           <Heading as="h2" size="step-2">
             Espaço

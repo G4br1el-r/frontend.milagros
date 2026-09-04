@@ -1,6 +1,5 @@
 import { Button as ButtonPrimitive } from "@base-ui/react/button";
 import { cva, type VariantProps } from "class-variance-authority";
-
 import { cn } from "@/lib/utils/cn";
 
 const buttonVariants = cva(
@@ -39,7 +38,6 @@ const buttonVariants = cva(
     },
   },
 );
-
 function Button({
   className,
   variant = "default",
@@ -54,5 +52,4 @@ function Button({
     />
   );
 }
-
 export { Button, buttonVariants };

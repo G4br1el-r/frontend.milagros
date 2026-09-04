@@ -1,5 +1,4 @@
 import { FlameKindling } from "lucide-react";
-
 export function ImagePlaceholder() {
   return (
     <div className="absolute inset-0 flex flex-col items-center justify-center gap-2.5 bg-linear-to-br from-primary-darkest via-primary-dark to-primary-darkest">

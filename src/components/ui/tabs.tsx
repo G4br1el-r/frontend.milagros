@@ -1,12 +1,10 @@
 "use client";
-
 import { Tabs as TabsPrimitive } from "@base-ui/react/tabs";
 import { cn } from "@/lib/utils/cn";
 
 function Tabs({ ...props }: TabsPrimitive.Root.Props) {
   return <TabsPrimitive.Root data-slot="tabs" {...props} />;
 }
-
 function TabsList({ className, children, ...props }: TabsPrimitive.List.Props) {
   return (
     <TabsPrimitive.List
@@ -22,7 +20,6 @@ function TabsList({ className, children, ...props }: TabsPrimitive.List.Props) {
     </TabsPrimitive.List>
   );
 }
-
 function TabsIndicator({ className, ...props }: TabsPrimitive.Indicator.Props) {
   return (
     <TabsPrimitive.Indicator
@@ -35,7 +32,6 @@ function TabsIndicator({ className, ...props }: TabsPrimitive.Indicator.Props) {
     />
   );
 }
-
 function TabsTab({ className, ...props }: TabsPrimitive.Tab.Props) {
   return (
     <TabsPrimitive.Tab
@@ -48,7 +44,6 @@ function TabsTab({ className, ...props }: TabsPrimitive.Tab.Props) {
     />
   );
 }
-
 function TabsPanel({ className, ...props }: TabsPrimitive.Panel.Props) {
   return (
     <TabsPrimitive.Panel
@@ -58,5 +53,4 @@ function TabsPanel({ className, ...props }: TabsPrimitive.Panel.Props) {
     />
   );
 }
-
 export { Tabs, TabsList, TabsTab, TabsPanel };

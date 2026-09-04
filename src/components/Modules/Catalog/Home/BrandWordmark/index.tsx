@@ -1,13 +1,10 @@
 "use client";
-
 import { motion, useReducedMotion } from "motion/react";
 import { wordmarkLetter, wordmarkStage } from "../Hero/hero.motion";
 
 const WORDMARK = "MILAGROS";
-
 export function BrandWordmark() {
   const reduceMotion = useReducedMotion();
-
   return (
     <motion.h1
       variants={wordmarkStage}

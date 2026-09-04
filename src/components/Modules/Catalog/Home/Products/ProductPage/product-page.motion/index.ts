@@ -1,27 +1,17 @@
 import type { Transition, Variants } from "motion/react";
 import { EASE_OUT_EXPO } from "../../../Hero/hero.motion";
-
-/**
- * Vocabulário de movimento da página de produto. Reusa EASE_OUT_EXPO do
- * hero — é a curva do site inteiro, não uma nova. A página abre como uma
- * cena: a coluna da imagem e a da compra entram em stagger, e cada bloco
- * abaixo entra ao chegar no viewport.
- */
-
 export const PAGE_SPRING: Transition = {
   type: "spring",
   stiffness: 240,
   damping: 28,
   mass: 0.85,
 };
-
 export const stage: Variants = {
   hidden: {},
   show: {
     transition: { delayChildren: 0.08, staggerChildren: 0.09 },
   },
 };
-
 export const rise: Variants = {
   hidden: { opacity: 0, y: 22, filter: "blur(5px)" },
   show: {
@@ -31,7 +21,6 @@ export const rise: Variants = {
     transition: { duration: 0.85, ease: EASE_OUT_EXPO },
   },
 };
-
 export const riseSoft: Variants = {
   hidden: { opacity: 0, y: 14 },
   show: {
@@ -40,8 +29,6 @@ export const riseSoft: Variants = {
     transition: { duration: 0.7, ease: EASE_OUT_EXPO },
   },
 };
-
-/** Coluna da galeria: entra do lado, não de baixo — sugere um objeto sendo apresentado. */
 export const revealMedia: Variants = {
   hidden: { opacity: 0, x: -24, scale: 0.97 },
   show: {
@@ -51,7 +38,6 @@ export const revealMedia: Variants = {
     transition: { duration: 1, ease: EASE_OUT_EXPO },
   },
 };
-
 export const hairline: Variants = {
   hidden: { scaleX: 0, opacity: 0 },
   show: {
@@ -60,13 +46,10 @@ export const hairline: Variants = {
     transition: { duration: 1.2, ease: EASE_OUT_EXPO },
   },
 };
-
-/** Cada linha da ficha técnica entra em cascata quando o bloco aparece. */
 export const specStage: Variants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.06 } },
 };
-
 export const specRow: Variants = {
   hidden: { opacity: 0, y: 12 },
   show: {
@@ -75,18 +58,15 @@ export const specRow: Variants = {
     transition: { duration: 0.6, ease: EASE_OUT_EXPO },
   },
 };
-
 export const ctaLift: Variants = {
   rest: { y: 0 },
   hover: { y: -2, transition: PAGE_SPRING },
   tap: { y: 0, scale: 0.98, transition: PAGE_SPRING },
 };
-
 export const AMBIENT_GLOW: Transition = {
   duration: 12,
   repeat: Number.POSITIVE_INFINITY,
   repeatType: "mirror",
   ease: "easeInOut",
 };
-
 export const DETAIL_VIEWPORT = { once: true, margin: "-60px" } as const;

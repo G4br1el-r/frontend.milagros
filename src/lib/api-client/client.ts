@@ -1,12 +1,9 @@
 import { httpErrorFromStatus, NetworkError, TimeoutError } from "./errors";
-
 export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
-
 export interface NextCacheOptions {
   revalidate?: number | false;
   tags?: string[];
 }
-
 export interface RequestOptions {
   method?: HttpMethod;
   body?: unknown;
@@ -17,7 +14,6 @@ export interface RequestOptions {
   signal?: AbortSignal;
   timeoutMs?: number;
 }
-
 export interface ApiClientConfig {
   baseUrl: string;
   apiKey?: string;
@@ -25,7 +21,6 @@ export interface ApiClientConfig {
   defaultHeaders?: Record<string, string>;
   timeoutMs?: number;
 }
-
 export interface ApiClient {
   request<T>(path: string, options?: RequestOptions): Promise<T>;
   get<T>(
@@ -52,7 +47,6 @@ export interface ApiClient {
     options?: Omit<RequestOptions, "method" | "body">,
   ): Promise<T>;
 }
-
 export function createApiClient(config: ApiClientConfig): ApiClient {
   const {
     baseUrl,
@@ -61,7 +55,6 @@ export function createApiClient(config: ApiClientConfig): ApiClient {
     defaultHeaders,
     timeoutMs: defaultTimeoutMs,
   } = config;
-
   async function request<T>(
     path: string,
     options: RequestOptions = {},
@@ -76,10 +69,8 @@ export function createApiClient(config: ApiClientConfig): ApiClient {
       signal,
       timeoutMs = defaultTimeoutMs,
     } = options;
-
     const token = tokenOverride ?? (await getToken?.());
     const timeout = createTimeout(timeoutMs, signal);
-
     let response: Response;
     try {
       response = await fetch(`${baseUrl}${path}`, {
@@ -102,7 +93,6 @@ export function createApiClient(config: ApiClientConfig): ApiClient {
     } finally {
       timeout.clear();
     }
-
     if (!response.ok) {
       const { data, raw } = await safeParseBody(response);
       const message =
@@ -113,15 +103,12 @@ export function createApiClient(config: ApiClientConfig): ApiClient {
         details: data ?? raw,
       });
     }
-
     if (response.status === 204) {
       return undefined as T;
     }
-
     const { data } = await safeParseBody(response);
     return data as T;
   }
-
   return {
     request,
     get: (path, options) => request(path, { ...options, method: "GET" }),
@@ -134,7 +121,6 @@ export function createApiClient(config: ApiClientConfig): ApiClient {
     delete: (path, options) => request(path, { ...options, method: "DELETE" }),
   };
 }
-
 function createTimeout(
   timeoutMs: number | undefined,
   externalSignal: AbortSignal | undefined,
@@ -142,13 +128,11 @@ function createTimeout(
   if (!timeoutMs) {
     return { signal: externalSignal, clear: () => {} };
   }
-
   const controller = new AbortController();
   const timeoutId = setTimeout(
     () => controller.abort(new TimeoutError()),
     timeoutMs,
   );
-
   externalSignal?.addEventListener(
     "abort",
     () => controller.abort(externalSignal.reason),
@@ -156,47 +140,31 @@ function createTimeout(
       once: true,
     },
   );
-
   return { signal: controller.signal, clear: () => clearTimeout(timeoutId) };
 }
-
 async function safeParseBody(
   response: Response,
 ): Promise<{ data: unknown; raw?: string }> {
   const raw = await response.text().catch(() => undefined);
   if (!raw) return { data: undefined };
-
   try {
     return { data: JSON.parse(raw), raw };
   } catch {
     return { data: undefined, raw };
   }
 }
-
-/**
- * Corpo cru so vira mensagem de usuario se parecer mesmo uma mensagem.
- * Sem isto, um erro que nao responde JSON — o 404 do IIS quando a API esta
- * fora do ar, uma pagina de proxy/WAF — despeja o HTML inteiro dentro de um
- * toast. `details` continua guardando o corpo original para depuracao.
- */
 const RAW_MESSAGE_MAX_LENGTH = 200;
-
 function safeRawMessage(raw: string | undefined): string | undefined {
   if (!raw) return undefined;
-
   const trimmed = raw.trim();
   if (!trimmed || trimmed.length > RAW_MESSAGE_MAX_LENGTH) return undefined;
-  // Qualquer coisa com tag ou doctype e documento, nao mensagem.
   if (/<[a-z!/]/i.test(trimmed)) return undefined;
-
   return trimmed;
 }
-
 function extractMessage(data: unknown): string | undefined {
   if (data && typeof data === "object") {
     const record = data as Record<string, unknown>;
     const nested = record.error as Record<string, unknown> | undefined;
-
     if (nested && typeof nested.message === "string") {
       return nested.message;
     }
@@ -204,6 +172,5 @@ function extractMessage(data: unknown): string | undefined {
       return record.message;
     }
   }
-
   return undefined;
 }

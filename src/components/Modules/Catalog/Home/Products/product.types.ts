@@ -17,7 +17,6 @@ export interface ProdutoCatalogoDto {
   rating: number | null;
   totalAvaliacoes: number | null;
 }
-
 export interface ProdutosPaginadosDto {
   itens: ProdutoCatalogoDto[];
   pagina: number;
@@ -25,12 +24,10 @@ export interface ProdutosPaginadosDto {
   total: number;
   totalPaginas: number;
 }
-
 export interface ProductAttribute {
   label: string;
   value: string;
 }
-
 export interface Product {
   id: string;
   name: string;
@@ -50,12 +47,10 @@ export interface Product {
   reviewCount: number;
   attributes: ProductAttribute[];
 }
-
 const currencyFormatter = new Intl.NumberFormat("pt-BR", {
   style: "currency",
   currency: "BRL",
 });
-
 export function formatPrice(value: number) {
   return currencyFormatter.format(value);
 }

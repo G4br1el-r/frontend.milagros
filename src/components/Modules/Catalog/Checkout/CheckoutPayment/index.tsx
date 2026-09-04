@@ -1,5 +1,4 @@
 "use client";
-
 import { AlertCircle, ArrowLeft, Loader2 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { sortPaymentMethods } from "@/lib/checkout/checkout.format";
@@ -12,7 +11,6 @@ import {
 import { listItemVariants, stepVariants } from "../checkout.motion";
 import { OrderSummary } from "../OrderSummary";
 import { PaymentMethodCard } from "../PaymentMethodCard";
-
 export function CheckoutPayment() {
   const validation = useCheckoutStore((state) => state.validation);
   const selectedFormaId = useCheckoutStore((state) => state.selectedFormaId);
@@ -23,15 +21,11 @@ export function CheckoutPayment() {
   const setObservacoes = useCheckoutStore((state) => state.setObservacoes);
   const isFinalizing = useCheckoutStore((state) => state.isFinalizing);
   const finalizeError = useCheckoutStore((state) => state.finalizeError);
-
   const forma = useSelectedForma();
   const parcela = useSelectedParcela();
   const { finalize, canFinalize } = useCheckout();
-
   if (!validation) return null;
-
   const formas = sortPaymentMethods(validation.formasPagamento);
-
   return (
     <motion.div
       variants={stepVariants}
@@ -42,12 +36,7 @@ export function CheckoutPayment() {
     >
       <div className="flex-1 overflow-y-auto px-4 pb-6 sm:px-6">
         <div className="flex flex-col gap-5">
-          {/* Mesma posicao e estilo do "Voltar ao carrinho" do
-              CheckoutReview: no topo da area rolavel, nao no rodape — o
-              rodape e so da acao primaria. O pt-4/sm:pt-6 daqui e o respiro
-              de topo do passo. */}
           <BackToReviewButton disabled={isFinalizing} />
-
           <motion.div
             variants={listItemVariants}
             className="flex flex-col gap-2.5"
@@ -63,7 +52,6 @@ export function CheckoutPayment() {
               />
             ))}
           </motion.div>
-
           <motion.div
             variants={listItemVariants}
             className="flex flex-col gap-1.5"
@@ -74,7 +62,6 @@ export function CheckoutPayment() {
             >
               Observações
             </label>
-
             <textarea
               id="observacoes"
               value={observacoes}
@@ -85,7 +72,6 @@ export function CheckoutPayment() {
               className="w-full resize-none rounded-lg border border-primary/15 bg-white px-3.5 py-2.5 text-sm text-primary outline-none transition-colors duration-200 placeholder:text-primary/35 focus-visible:border-gold focus-visible:ring-2 focus-visible:ring-gold/25"
             />
           </motion.div>
-
           <motion.div variants={listItemVariants}>
             <OrderSummary
               subtotal={validation.totalPedido}
@@ -97,7 +83,6 @@ export function CheckoutPayment() {
               }
             />
           </motion.div>
-
           <AnimatePresence mode="wait">
             {finalizeError && (
               <motion.div
@@ -120,7 +105,6 @@ export function CheckoutPayment() {
           </AnimatePresence>
         </div>
       </div>
-
       <div className="border-t border-primary/10 bg-cream p-4 sm:p-6">
         <motion.button
           type="button"
@@ -142,10 +126,8 @@ export function CheckoutPayment() {
     </motion.div>
   );
 }
-
 function BackToReviewButton({ disabled }: { disabled?: boolean }) {
   const goToStep = useCheckoutStore((state) => state.goToStep);
-
   return (
     <button
       type="button"

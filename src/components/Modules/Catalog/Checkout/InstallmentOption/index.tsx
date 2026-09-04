@@ -1,5 +1,4 @@
 "use client";
-
 import { motion } from "motion/react";
 import { formatPrice } from "@/components/Modules/Catalog/Home/Products/product.types";
 import type { ParcelaOpcaoDto } from "@/lib/checkout/checkout.types";
@@ -11,7 +10,6 @@ interface InstallmentOptionProps {
   selected: boolean;
   onSelect: () => void;
 }
-
 export function InstallmentOption({
   option,
   selected,
@@ -23,7 +21,6 @@ export function InstallmentOption({
     prazosDescricao,
     datasVencimentoSugeridas,
   } = option;
-
   return (
     <button
       type="button"
@@ -42,20 +39,17 @@ export function InstallmentOption({
             ? "À vista"
             : `${numeroParcelas}x de ${formatPrice(valorParcela)}`}
         </span>
-
         {prazosDescricao && (
           <span className="truncate text-[11px] text-primary/55">
             {prazosDescricao}
           </span>
         )}
-
         {datasVencimentoSugeridas.length > 0 && (
           <span className="truncate text-[10px] text-primary/45">
             Vencimentos: {datasVencimentoSugeridas.join(" · ")}
           </span>
         )}
       </span>
-
       <motion.span
         animate={{
           borderColor: selected

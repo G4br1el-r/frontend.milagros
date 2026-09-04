@@ -1,24 +1,19 @@
 "use client";
-
 import { Popover as PopoverPrimitive } from "@base-ui/react/popover";
 import { cn } from "@/lib/utils/cn";
 
 function Popover({ ...props }: PopoverPrimitive.Root.Props) {
   return <PopoverPrimitive.Root data-slot="popover" {...props} />;
 }
-
 function PopoverTrigger({ ...props }: PopoverPrimitive.Trigger.Props) {
   return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />;
 }
-
 function PopoverPortal({ ...props }: PopoverPrimitive.Portal.Props) {
   return <PopoverPrimitive.Portal data-slot="popover-portal" {...props} />;
 }
-
 function PopoverClose({ ...props }: PopoverPrimitive.Close.Props) {
   return <PopoverPrimitive.Close data-slot="popover-close" {...props} />;
 }
-
 function PopoverArrow({ className, ...props }: PopoverPrimitive.Arrow.Props) {
   return (
     <PopoverPrimitive.Arrow
@@ -45,7 +40,6 @@ function PopoverArrow({ className, ...props }: PopoverPrimitive.Arrow.Props) {
     </PopoverPrimitive.Arrow>
   );
 }
-
 function PopoverContent({
   className,
   align = "center",
@@ -83,7 +77,6 @@ function PopoverContent({
     </PopoverPortal>
   );
 }
-
 function PopoverTitle({ className, ...props }: PopoverPrimitive.Title.Props) {
   return (
     <PopoverPrimitive.Title
@@ -93,7 +86,6 @@ function PopoverTitle({ className, ...props }: PopoverPrimitive.Title.Props) {
     />
   );
 }
-
 function PopoverDescription({
   className,
   ...props
@@ -106,7 +98,6 @@ function PopoverDescription({
     />
   );
 }
-
 export {
   Popover,
   PopoverClose,

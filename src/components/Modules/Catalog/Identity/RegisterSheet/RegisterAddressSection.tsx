@@ -1,5 +1,4 @@
 "use client";
-
 import { motion } from "motion/react";
 import { useCallback } from "react";
 import {
@@ -22,7 +21,6 @@ interface RegisterAddressSectionProps {
   setValue: UseFormSetValue<CustomerFormValues>;
   disabled?: boolean;
 }
-
 export function RegisterAddressSection({
   control,
   errors,
@@ -36,7 +34,6 @@ export function RegisterAddressSection({
       cidade: string;
       uf: string;
     }) => {
-      // shouldValidate limpa erros que ficaram de uma tentativa anterior.
       setValue("logradouro", fields.logradouro, { shouldValidate: true });
       setValue("bairro", fields.bairro, { shouldValidate: true });
       setValue("cidade", fields.cidade, { shouldValidate: true });
@@ -44,15 +41,12 @@ export function RegisterAddressSection({
     },
     [setValue],
   );
-
   const { lookup, isLoading, error } = useCepLookup(onFound);
-
   return (
     <motion.fieldset variants={fieldVariants} className="flex flex-col gap-4">
       <legend className="mb-1 font-display text-sm text-primary">
         Endereço
       </legend>
-
       <Controller
         control={control}
         name="cep"
@@ -73,7 +67,6 @@ export function RegisterAddressSection({
           </FieldRow>
         )}
       />
-
       <Controller
         control={control}
         name="logradouro"
@@ -96,7 +89,6 @@ export function RegisterAddressSection({
           </FieldRow>
         )}
       />
-
       <div className="grid grid-cols-2 gap-3">
         <Controller
           control={control}
@@ -112,7 +104,6 @@ export function RegisterAddressSection({
             </FieldRow>
           )}
         />
-
         <Controller
           control={control}
           name="complemento"
@@ -137,7 +128,6 @@ export function RegisterAddressSection({
           )}
         />
       </div>
-
       <Controller
         control={control}
         name="bairro"
@@ -155,7 +145,6 @@ export function RegisterAddressSection({
           </FieldRow>
         )}
       />
-
       <div className="grid grid-cols-[1fr_5rem] gap-3">
         <Controller
           control={control}
@@ -174,7 +163,6 @@ export function RegisterAddressSection({
             </FieldRow>
           )}
         />
-
         <Controller
           control={control}
           name="uf"

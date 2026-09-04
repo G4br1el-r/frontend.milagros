@@ -1,5 +1,4 @@
 "use client";
-
 import { motion } from "motion/react";
 import type { ElementType, ReactNode } from "react";
 import {
@@ -21,7 +20,6 @@ interface FadeInProps {
   onMount?: boolean;
   viewportMargin?: string;
 }
-
 export function FadeIn({
   children,
   direction = "up",
@@ -44,7 +42,6 @@ export function FadeIn({
           ? { ...DEFAULT_VIEWPORT, margin: viewportMargin }
           : DEFAULT_VIEWPORT,
       };
-
   return (
     <MotionTag
       className={className}

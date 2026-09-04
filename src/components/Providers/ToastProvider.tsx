@@ -1,5 +1,4 @@
 "use client";
-
 import { Toaster } from "react-hot-toast";
 import {
   TOAST_ERROR_STYLE,
@@ -7,7 +6,6 @@ import {
   TOAST_SUCCESS_STYLE,
   TOAST_TOAST_OPTIONS,
 } from "./toast-provider.constants";
-
 export function ToastProvider() {
   return (
     <Toaster

@@ -4,7 +4,6 @@ interface FilterGroupProps {
   title: string;
   children: ReactNode;
 }
-
 export function FilterGroup({ title, children }: FilterGroupProps) {
   return (
     <div className="flex flex-col gap-3">

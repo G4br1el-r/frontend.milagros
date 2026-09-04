@@ -1,5 +1,4 @@
 "use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { motion } from "motion/react";
@@ -19,12 +18,10 @@ import { useCustomerStore } from "@/lib/stores/customer";
 import { DocumentField } from "../Fields/DocumentField";
 import { FieldRow } from "../Fields/FieldRow";
 import { modalContentVariants } from "../identity.motion";
-
 export function DocumentForm() {
   const identify = useCustomerStore((state) => state.identify);
   const goToRegister = useCustomerStore((state) => state.goToRegister);
   const [lookupError, setLookupError] = useState<string | null>(null);
-
   const {
     control,
     handleSubmit,
@@ -34,20 +31,16 @@ export function DocumentForm() {
     defaultValues: { cpfCnpj: "" },
     mode: "onSubmit",
   });
-
   async function onSubmit(values: DocumentFormValues) {
     setLookupError(null);
-
     try {
       const cliente = await fetchCustomerByDocument(values.cpfCnpj);
       identify(toCustomer(cliente));
     } catch (error) {
-      // 404 nao e erro: e o caminho de cadastro.
       if (error instanceof CustomerNotFoundError) {
         goToRegister(values.cpfCnpj);
         return;
       }
-
       setLookupError(
         error instanceof CustomerApiError && error.status < 500
           ? error.message
@@ -55,7 +48,6 @@ export function DocumentForm() {
       );
     }
   }
-
   return (
     <motion.form
       variants={modalContentVariants}
@@ -85,7 +77,6 @@ export function DocumentForm() {
           </FieldRow>
         )}
       />
-
       <motion.button
         variants={modalContentVariants}
         type="submit"

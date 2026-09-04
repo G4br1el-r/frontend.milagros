@@ -1,6 +1,5 @@
 import { isAppError } from "@/lib/api-client";
 import { invalidateToken } from "@/lib/auth/token";
-
 export async function withAuthRetry<T>(request: () => Promise<T>): Promise<T> {
   try {
     return await request();
@@ -9,7 +8,6 @@ export async function withAuthRetry<T>(request: () => Promise<T>): Promise<T> {
       await invalidateToken();
       return request();
     }
-
     throw error;
   }
 }

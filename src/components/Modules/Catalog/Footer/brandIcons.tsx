@@ -1,7 +1,6 @@
 import type { SVGProps } from "react";
 
 type BrandIconProps = SVGProps<SVGSVGElement>;
-
 export function WhatsappIcon(props: BrandIconProps) {
   return (
     <svg

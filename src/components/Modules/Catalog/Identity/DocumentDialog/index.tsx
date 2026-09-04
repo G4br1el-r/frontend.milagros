@@ -1,5 +1,4 @@
 "use client";
-
 import { UserRound } from "lucide-react";
 import { motion } from "motion/react";
 import {
@@ -12,11 +11,9 @@ import {
 import { useCustomerStore } from "@/lib/stores/customer";
 import { modalContentVariants, springSnappy } from "../identity.motion";
 import { DocumentForm } from "./DocumentForm";
-
 export function DocumentDialog() {
   const step = useCustomerStore((state) => state.step);
   const cancel = useCustomerStore((state) => state.cancel);
-
   return (
     <Dialog
       open={step === "document"}
@@ -34,16 +31,13 @@ export function DocumentDialog() {
           >
             <UserRound className="size-6" strokeWidth={1.75} />
           </motion.span>
-
           <DialogTitle className="text-center font-display text-xl text-primary sm:text-2xl">
             Identifique-se
           </DialogTitle>
-
           <DialogDescription className="text-center text-sm leading-relaxed text-primary/60">
             Informe seu CPF ou CNPJ para continuar com o seu pedido.
           </DialogDescription>
         </DialogHeader>
-
         <motion.div
           variants={modalContentVariants}
           initial="hidden"

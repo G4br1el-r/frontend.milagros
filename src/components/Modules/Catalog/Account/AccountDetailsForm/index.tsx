@@ -1,5 +1,4 @@
 "use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useCallback, useState } from "react";
@@ -29,11 +28,9 @@ import { appToast } from "@/lib/toast/toast";
 interface AccountDetailsFormProps {
   customer: Customer;
 }
-
 export function AccountDetailsForm({ customer }: AccountDetailsFormProps) {
   const identify = useCustomerStore((state) => state.identify);
   const [submitError, setSubmitError] = useState<string | null>(null);
-
   const {
     control,
     handleSubmit,
@@ -45,7 +42,6 @@ export function AccountDetailsForm({ customer }: AccountDetailsFormProps) {
     defaultValues: { ...customer },
     mode: "onBlur",
   });
-
   const onFound = useCallback(
     (fields: {
       logradouro: string;
@@ -69,16 +65,13 @@ export function AccountDetailsForm({ customer }: AccountDetailsFormProps) {
     },
     [setValue],
   );
-
   const {
     lookup,
     isLoading: isCepLoading,
     error: cepError,
   } = useCepLookup(onFound);
-
   async function onSubmit(values: CustomerFormValues) {
     setSubmitError(null);
-
     try {
       const { cpfCnpj: _cpfCnpj, ...payload } = values;
       const atualizado = await updateCustomer(customer.cpfCnpj, payload);
@@ -96,7 +89,6 @@ export function AccountDetailsForm({ customer }: AccountDetailsFormProps) {
       );
     }
   }
-
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -112,7 +104,6 @@ export function AccountDetailsForm({ customer }: AccountDetailsFormProps) {
             disabled
           />
         </FieldRow>
-
         <Controller
           control={control}
           name="nomeRazaoSocial"
@@ -134,7 +125,6 @@ export function AccountDetailsForm({ customer }: AccountDetailsFormProps) {
             </FieldRow>
           )}
         />
-
         <Controller
           control={control}
           name="email"
@@ -157,7 +147,6 @@ export function AccountDetailsForm({ customer }: AccountDetailsFormProps) {
             </FieldRow>
           )}
         />
-
         <Controller
           control={control}
           name="telefone"
@@ -179,10 +168,8 @@ export function AccountDetailsForm({ customer }: AccountDetailsFormProps) {
           )}
         />
       </div>
-
       <div className="flex flex-col gap-4 border-t border-primary/10 pt-6">
         <h3 className="font-display text-sm text-primary">Endereço</h3>
-
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Controller
             control={control}
@@ -205,7 +192,6 @@ export function AccountDetailsForm({ customer }: AccountDetailsFormProps) {
               </FieldRow>
             )}
           />
-
           <Controller
             control={control}
             name="logradouro"
@@ -227,7 +213,6 @@ export function AccountDetailsForm({ customer }: AccountDetailsFormProps) {
               </FieldRow>
             )}
           />
-
           <Controller
             control={control}
             name="numero"
@@ -247,7 +232,6 @@ export function AccountDetailsForm({ customer }: AccountDetailsFormProps) {
               </FieldRow>
             )}
           />
-
           <Controller
             control={control}
             name="complemento"
@@ -270,7 +254,6 @@ export function AccountDetailsForm({ customer }: AccountDetailsFormProps) {
               </FieldRow>
             )}
           />
-
           <Controller
             control={control}
             name="bairro"
@@ -291,7 +274,6 @@ export function AccountDetailsForm({ customer }: AccountDetailsFormProps) {
               </FieldRow>
             )}
           />
-
           <div className="grid grid-cols-[1fr_5rem] gap-3">
             <Controller
               control={control}
@@ -313,7 +295,6 @@ export function AccountDetailsForm({ customer }: AccountDetailsFormProps) {
                 </FieldRow>
               )}
             />
-
             <Controller
               control={control}
               name="uf"
@@ -335,10 +316,8 @@ export function AccountDetailsForm({ customer }: AccountDetailsFormProps) {
           </div>
         </div>
       </div>
-
       <div className="flex flex-col gap-2">
         <FieldError message={submitError ?? undefined} />
-
         <button
           type="submit"
           disabled={isSubmitting || !isDirty}

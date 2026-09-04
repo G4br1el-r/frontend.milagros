@@ -1,14 +1,8 @@
 "use client";
-
 import { Church, PackageCheck, ShieldCheck, Truck } from "lucide-react";
 import { motion } from "motion/react";
 import { DETAIL_VIEWPORT, specRow, specStage } from "../product-page.motion";
 
-/**
- * Faixa de garantias do atacado — o que responde a objeção de quem está
- * decidindo. Conteúdo fixo (não vem da API): são políticas da casa, não
- * atributos do produto.
- */
 const TRUST_ITEMS = [
   {
     icon: Church,
@@ -31,7 +25,6 @@ const TRUST_ITEMS = [
     body: "Confirmação por WhatsApp e PDF do pedido ao fechar.",
   },
 ] as const;
-
 export function ProductTrustRow() {
   return (
     <motion.ul

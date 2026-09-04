@@ -1,5 +1,4 @@
 "use client";
-
 import { Check } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { ADDRESS_WITHOUT_NUMBER } from "@/lib/customer/customer.constants";
@@ -13,10 +12,6 @@ interface NumberFieldProps {
   disabled?: boolean;
   invalid?: boolean;
 }
-
-/**
- * Numero do endereco com atalho "Sem numero": marcado, grava S/N e trava o input.
- */
 export function NumberField({
   id = "numero",
   value,
@@ -26,7 +21,6 @@ export function NumberField({
 }: NumberFieldProps) {
   const withoutNumber = value === ADDRESS_WITHOUT_NUMBER;
   const checkboxId = `${id}-sem-numero`;
-
   return (
     <div className="flex flex-col gap-2">
       <input
@@ -50,12 +44,10 @@ export function NumberField({
             : "border-primary/15",
         )}
       />
-
       <label
         htmlFor={checkboxId}
         className="group flex w-fit cursor-pointer items-center gap-2 text-xs text-primary/70 transition-colors duration-200 hover:text-primary"
       >
-        {/* Checkbox nativo para acessibilidade; o visual animado vem por cima. */}
         <span className="relative flex size-4 items-center justify-center">
           <input
             id={checkboxId}
@@ -67,7 +59,6 @@ export function NumberField({
             disabled={disabled}
             className="peer absolute inset-0 cursor-pointer opacity-0 disabled:cursor-not-allowed"
           />
-
           <motion.span
             animate={{
               backgroundColor: withoutNumber

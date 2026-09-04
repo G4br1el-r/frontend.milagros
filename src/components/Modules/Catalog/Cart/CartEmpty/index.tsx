@@ -1,5 +1,4 @@
 import { ShoppingBag } from "lucide-react";
-
 export function CartEmpty() {
   return (
     <div className="flex flex-1 flex-col items-center justify-center gap-4 px-6 text-center">

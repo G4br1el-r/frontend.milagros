@@ -1,5 +1,4 @@
 "use client";
-
 import { AnimatePresence, motion } from "motion/react";
 import type { FormaPagamentoDto } from "@/lib/checkout/checkout.types";
 import { cn } from "@/lib/utils/cn";
@@ -18,7 +17,6 @@ interface PaymentMethodCardProps {
   onSelect: () => void;
   onSelectParcelas: (numeroParcelas: number) => void;
 }
-
 export function PaymentMethodCard({
   forma,
   selected,
@@ -48,19 +46,16 @@ export function PaymentMethodCard({
         >
           <PaymentMethodIcon tipoForma={forma.tipoForma} />
         </span>
-
         <span className="flex min-w-0 flex-1 flex-col">
           <span className="truncate text-sm font-medium text-primary">
             {forma.nome}
           </span>
-
           {forma.prazosDescricao && (
             <span className="truncate text-[11px] text-primary/55">
               {forma.prazosDescricao}
             </span>
           )}
         </span>
-
         <motion.span
           animate={{
             borderColor: selected
@@ -77,7 +72,6 @@ export function PaymentMethodCard({
           />
         </motion.span>
       </button>
-
       <AnimatePresence initial={false}>
         {selected && forma.opcoesParcelamento.length > 0 && (
           <motion.div

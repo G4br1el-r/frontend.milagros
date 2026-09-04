@@ -1,17 +1,10 @@
 "use client";
-
 import { AnimatePresence, motion } from "motion/react";
 import { errorVariants } from "../../identity.motion";
 
 interface FieldErrorProps {
   message?: string;
 }
-
-/**
- * Wrapper externo anima grid-template-rows (a via aprovada pela seção 2.7
- * para colapsar altura sem animar `height`); o conteúdo interno
- * (errorVariants) só anima opacity/y.
- */
 export function FieldError({ message }: FieldErrorProps) {
   return (
     <AnimatePresence initial={false} mode="wait">

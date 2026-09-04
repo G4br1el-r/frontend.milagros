@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect } from "react";
 import { FadeIn } from "@/components/motion/fade-in";
 import { useProductFiltersUrl } from "@/lib/query-state/use-product-filters-url";
@@ -18,13 +17,6 @@ import { ProductPaginationEnd } from "./ProductPaginationEnd";
 import { ProductSearch } from "./ProductSearch";
 import { PRIORITY_ROW_COUNT } from "./product.constants";
 import { useProducts } from "./use-products";
-
-/**
- * Arvore de busca/filtro/grade/paginacao do catalogo — a parte que de fato
- * depende de estado de cliente (URL, react-query, stores). O cabecalho
- * estatico da secao fica em index.tsx (Server Component) para nao atravessar
- * a fronteira client por markup que nunca muda.
- */
 export function ProductsResults() {
   const {
     products,
@@ -39,23 +31,19 @@ export function ProductsResults() {
   } = useProducts();
   const { setPage } = usePaginationNavigation(page);
   const { termo } = useProductFiltersUrl();
-
   useEffect(() => {
     if (isError) appToast.productsLoadError(error?.message);
   }, [isError, error]);
-
   const countLabel = isLoading
     ? "Carregando produtos…"
     : termo
       ? `${products.length} de ${total} resultados para "${termo}"`
       : `Exibindo ${products.length} de ${total} produtos`;
-
   return (
     <>
       <FadeIn distance={16} delay={0.1}>
         <ProductSearch />
       </FadeIn>
-
       <div className="mb-4 flex flex-col gap-3 px-3 sm:px-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <span className="text-sm text-primary/55" aria-live="polite">
@@ -68,13 +56,10 @@ export function ProductsResults() {
             </div>
           </div>
         </div>
-
         <ActiveFilterChips />
       </div>
-
       <div className="flex items-start gap-4 px-3 sm:px-4 xl:gap-5">
         <ProductFilters desktopOnly />
-
         <div className="min-w-0 flex-1">
           {isError ? (
             <ProductErrorState message={error?.message} onRetry={refetch} />
@@ -93,13 +78,11 @@ export function ProductsResults() {
                   />
                 ))}
               </ProductGrid>
-
               <ProductPagination
                 page={page}
                 totalPages={totalPages}
                 onPageChange={setPage}
               />
-
               {page === totalPages && <ProductPaginationEnd />}
             </>
           )}

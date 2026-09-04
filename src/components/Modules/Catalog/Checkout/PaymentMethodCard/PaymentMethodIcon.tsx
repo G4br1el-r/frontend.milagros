@@ -1,13 +1,10 @@
 "use client";
-
 import { Banknote, CreditCard, QrCode, Wallet } from "lucide-react";
 
 interface PaymentMethodIconProps {
   tipoForma: string;
   className?: string;
 }
-
-/** Icone por tipoForma da API ("Pix" | "Cartao" | "Boleto"). */
 export function PaymentMethodIcon({
   tipoForma,
   className = "size-5",

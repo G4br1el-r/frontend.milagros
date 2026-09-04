@@ -4,5 +4,4 @@ export const TOAST_IDS = {
   productsError: "toast-products-error",
   account: "toast-account",
 } as const;
-
 export const TOAST_DURATION_MS = 2600;

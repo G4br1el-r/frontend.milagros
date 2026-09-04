@@ -11,27 +11,22 @@ import type {
 interface RouteContext {
   params: Promise<{ cpfCnpj: string }>;
 }
-
 export async function GET(_request: NextRequest, { params }: RouteContext) {
   const { cpfCnpj } = await params;
-
   try {
     const cliente = await withAuthRetry(() =>
       api.get<ClienteResponse>(
         `/api/clientes/cpf/${encodeURIComponent(cpfCnpj)}`,
       ),
     );
-
     return NextResponse.json(cliente);
   } catch (error) {
     return routeErrorResponse(error);
   }
 }
-
 export async function PUT(request: NextRequest, { params }: RouteContext) {
   const { cpfCnpj } = await params;
   const payload: ClienteAtualizarRequest = await request.json();
-
   try {
     const cliente = await withAuthRetry(() =>
       api.put<ClienteResponse>(
@@ -39,7 +34,6 @@ export async function PUT(request: NextRequest, { params }: RouteContext) {
         payload,
       ),
     );
-
     return NextResponse.json(cliente);
   } catch (error) {
     return routeErrorResponse(error);

@@ -1,5 +1,4 @@
 "use client";
-
 import { AnimatePresence, motion } from "motion/react";
 import { type RefObject, useEffect, useState } from "react";
 import { ProductCta } from "../../ProductCta";
@@ -7,35 +6,23 @@ import { formatPrice, type Product } from "../../product.types";
 
 interface ProductStickyBarProps {
   product: Product;
-  /** CTA principal da página — a barra só entra quando ele sai do viewport. */
   anchorRef: RefObject<HTMLDivElement | null>;
 }
-
-/**
- * Barra de compra que acompanha o scroll no mobile. Só aparece depois que o
- * CTA do painel sai da tela — enquanto ele está visível, duas ações iguais
- * empilhadas seriam ruído. IntersectionObserver em vez de listener de
- * scroll: não roda em toda a rolagem.
- */
 export function ProductStickyBar({
   product,
   anchorRef,
 }: ProductStickyBarProps) {
   const [visible, setVisible] = useState(false);
-
   useEffect(() => {
     const anchor = anchorRef.current;
     if (!anchor) return;
-
     const observer = new IntersectionObserver(
       ([entry]) => setVisible(!entry.isIntersecting),
       { rootMargin: "-80px 0px 0px 0px" },
     );
-
     observer.observe(anchor);
     return () => observer.disconnect();
   }, [anchorRef]);
-
   return (
     <AnimatePresence>
       {visible && (
@@ -55,7 +42,6 @@ export function ProductStickyBar({
                 {formatPrice(product.price)}
               </span>
             </div>
-
             <div className="ml-auto w-44 shrink-0">
               <ProductCta
                 id={product.id}

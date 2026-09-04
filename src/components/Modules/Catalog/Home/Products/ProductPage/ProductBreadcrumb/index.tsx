@@ -1,5 +1,4 @@
 "use client";
-
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { URL_PARAM_KEYS } from "@/lib/query-state/url-params.constants";
@@ -8,7 +7,6 @@ interface ProductBreadcrumbProps {
   category: string | null;
   name: string;
 }
-
 export function ProductBreadcrumb({ category, name }: ProductBreadcrumbProps) {
   return (
     <nav aria-label="Trilha de navegação">
@@ -21,7 +19,6 @@ export function ProductBreadcrumb({ category, name }: ProductBreadcrumbProps) {
             Catálogo
           </Link>
         </li>
-
         {category && (
           <>
             <ChevronRight className="size-3.5 shrink-0" aria-hidden="true" />
@@ -35,7 +32,6 @@ export function ProductBreadcrumb({ category, name }: ProductBreadcrumbProps) {
             </li>
           </>
         )}
-
         <ChevronRight className="size-3.5 shrink-0" aria-hidden="true" />
         <li
           aria-current="page"

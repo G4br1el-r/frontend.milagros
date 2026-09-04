@@ -9,11 +9,9 @@ import type {
   ParcelaOpcaoDto,
 } from "./checkout.types";
 
-/** Arredonda para 2 casas — a API trabalha com preco de ate 6 decimais. */
 function toMoney(value: number): number {
   return Math.round(value * 100) / 100;
 }
-
 export function cartItemToCheckoutItem(item: CartItem): ItemCheckoutDto {
   return {
     codigoOmie: item.id,
@@ -24,7 +22,6 @@ export function cartItemToCheckoutItem(item: CartItem): ItemCheckoutDto {
     subtotal: toMoney(item.price * item.quantity),
   };
 }
-
 export function buildCheckoutRequest(
   items: CartItem[],
   cpfCnpj: string,
@@ -33,10 +30,8 @@ export function buildCheckoutRequest(
   const subtotal = toMoney(
     itens.reduce((total, item) => total + item.subtotal, 0),
   );
-
   return {
     cpfCnpj,
-    // A API detecta o tipo de cliente sozinha; nao forcamos.
     tipoCliente: null,
     subtotal,
     desconto: 0,
@@ -44,7 +39,6 @@ export function buildCheckoutRequest(
     itens,
   };
 }
-
 interface FinalizePayloadInput {
   customer: Customer;
   items: CartItem[];
@@ -53,7 +47,6 @@ interface FinalizePayloadInput {
   tipoCliente: string | null;
   observacoes: string;
 }
-
 export function buildFinalizeRequest({
   customer,
   items,
@@ -75,7 +68,6 @@ export function buildFinalizeRequest({
     complemento: customer.complemento,
     bairro: customer.bairro,
     cidade: customer.cidade,
-    // O cadastro guarda `uf`; este endpoint espera `estado`.
     estado: customer.uf,
     itens: items.map(cartItemToCheckoutItem),
     formaPagamentoId: forma.id,

@@ -5,7 +5,6 @@ import { api } from "@/lib/api";
 import { routeErrorResponse } from "@/lib/api/route-error-response";
 import { withAuthRetry } from "@/lib/api/with-auth-retry";
 import { withPriceTableParams } from "@/lib/api/with-price-table";
-
 export async function GET(request: NextRequest) {
   try {
     const searchParams = await withPriceTableParams(
@@ -14,7 +13,6 @@ export async function GET(request: NextRequest) {
     const produtos = await withAuthRetry(() =>
       api.get<ProdutosPaginadosDto>(`/api/produtos?${searchParams}`),
     );
-
     return NextResponse.json(produtos);
   } catch (error) {
     return routeErrorResponse(error);

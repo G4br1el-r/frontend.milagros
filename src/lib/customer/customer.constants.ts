@@ -1,14 +1,8 @@
 export const CUSTOMER_STORAGE_KEY = "milagros-customer";
-
 export const CPF_LENGTH = 11;
-
 export const CNPJ_LENGTH = 14;
-
 export const CEP_LENGTH = 8;
-
-/** Valor gravado em `numero` quando o endereco nao possui numeracao. */
 export const ADDRESS_WITHOUT_NUMBER = "S/N";
-
 export const UF_OPTIONS = [
   "AC",
   "AL",

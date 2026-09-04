@@ -5,13 +5,6 @@ interface ContainerProps<T extends ElementType = "div"> {
   as?: T;
   className?: string;
 }
-
-/**
- * Container único do site — seção 2.6. max-width 1440px e padding-inline
- * fluido, consumidos via var() das custom properties de tokens.css
- * (--layout-container-max/--layout-container-padding não são namespace de
- * utility do Tailwind, então não viram classe automática).
- */
 export function Container<T extends ElementType = "div">({
   as,
   className,

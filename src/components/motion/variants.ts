@@ -1,7 +1,5 @@
 import type { Variants } from "motion/react";
-
 export type FadeDirection = "up" | "down" | "left" | "right" | "none";
-
 const OFFSET_BY_DIRECTION: Record<
   FadeDirection,
   (distance: number) => { x?: number; y?: number }
@@ -12,7 +10,6 @@ const OFFSET_BY_DIRECTION: Record<
   right: (distance) => ({ x: -distance }),
   none: () => ({}),
 };
-
 export function buildFadeVariants(
   direction: FadeDirection,
   distance: number,
@@ -32,7 +29,5 @@ export function buildFadeVariants(
     },
   };
 }
-
 export const DEFAULT_VIEWPORT = { once: true, margin: "-80px" } as const;
-
 export const DEFAULT_EASE = "easeOut" as const;

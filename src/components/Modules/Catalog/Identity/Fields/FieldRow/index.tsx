@@ -1,5 +1,4 @@
 "use client";
-
 import { motion } from "motion/react";
 import type { ReactNode } from "react";
 import { fieldVariants } from "../../identity.motion";
@@ -12,7 +11,6 @@ interface FieldRowProps {
   children: ReactNode;
   className?: string;
 }
-
 export function FieldRow({
   id,
   label,
@@ -31,7 +29,6 @@ export function FieldRow({
       >
         {label}
       </label>
-
       {children}
       <FieldError message={error} />
     </motion.div>

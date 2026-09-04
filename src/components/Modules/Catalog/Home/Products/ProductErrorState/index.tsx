@@ -5,7 +5,6 @@ interface ProductErrorStateProps {
   message?: string;
   onRetry?: () => void;
 }
-
 export function ProductErrorState({
   message,
   onRetry,
@@ -25,7 +24,6 @@ export function ProductErrorState({
           {message ?? PRODUCT_LOAD_ERROR_MESSAGE}
         </p>
       </div>
-
       {onRetry && (
         <button
           type="button"

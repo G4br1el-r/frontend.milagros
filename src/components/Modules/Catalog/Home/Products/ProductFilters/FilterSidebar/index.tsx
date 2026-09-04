@@ -1,6 +1,5 @@
 import { SlidersHorizontal } from "lucide-react";
 import { FilterPanelContent } from "../FilterPanelContent";
-
 export function FilterSidebar() {
   return (
     <aside className="hidden w-80 shrink-0 lg:block">
@@ -12,7 +11,6 @@ export function FilterSidebar() {
           />
           <span className="font-display text-lg text-primary">Filtrar</span>
         </div>
-
         <FilterPanelContent />
       </div>
     </aside>

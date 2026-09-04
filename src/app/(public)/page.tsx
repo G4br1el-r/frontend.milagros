@@ -12,9 +12,6 @@ import { DEFAULT_PRODUCTS_PER_PAGE } from "@/components/Modules/Catalog/Home/Pro
 import { fetchProductsServer } from "@/components/Modules/Catalog/Home/Products/product.server";
 import { productQueryKeys } from "@/lib/query/keys";
 
-// Precisa bater byte a byte com o objeto que useProductFiltersUrl() monta
-// quando a URL nao tem nenhum parametro de filtro — e o que garante que o
-// useQuery do client encontre esta entrada no cache em vez de refazer a busca.
 const DEFAULT_FILTERS: ProductSearchFilters = {
   termo: undefined,
   letra: undefined,
@@ -24,15 +21,12 @@ const DEFAULT_FILTERS: ProductSearchFilters = {
   page: 1,
   pageSize: DEFAULT_PRODUCTS_PER_PAGE,
 };
-
 export default async function Home() {
   const queryClient = new QueryClient();
-
   await queryClient.prefetchQuery({
     queryKey: productQueryKeys.search(DEFAULT_FILTERS),
     queryFn: () => fetchProductsServer(DEFAULT_FILTERS),
   });
-
   return (
     <main id="conteudo-principal" className="w-full flex-1">
       <Hero />

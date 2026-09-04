@@ -1,5 +1,4 @@
 "use client";
-
 import { motion } from "motion/react";
 import { PRODUCT_FALLBACK_TEXT } from "../../product.constants";
 import type { Product } from "../../product.types";
@@ -13,21 +12,12 @@ import {
 interface ProductSpecsProps {
   product: Product;
 }
-
 interface SpecEntry {
   label: string;
   value: string;
 }
-
-/**
- * Ficha técnica completa — mais larga que os 4 atributos do card (o
- * `buildAttributes` do mapper corta em PRODUCT_MAX_ATTRIBUTES para caber no
- * card). Aqui há espaço, então lê-se o DTO inteiro. `estoqueAtual` fica de
- * fora de propósito: é regra do projeto ignorá-lo (API.md).
- */
 function buildSpecs(product: Product): SpecEntry[] {
   const entries: SpecEntry[] = [];
-
   if (product.type) entries.push({ label: "Tipo", value: product.type });
   if (product.burnTime)
     entries.push({ label: "Tempo de queima", value: product.burnTime });
@@ -37,22 +27,16 @@ function buildSpecs(product: Product): SpecEntry[] {
     entries.push({ label: "Unidade de venda", value: product.unit });
   if (product.weightKg)
     entries.push({ label: "Peso", value: `${product.weightKg} kg` });
-
   const dimension = product.attributes.find(
     (attribute) => attribute.label === "Dimensões",
   );
   if (dimension) entries.push({ label: "Dimensões", value: dimension.value });
-
   entries.push({ label: "Código", value: product.id || PRODUCT_FALLBACK_TEXT });
-
   return entries;
 }
-
 export function ProductSpecs({ product }: ProductSpecsProps) {
   const specs = buildSpecs(product);
-
   if (specs.length === 0) return null;
-
   return (
     <motion.section
       aria-labelledby="ficha-tecnica-heading"
@@ -69,7 +53,6 @@ export function ProductSpecs({ product }: ProductSpecsProps) {
       >
         Ficha técnica
       </motion.h2>
-
       <dl className="grid gap-x-10 sm:grid-cols-2">
         {specs.map((spec) => (
           <motion.div

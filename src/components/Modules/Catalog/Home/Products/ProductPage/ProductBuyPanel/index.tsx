@@ -1,5 +1,4 @@
 "use client";
-
 import { Star } from "lucide-react";
 import { motion } from "motion/react";
 import { ProductCta } from "../../ProductCta";
@@ -9,21 +8,13 @@ import { hairline, rise, stage } from "../product-page.motion";
 interface ProductBuyPanelProps {
   product: Product;
 }
-
 function discountPercent(price: number, compareAt: number) {
   return Math.round(((compareAt - price) / compareAt) * 100);
 }
-
-/**
- * Coluna de decisão: identidade do produto, preço e CTA. Ordem de leitura
- * fixa — categoria → nome → preço → CTA — a mesma do modal que esta página
- * substitui, para que quem já conhecia o catálogo não se perca.
- */
 export function ProductBuyPanel({ product }: ProductBuyPanelProps) {
   const { category, compareAtPrice, name, price, rating, reviewCount } =
     product;
   const discount = compareAtPrice ? discountPercent(price, compareAtPrice) : 0;
-
   return (
     <motion.div
       variants={stage}
@@ -37,13 +28,11 @@ export function ProductBuyPanel({ product }: ProductBuyPanelProps) {
             {category}
           </span>
         )}
-
         {discount > 0 && (
           <span className="inline-flex items-center rounded-full bg-terracotta px-3.5 py-1.5 text-[10px] font-medium tracking-[0.18em] text-cream uppercase">
             -{discount}%
           </span>
         )}
-
         {rating !== null && reviewCount > 0 && (
           <span className="ml-auto inline-flex shrink-0 items-center gap-1.5 text-sm text-primary/70">
             <Star
@@ -60,14 +49,12 @@ export function ProductBuyPanel({ product }: ProductBuyPanelProps) {
           </span>
         )}
       </motion.div>
-
       <motion.h1
         variants={rise}
         className="font-display text-3xl leading-[1.12] text-balance text-primary sm:text-4xl"
       >
         {name}
       </motion.h1>
-
       <motion.div variants={rise} className="flex items-center gap-4">
         <motion.span
           variants={hairline}
@@ -77,7 +64,6 @@ export function ProductBuyPanel({ product }: ProductBuyPanelProps) {
           ad maiorem Dei gloriam
         </span>
       </motion.div>
-
       <motion.div
         variants={rise}
         className="flex flex-col gap-2 rounded-2xl border border-primary/10 bg-white/60 p-6 backdrop-blur-sm"
@@ -87,7 +73,6 @@ export function ProductBuyPanel({ product }: ProductBuyPanelProps) {
             {formatPrice(compareAtPrice)}
           </span>
         )}
-
         <div className="flex flex-wrap items-baseline gap-3">
           <span className="font-sans text-4xl leading-none font-semibold tabular-nums text-primary">
             {formatPrice(price)}
@@ -96,12 +81,10 @@ export function ProductBuyPanel({ product }: ProductBuyPanelProps) {
             <span className="text-sm text-primary/55">por {product.unit}</span>
           )}
         </div>
-
         <p className="mt-1 text-xs leading-relaxed text-primary/55">
           Parcelamento calculado no carrinho, conforme a forma de pagamento
           escolhida. Preço de atacado já aplicado à sua tabela.
         </p>
-
         <div className="mt-4">
           <ProductCta
             id={product.id}

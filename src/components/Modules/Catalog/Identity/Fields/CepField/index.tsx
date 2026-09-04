@@ -1,5 +1,4 @@
 "use client";
-
 import { Loader2 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { CEP_LENGTH } from "@/lib/customer/customer.constants";
@@ -14,8 +13,6 @@ interface CepFieldProps {
   disabled?: boolean;
   invalid?: boolean;
 }
-
-/** Dispara a busca assim que o CEP fica completo — sem botao extra. */
 export function CepField({
   id = "cep",
   value,
@@ -40,7 +37,6 @@ export function CepField({
         disabled={disabled || isLoading}
         invalid={invalid}
       />
-
       <AnimatePresence>
         {isLoading && (
           <motion.span

@@ -1,5 +1,4 @@
 "use client";
-
 import { AnimatePresence } from "motion/react";
 import {
   Sheet,
@@ -12,12 +11,10 @@ import { CheckoutPayment } from "../CheckoutPayment";
 import { CheckoutReview } from "../CheckoutReview";
 import { CheckoutSteps } from "../CheckoutSteps";
 import { CheckoutSuccess } from "../CheckoutSuccess";
-
 export function CheckoutSheet() {
   const isOpen = useCheckoutStore((state) => state.isOpen);
   const close = useCheckoutStore((state) => state.close);
   const step = useCheckoutStore((state) => state.step);
-
   return (
     <Sheet open={isOpen} onOpenChange={(next) => !next && close()}>
       <SheetContent
@@ -28,10 +25,8 @@ export function CheckoutSheet() {
           <SheetTitle className="font-display text-xl text-primary">
             Finalizar pedido
           </SheetTitle>
-
           <CheckoutSteps current={step} />
         </SheetHeader>
-
         <AnimatePresence mode="wait" initial={false}>
           {step === "revisao" && <CheckoutReview key="revisao" />}
           {step === "pagamento" && <CheckoutPayment key="pagamento" />}

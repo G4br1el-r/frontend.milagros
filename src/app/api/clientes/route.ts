@@ -8,18 +8,14 @@ import type {
   ClienteCadastroRequest,
   ClienteResponse,
 } from "@/lib/customer/customer.types";
-
 export async function POST(request: NextRequest) {
   try {
     const payload = (await request.json()) as ClienteCadastroRequest;
-
     const cliente = await withAuthRetry(() =>
       api.post<ClienteResponse>("/api/clientes", payload),
     );
-
     return NextResponse.json(cliente, { status: 201 });
   } catch (error) {
-    // 5xx do upstream costuma vir sem corpo; loga para dar rastro no servidor.
     if (isAppError(error) && error.statusCode >= 500) {
       console.error("[POST /api/clientes] falha no upstream", {
         status: error.statusCode,
@@ -27,7 +23,6 @@ export async function POST(request: NextRequest) {
         details: error.details,
       });
     }
-
     return routeErrorResponse(error);
   }
 }

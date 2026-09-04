@@ -1,9 +1,6 @@
 import type { Transition, Variants } from "motion/react";
-
 export const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const;
-
 const OVERTURE_DELAY = 0.35;
-
 export const heroStage: Variants = {
   hidden: {},
   show: {
@@ -13,7 +10,6 @@ export const heroStage: Variants = {
     },
   },
 };
-
 export const heroRise: Variants = {
   hidden: { opacity: 0, y: 28, filter: "blur(6px)" },
   show: {
@@ -23,7 +19,6 @@ export const heroRise: Variants = {
     transition: { duration: 1.1, ease: EASE_OUT_EXPO },
   },
 };
-
 export const wordmarkStage: Variants = {
   hidden: {},
   show: {
@@ -33,7 +28,6 @@ export const wordmarkStage: Variants = {
     },
   },
 };
-
 export const wordmarkLetter: Variants = {
   hidden: { y: "110%", opacity: 0 },
   show: {
@@ -42,7 +36,6 @@ export const wordmarkLetter: Variants = {
     transition: { duration: 1.25, ease: EASE_OUT_EXPO },
   },
 };
-
 export const hairline: Variants = {
   hidden: { scaleX: 0, opacity: 0 },
   show: {
@@ -51,12 +44,10 @@ export const hairline: Variants = {
     transition: { duration: 1.4, ease: EASE_OUT_EXPO },
   },
 };
-
 export const taglineStage: Variants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.045 } },
 };
-
 export const taglineWord: Variants = {
   hidden: { opacity: 0, y: 14 },
   show: {
@@ -65,14 +56,12 @@ export const taglineWord: Variants = {
     transition: { duration: 0.9, ease: EASE_OUT_EXPO },
   },
 };
-
 export const CTA_SPRING: Transition = {
   type: "spring",
   stiffness: 220,
   damping: 26,
   mass: 0.9,
 };
-
 export const heroCtaLift: Variants = {
   rest: { y: 0, boxShadow: "0 8px 30px -12px rgba(135,108,67,0.55)" },
   hover: {
@@ -82,12 +71,10 @@ export const heroCtaLift: Variants = {
   },
   tap: { y: -1, transition: CTA_SPRING },
 };
-
 export const heroCtaArrow: Variants = {
   rest: { x: 0 },
   hover: { x: 4, transition: CTA_SPRING },
 };
-
 export const AMBIENT_DRIFT: Transition = {
   duration: 14,
   repeat: Number.POSITIVE_INFINITY,

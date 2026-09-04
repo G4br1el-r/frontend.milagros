@@ -1,26 +1,17 @@
 "use client";
-
 import { IMaskInput } from "react-imask";
 import { cn } from "@/lib/utils/cn";
 
-/**
- * Recorte minimo do MaskedDynamic do imask — o pacote e dependencia transitiva
- * do react-imask, entao tipamos so o que o dispatch precisa ler.
- */
 interface DynamicMasked {
   value: string;
   compiledMasks: unknown[];
 }
-
-/** Escolhe qual mascara compilada usar a cada tecla digitada. */
 export type MaskDispatch = (
   appended: string,
   dynamicMasked: DynamicMasked,
 ) => unknown;
-
 export interface MaskedFieldProps {
   id: string;
-  /** Uma mascara fixa ou a lista de mascaras alternadas pelo `dispatch`. */
   mask: string | Array<{ mask: string }>;
   value: string;
   onAccept: (value: string) => void;
@@ -32,7 +23,6 @@ export interface MaskedFieldProps {
   invalid?: boolean;
   dispatch?: MaskDispatch;
 }
-
 export function MaskedField({
   id,
   mask,
@@ -49,8 +39,6 @@ export function MaskedField({
   return (
     <IMaskInput
       id={id}
-      // A tipagem do react-imask nao cobre mascara dinamica; os props sao
-      // validos em runtime e ficam tipados na fronteira via MaskDispatch.
       {...({ mask, dispatch } as Record<string, unknown>)}
       value={value}
       unmask={false}

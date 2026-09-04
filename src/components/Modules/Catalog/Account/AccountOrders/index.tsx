@@ -8,7 +8,6 @@ interface AccountOrdersProps {
   isError: boolean;
   onRetry: () => void;
 }
-
 function OrdersSkeleton() {
   return (
     <div className="flex flex-col gap-4" aria-hidden="true">
@@ -21,7 +20,6 @@ function OrdersSkeleton() {
     </div>
   );
 }
-
 export function AccountOrders({
   orders,
   isLoading,
@@ -31,7 +29,6 @@ export function AccountOrders({
   if (isLoading) {
     return <OrdersSkeleton />;
   }
-
   if (isError) {
     return (
       <div className="flex flex-col items-center gap-3 rounded-xl border border-primary/10 bg-white px-6 py-10 text-center">
@@ -49,7 +46,6 @@ export function AccountOrders({
       </div>
     );
   }
-
   if (orders.length === 0) {
     return (
       <p className="text-sm text-primary/60">
@@ -57,7 +53,6 @@ export function AccountOrders({
       </p>
     );
   }
-
   return (
     <div className="flex flex-col gap-4">
       {orders.map((order) => (

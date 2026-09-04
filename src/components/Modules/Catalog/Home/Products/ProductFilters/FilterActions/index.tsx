@@ -1,11 +1,8 @@
 "use client";
-
 import { useProductFiltersUrl } from "@/lib/query-state/use-product-filters-url";
 import { appToast } from "@/lib/toast/toast";
-
 export function FilterActions() {
   const { reset } = useProductFiltersUrl();
-
   return (
     <button
       type="button"

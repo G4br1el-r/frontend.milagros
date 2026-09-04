@@ -1,5 +1,4 @@
 "use client";
-
 import { LogOut, UserRound } from "lucide-react";
 import Link from "next/link";
 import { formatDocument } from "@/lib/customer/customer.format";
@@ -10,7 +9,6 @@ interface CustomerMenuPanelProps {
   onSignOut: () => void;
   onNavigate: () => void;
 }
-
 export function CustomerMenuPanel({
   customer,
   onSignOut,
@@ -22,16 +20,13 @@ export function CustomerMenuPanel({
         <span className="text-[10px] font-semibold tracking-[0.14em] text-primary/50 uppercase">
           Conectado como
         </span>
-
         <span className="truncate font-display text-sm text-primary">
           {customer.nomeRazaoSocial}
         </span>
-
         <span className="font-mono text-xs text-primary/60">
           {formatDocument(customer.cpfCnpj)}
         </span>
       </div>
-
       <div className="flex flex-col gap-2">
         <Link
           href="/conta"
@@ -41,7 +36,6 @@ export function CustomerMenuPanel({
           <UserRound className="size-3.5" strokeWidth={2} />
           Minha conta
         </Link>
-
         <button
           type="button"
           onClick={onSignOut}

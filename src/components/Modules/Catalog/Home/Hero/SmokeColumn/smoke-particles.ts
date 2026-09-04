@@ -1,10 +1,3 @@
-/**
- * Simulação leve de fumaça: partículas circulares com ruído de posição e
- * opacidade, sem física real — o suficiente para ler como fumaça subindo
- * a distância de leitura do hero, a um custo de CPU muito menor que
- * qualquer simulação de fluido (que seria WebGL, nível 3 do plano).
- */
-
 export interface SmokeParticle {
   x: number;
   y: number;
@@ -16,23 +9,19 @@ export interface SmokeParticle {
   driftPhase: number;
   speed: number;
 }
-
 interface CreateParticleOptions {
   columnWidth: number;
   originY: number;
 }
-
 function randomBetween(min: number, max: number): number {
   return min + Math.random() * (max - min);
 }
-
 export function createParticle({
   columnWidth,
   originY,
 }: CreateParticleOptions): SmokeParticle {
   const baseRadius = randomBetween(columnWidth * 0.05, columnWidth * 0.12);
   const baseOpacity = randomBetween(0.04, 0.09);
-
   return {
     x: columnWidth / 2 + randomBetween(-columnWidth * 0.15, columnWidth * 0.15),
     y: originY + randomBetween(0, 40),
@@ -45,11 +34,6 @@ export function createParticle({
     speed: randomBetween(16, 30),
   };
 }
-
-/**
- * Avança uma partícula um passo de tempo. Devolve `false` quando ela saiu
- * do topo do canvas — quem chama descarta e cria uma nova na origem.
- */
 export function stepParticle(
   particle: SmokeParticle,
   deltaSeconds: number,
@@ -58,19 +42,15 @@ export function stepParticle(
   columnHeight: number,
 ): boolean {
   particle.y -= particle.speed * deltaSeconds;
-
   const progress = 1 - particle.y / columnHeight;
   particle.x =
     columnWidth / 2 +
     Math.sin(elapsedSeconds * 0.6 + particle.driftPhase) *
       particle.drift *
       progress;
-
   particle.radius = particle.baseRadius * (1 + progress * 2.2);
-
   const fadeIn = Math.min(1, progress / 0.1);
   const fadeOut = Math.min(1, (1 - progress) / 0.45);
   particle.opacity = particle.baseOpacity * fadeIn * fadeOut;
-
   return particle.y > -particle.radius * 2;
 }

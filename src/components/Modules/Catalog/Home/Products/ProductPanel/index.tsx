@@ -1,9 +1,7 @@
 "use client";
-
 import { motion } from "motion/react";
 import type { ReactNode } from "react";
 import { cardPanel } from "../product.motion";
-
 export function ProductPanel({ children }: { children: ReactNode }) {
   return (
     <motion.div

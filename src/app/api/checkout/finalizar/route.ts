@@ -9,7 +9,6 @@ import type {
   FinalizarCheckoutResponse,
 } from "@/lib/checkout/checkout.types";
 
-/** Recusa de negocio traz `sucesso`; ProblemDetails de validacao nao. */
 function isBusinessRejection(
   details: unknown,
 ): details is FinalizarCheckoutResponse {
@@ -19,19 +18,12 @@ function isBusinessRejection(
     typeof (details as FinalizarCheckoutResponse).sucesso === "boolean"
   );
 }
-
-/**
- * Emite o pedido. A recusa de negocio vem com corpo util no 400 e e repassada
- * para a UI ler `sucesso`/`mensagem`; erro de validacao segue como erro.
- */
 export async function POST(request: NextRequest) {
   try {
     const payload = (await request.json()) as FinalizarCheckoutRequest;
-
     const resultado = await withAuthRetry(() =>
       api.post<FinalizarCheckoutResponse>("/api/checkout/finalizar", payload),
     );
-
     return NextResponse.json(resultado);
   } catch (error) {
     if (
@@ -41,7 +33,6 @@ export async function POST(request: NextRequest) {
     ) {
       return NextResponse.json(error.details);
     }
-
     if (isAppError(error) && error.statusCode >= 500) {
       console.error("[POST /api/checkout/finalizar] falha no upstream", {
         status: error.statusCode,
@@ -49,7 +40,6 @@ export async function POST(request: NextRequest) {
         details: error.details,
       });
     }
-
     return routeErrorResponse(error);
   }
 }

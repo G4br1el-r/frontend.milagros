@@ -1,5 +1,4 @@
 "use client";
-
 import { AnimatePresence } from "motion/react";
 import {
   Sheet,
@@ -11,14 +10,12 @@ import { useCartStore, useCartTotal } from "@/lib/stores/cart";
 import { CartEmpty } from "../CartEmpty";
 import { CartFooter } from "../CartFooter";
 import { CartItemRow } from "../CartItemRow";
-
 export function CartSheet() {
   const isOpen = useCartStore((state) => state.isOpen);
   const close = useCartStore((state) => state.close);
   const open = useCartStore((state) => state.open);
   const items = useCartStore((state) => state.items);
   const total = useCartTotal();
-
   return (
     <Sheet open={isOpen} onOpenChange={(next) => (next ? open() : close())}>
       <SheetContent
@@ -30,7 +27,6 @@ export function CartSheet() {
             Seu carrinho
           </SheetTitle>
         </SheetHeader>
-
         {items.length === 0 ? (
           <CartEmpty />
         ) : (
@@ -42,7 +38,6 @@ export function CartSheet() {
             </AnimatePresence>
           </div>
         )}
-
         {items.length > 0 && <CartFooter total={total} />}
       </SheetContent>
     </Sheet>

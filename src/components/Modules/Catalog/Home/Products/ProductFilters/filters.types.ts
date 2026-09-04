@@ -2,17 +2,14 @@ export interface CategoriaFiltroDto {
   nome: string;
   totalProdutos: number;
 }
-
 export interface LetraFiltroDto {
   letra: string;
   totalProdutos: number;
 }
-
 export interface FaixaPrecoDto {
   precoMinimo: number;
   precoMaximo: number;
 }
-
 export interface ProductSearchFilters {
   termo?: string;
   letra?: string;

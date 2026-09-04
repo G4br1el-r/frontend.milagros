@@ -3,8 +3,6 @@ import type {
   Customer,
   EnderecoCepDto,
 } from "./customer.types";
-
-/** A API de CEP devolve `localidade`/`uf`; o cadastro espera `cidade`/`uf`. */
 export function cepToAddressFields(endereco: EnderecoCepDto) {
   return {
     cep: endereco.cep,
@@ -14,7 +12,6 @@ export function cepToAddressFields(endereco: EnderecoCepDto) {
     uf: endereco.uf,
   };
 }
-
 export function toCustomer(cliente: ClienteResponse): Customer {
   return {
     id: cliente.id,

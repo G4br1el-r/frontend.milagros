@@ -1,5 +1,4 @@
 "use client";
-
 import { motion } from "motion/react";
 import Image from "next/image";
 import { formatPrice } from "@/components/Modules/Catalog/Home/Products/product.types";
@@ -9,7 +8,6 @@ import { listItemVariants } from "../checkout.motion";
 interface ReviewItemProps {
   item: CartItem;
 }
-
 export function ReviewItem({ item }: ReviewItemProps) {
   return (
     <motion.li
@@ -27,14 +25,12 @@ export function ReviewItem({ item }: ReviewItemProps) {
           />
         )}
       </div>
-
       <div className="flex min-w-0 flex-1 flex-col">
         <span className="truncate text-sm text-primary">{item.name}</span>
         <span className="text-xs text-primary/55">
           {item.quantity} × {formatPrice(item.price)}
         </span>
       </div>
-
       <span className="shrink-0 text-sm font-medium text-primary">
         {formatPrice(item.price * item.quantity)}
       </span>

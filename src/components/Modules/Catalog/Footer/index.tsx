@@ -10,7 +10,6 @@ const FACTS = [
   "Incenso Nossa Senhora Aparecida usado no Vaticano desde 2008.",
   "Fornecedora oficial nas visitas de Bento XVI (2007) e Francisco (2013) ao Brasil.",
 ] as const;
-
 const CONTACTS = [
   {
     icon: Phone,
@@ -31,11 +30,6 @@ const CONTACTS = [
     href: "mailto:contato@milagros.com.br",
   },
 ] as const;
-
-/**
- * Footer institucional — seção 1 do CLAUDE.md. Fatos autorizados e os três
- * canais de contato oficiais confirmados pelo cliente.
- */
 export function Footer() {
   return (
     <footer className="w-full border-t border-ouro/10 bg-nave">
@@ -49,7 +43,6 @@ export function Footer() {
             sizes="140px"
             className="h-12 w-auto object-contain"
           />
-
           <a
             href={WHATSAPP_URL}
             target="_blank"
@@ -60,12 +53,10 @@ export function Footer() {
             Falar no WhatsApp
           </a>
         </div>
-
         <div className="flex flex-col gap-5 border-t border-ouro/10 pt-8">
           <Heading as="h2" size="step-1" className="text-linho">
             Atendimento
           </Heading>
-
           <ul className="flex flex-col gap-3">
             {CONTACTS.map(({ icon: Icon, label, value, href }) => (
               <li key={label}>
@@ -84,7 +75,6 @@ export function Footer() {
             ))}
           </ul>
         </div>
-
         <div className="flex flex-col gap-3 border-t border-ouro/10 pt-8">
           {FACTS.map((fact) => (
             <Body
@@ -97,7 +87,6 @@ export function Footer() {
             </Body>
           ))}
         </div>
-
         <Meta className="text-fumaca">
           MILAGROS® — incensos e carvões litúrgicos
         </Meta>

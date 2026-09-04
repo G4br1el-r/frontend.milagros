@@ -1,5 +1,4 @@
 "use client";
-
 import { ChevronDown, FileText } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
@@ -11,7 +10,6 @@ import { presentOrderStatus } from "./order-status";
 interface AccountOrderRowProps {
   order: PedidoDetalhesDto;
 }
-
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString("pt-BR", {
     day: "2-digit",
@@ -19,11 +17,9 @@ function formatDate(iso: string): string {
     year: "numeric",
   });
 }
-
 export function AccountOrderRow({ order }: AccountOrderRowProps) {
   const [open, setOpen] = useState(false);
   const status = presentOrderStatus(order.status);
-
   return (
     <div className="overflow-hidden rounded-2xl border border-primary/10 bg-white">
       <button
@@ -37,7 +33,6 @@ export function AccountOrderRow({ order }: AccountOrderRowProps) {
             <span className="font-display text-lg text-primary">
               Pedido {order.numeroPedidoOmie ?? order.id.slice(0, 8)}
             </span>
-
             <span
               className={cn(
                 "rounded-full px-2.5 py-0.5 text-[10px] font-semibold tracking-[0.08em] uppercase",
@@ -47,17 +42,14 @@ export function AccountOrderRow({ order }: AccountOrderRowProps) {
               {status.label}
             </span>
           </div>
-
           <span className="text-sm text-primary/55">
             {formatDate(order.dataPedido)} · {order.itens.length}{" "}
             {order.itens.length === 1 ? "item" : "itens"}
           </span>
         </div>
-
         <span className="font-sans text-xl font-semibold tabular-nums text-primary">
           {formatPrice(order.valorTotal)}
         </span>
-
         <ChevronDown
           className={cn(
             "size-5 shrink-0 text-primary/50 transition-transform duration-200",
@@ -66,7 +58,6 @@ export function AccountOrderRow({ order }: AccountOrderRowProps) {
           strokeWidth={2}
         />
       </button>
-
       <AnimatePresence initial={false}>
         {open && (
           <motion.div
@@ -92,14 +83,12 @@ export function AccountOrderRow({ order }: AccountOrderRowProps) {
                           {item.quantidade} × {formatPrice(item.valorUnitario)}
                         </span>
                       </div>
-
                       <span className="shrink-0 font-sans text-sm font-medium tabular-nums text-primary">
                         {formatPrice(item.valorTotal)}
                       </span>
                     </li>
                   ))}
                 </ul>
-
                 <div className="flex flex-col gap-1.5 border-t border-primary/10 pt-3 text-sm">
                   <div className="flex items-center justify-between">
                     <span className="text-primary/60">Subtotal</span>
@@ -107,7 +96,6 @@ export function AccountOrderRow({ order }: AccountOrderRowProps) {
                       {formatPrice(order.valorSubtotal)}
                     </span>
                   </div>
-
                   {order.valorDesconto > 0 && (
                     <div className="flex items-center justify-between">
                       <span className="text-primary/60">Desconto</span>
@@ -116,7 +104,6 @@ export function AccountOrderRow({ order }: AccountOrderRowProps) {
                       </span>
                     </div>
                   )}
-
                   <div className="flex items-center justify-between">
                     <span className="font-medium text-primary">Total</span>
                     <span className="font-sans text-base font-semibold tabular-nums text-primary">
@@ -124,13 +111,11 @@ export function AccountOrderRow({ order }: AccountOrderRowProps) {
                     </span>
                   </div>
                 </div>
-
                 {order.parcelas.length > 0 && (
                   <div className="flex flex-col gap-2 border-t border-primary/10 pt-3">
                     <span className="text-[11px] font-semibold tracking-[0.08em] text-primary/60 uppercase">
                       Parcelas
                     </span>
-
                     <ul className="flex flex-col gap-1.5">
                       {order.parcelas
                         .slice()
@@ -152,7 +137,6 @@ export function AccountOrderRow({ order }: AccountOrderRowProps) {
                     </ul>
                   </div>
                 )}
-
                 <a
                   href={`/api/pedidos/${order.id}/pdf`}
                   target="_blank"

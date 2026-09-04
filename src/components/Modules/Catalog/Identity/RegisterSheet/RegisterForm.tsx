@@ -1,5 +1,4 @@
 "use client";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { motion } from "motion/react";
@@ -19,12 +18,10 @@ import { FieldError } from "../Fields/FieldError";
 import { modalContentVariants } from "../identity.motion";
 import { RegisterAddressSection } from "./RegisterAddressSection";
 import { RegisterIdentitySection } from "./RegisterIdentitySection";
-
 export function RegisterForm() {
   const draftDocument = useCustomerStore((state) => state.draftDocument);
   const identify = useCustomerStore((state) => state.identify);
   const [submitError, setSubmitError] = useState<string | null>(null);
-
   const {
     control,
     handleSubmit,
@@ -32,7 +29,6 @@ export function RegisterForm() {
     formState: { errors, isSubmitting },
   } = useForm<CustomerFormValues>({
     resolver: zodResolver(customerFormSchema),
-    // O documento ja digitado no modal chega preenchido aqui.
     defaultValues: {
       cpfCnpj: draftDocument,
       nomeRazaoSocial: "",
@@ -48,22 +44,18 @@ export function RegisterForm() {
     },
     mode: "onBlur",
   });
-
   async function onSubmit(values: CustomerFormValues) {
     setSubmitError(null);
-
     try {
       const cliente = await createCustomer(values);
       identify(toCustomer(cliente));
     } catch (error) {
-      // Erro do servidor (5xx) nao e culpa do preenchimento: diz isso ao usuario.
       if (error instanceof CustomerApiError && error.status >= 500) {
         setSubmitError(
           "O servidor nao conseguiu concluir o cadastro. Tente novamente em instantes.",
         );
         return;
       }
-
       setSubmitError(
         error instanceof CustomerApiError
           ? error.message
@@ -71,7 +63,6 @@ export function RegisterForm() {
       );
     }
   }
-
   return (
     <motion.form
       variants={modalContentVariants}
@@ -88,7 +79,6 @@ export function RegisterForm() {
             errors={errors}
             disabled={isSubmitting}
           />
-
           <RegisterAddressSection
             control={control}
             errors={errors}
@@ -97,10 +87,8 @@ export function RegisterForm() {
           />
         </div>
       </div>
-
       <div className="flex flex-col gap-2 border-t border-primary/10 bg-cream p-4 sm:p-6">
         <FieldError message={submitError ?? undefined} />
-
         <motion.button
           type="submit"
           disabled={isSubmitting}

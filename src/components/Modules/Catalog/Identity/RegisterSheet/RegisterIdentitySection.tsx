@@ -1,5 +1,4 @@
 "use client";
-
 import { motion } from "motion/react";
 import { type Control, Controller, type FieldErrors } from "react-hook-form";
 import type { CustomerFormValues } from "@/lib/customer/customer.schemas";
@@ -14,7 +13,6 @@ interface RegisterIdentitySectionProps {
   errors: FieldErrors<CustomerFormValues>;
   disabled?: boolean;
 }
-
 export function RegisterIdentitySection({
   control,
   errors,
@@ -25,7 +23,6 @@ export function RegisterIdentitySection({
       <legend className="mb-1 font-display text-sm text-primary">
         Seus dados
       </legend>
-
       <Controller
         control={control}
         name="cpfCnpj"
@@ -46,7 +43,6 @@ export function RegisterIdentitySection({
           </FieldRow>
         )}
       />
-
       <Controller
         control={control}
         name="nomeRazaoSocial"
@@ -69,7 +65,6 @@ export function RegisterIdentitySection({
           </FieldRow>
         )}
       />
-
       <Controller
         control={control}
         name="email"
@@ -89,7 +84,6 @@ export function RegisterIdentitySection({
           </FieldRow>
         )}
       />
-
       <Controller
         control={control}
         name="telefone"

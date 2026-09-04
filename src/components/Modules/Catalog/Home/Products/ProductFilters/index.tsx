@@ -6,7 +6,6 @@ interface ProductFiltersProps {
   desktopOnly?: boolean;
   mobileOnly?: boolean;
 }
-
 export function ProductFilters({
   desktopOnly,
   mobileOnly,

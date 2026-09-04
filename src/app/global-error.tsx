@@ -1,11 +1,5 @@
 "use client";
-
 import { useEffect } from "react";
-
-/**
- * Substitui o root layout inteiro, entao precisa das proprias tags <html> e
- * <body> e nao herda globals.css — os estilos vao inline de proposito.
- */
 export default function GlobalError({
   error,
   reset,
@@ -16,7 +10,6 @@ export default function GlobalError({
   useEffect(() => {
     console.error(error);
   }, [error]);
-
   return (
     <html lang="pt-BR">
       <body
@@ -53,12 +46,10 @@ export default function GlobalError({
           >
             O site não carregou
           </h1>
-
           <p style={{ margin: 0, fontSize: "0.875rem", lineHeight: 1.7 }}>
             A falha foi do nosso lado. Recarregue a página — se persistir, fale
             com a gente no WhatsApp.
           </p>
-
           <button
             type="button"
             onClick={reset}

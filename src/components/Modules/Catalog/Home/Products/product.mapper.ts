@@ -15,45 +15,35 @@ function stripHtml(html: string): string {
     .replace(/\s+/g, " ")
     .trim();
 }
-
 export function extractCategoryLabel(categoria: string): string {
   return categoria.trim();
 }
-
 function buildAttributes(dto: ProdutoCatalogoDto): ProductAttribute[] {
   const attributes: ProductAttribute[] = [];
-
   if (dto.pesoKg) {
     attributes.push({ label: "Peso", value: `${dto.pesoKg} kg` });
   }
-
   if (dto.tempoQueima) {
     attributes.push({ label: "Queima", value: dto.tempoQueima });
   }
-
   if (dto.tipo) {
     attributes.push({ label: "Tipo", value: dto.tipo });
   }
-
   if (dto.unidade) {
     attributes.push({ label: "Unidade", value: dto.unidade });
   }
-
   if (dto.altura && dto.largura && dto.profundidade) {
     attributes.push({
       label: "Dimensões",
       value: `${dto.altura} × ${dto.largura} × ${dto.profundidade}`,
     });
   }
-
   return attributes.slice(0, PRODUCT_MAX_ATTRIBUTES);
 }
-
 export function mapProdutoToProduct(dto: ProdutoCatalogoDto): Product {
   const images = dto.imagens?.filter(Boolean) ?? [];
   const image = images[0] ?? null;
   const description = dto.descricao ? stripHtml(dto.descricao) : "";
-
   return {
     id: dto.codigoOmie,
     name: dto.nome,

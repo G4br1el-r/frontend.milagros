@@ -10,12 +10,10 @@ import {
   fetchProductPriceRange,
 } from "../product.client";
 
-/** Metadados de filtro mudam com a linha de produtos, nao com preco/estoque. */
 const filterMetadataOptions = {
   staleTime: FILTER_METADATA_STALE_TIME_MS,
   gcTime: FILTER_METADATA_GC_TIME_MS,
 } as const;
-
 export function useProductCategories() {
   return useQuery({
     queryKey: productQueryKeys.categories,
@@ -23,7 +21,6 @@ export function useProductCategories() {
     ...filterMetadataOptions,
   });
 }
-
 export function useProductLetters() {
   return useQuery({
     queryKey: productQueryKeys.letters,
@@ -31,7 +28,6 @@ export function useProductLetters() {
     ...filterMetadataOptions,
   });
 }
-
 export function useProductPriceRange() {
   return useQuery({
     queryKey: productQueryKeys.priceRange,

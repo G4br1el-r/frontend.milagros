@@ -1,5 +1,4 @@
 "use client";
-
 import { Dialog as SheetPrimitive } from "@base-ui/react/dialog";
 import { XIcon } from "lucide-react";
 import type * as React from "react";
@@ -9,19 +8,15 @@ import { cn } from "@/lib/utils/cn";
 function Sheet({ ...props }: SheetPrimitive.Root.Props) {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />;
 }
-
 function SheetTrigger({ ...props }: SheetPrimitive.Trigger.Props) {
   return <SheetPrimitive.Trigger data-slot="sheet-trigger" {...props} />;
 }
-
 function SheetClose({ ...props }: SheetPrimitive.Close.Props) {
   return <SheetPrimitive.Close data-slot="sheet-close" {...props} />;
 }
-
 function SheetPortal({ ...props }: SheetPrimitive.Portal.Props) {
   return <SheetPrimitive.Portal data-slot="sheet-portal" {...props} />;
 }
-
 function SheetOverlay({ className, ...props }: SheetPrimitive.Backdrop.Props) {
   return (
     <SheetPrimitive.Backdrop
@@ -34,7 +29,6 @@ function SheetOverlay({ className, ...props }: SheetPrimitive.Backdrop.Props) {
     />
   );
 }
-
 function SheetContent({
   className,
   children,
@@ -77,7 +71,6 @@ function SheetContent({
     </SheetPortal>
   );
 }
-
 function SheetHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -87,7 +80,6 @@ function SheetHeader({ className, ...props }: React.ComponentProps<"div">) {
     />
   );
 }
-
 function SheetFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
@@ -97,7 +89,6 @@ function SheetFooter({ className, ...props }: React.ComponentProps<"div">) {
     />
   );
 }
-
 function SheetTitle({ className, ...props }: SheetPrimitive.Title.Props) {
   return (
     <SheetPrimitive.Title
@@ -110,7 +101,6 @@ function SheetTitle({ className, ...props }: SheetPrimitive.Title.Props) {
     />
   );
 }
-
 function SheetDescription({
   className,
   ...props
@@ -123,7 +113,6 @@ function SheetDescription({
     />
   );
 }
-
 export {
   Sheet,
   SheetTrigger,

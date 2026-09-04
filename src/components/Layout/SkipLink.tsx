@@ -1,7 +1,3 @@
-/**
- * Primeiro elemento focável da página. Invisível até receber foco por
- * teclado — Tab revela, Enter pula o header e a nav direto para o main.
- */
 export function SkipLink() {
   return (
     <a

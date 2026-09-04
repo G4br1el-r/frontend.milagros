@@ -1,5 +1,4 @@
 "use client";
-
 import { Flame } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { BrandWordmark } from "../../BrandWordmark";
@@ -14,10 +13,8 @@ import {
 } from "../hero.motion";
 
 const TAGLINE = "Uma chama para cada devoção, um incenso para cada santo.";
-
 export function HeroContent() {
   const reduceMotion = useReducedMotion();
-
   return (
     <motion.div
       variants={heroStage}
@@ -44,7 +41,6 @@ export function HeroContent() {
           Catálogo Litúrgico
         </span>
       </motion.div>
-
       <motion.div
         className="w-full"
         animate={reduceMotion ? undefined : { y: [0, -6, 0] }}
@@ -52,7 +48,6 @@ export function HeroContent() {
       >
         <BrandWordmark />
       </motion.div>
-
       <motion.div
         variants={heroRise}
         className="flex items-center justify-center gap-4 sm:gap-5"
@@ -69,7 +64,6 @@ export function HeroContent() {
           className="h-px w-14 origin-left bg-linear-to-l from-transparent to-cream/70 sm:w-24 lg:w-32"
         />
       </motion.div>
-
       <motion.p
         variants={taglineStage}
         className="mx-auto max-w-md text-balance text-base leading-relaxed font-light tracking-wide text-cream sm:max-w-xl sm:text-lg lg:text-xl"
@@ -85,7 +79,6 @@ export function HeroContent() {
           </motion.span>
         ))}
       </motion.p>
-
       <HeroCta />
     </motion.div>
   );

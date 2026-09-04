@@ -9,7 +9,6 @@ import type {
   CheckoutResponse,
 } from "@/lib/checkout/checkout.types";
 
-/** Recusa de negocio traz `valido`; ProblemDetails de validacao nao. */
 function isBusinessRejection(details: unknown): details is CheckoutResponse {
   return (
     typeof details === "object" &&
@@ -17,20 +16,12 @@ function isBusinessRejection(details: unknown): details is CheckoutResponse {
     typeof (details as CheckoutResponse).valido === "boolean"
   );
 }
-
-/**
- * Valida o carrinho e devolve as formas de pagamento elegiveis.
- * A API responde CheckoutResponse tambem no 400 (pedido minimo, por exemplo),
- * entao repassamos esse corpo em vez de transforma-lo em erro generico.
- */
 export async function POST(request: NextRequest) {
   try {
     const payload = (await request.json()) as CheckoutRequest;
-
     const resultado = await withAuthRetry(() =>
       api.post<CheckoutResponse>("/api/checkout", payload),
     );
-
     return NextResponse.json(resultado);
   } catch (error) {
     if (
@@ -40,7 +31,6 @@ export async function POST(request: NextRequest) {
     ) {
       return NextResponse.json(error.details);
     }
-
     return routeErrorResponse(error);
   }
 }

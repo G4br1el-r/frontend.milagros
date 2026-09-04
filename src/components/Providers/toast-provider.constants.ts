@@ -1,8 +1,6 @@
 import type { ToastPosition } from "react-hot-toast";
 import { TOAST_DURATION_MS } from "@/lib/toast/toast.constants";
-
 export const TOAST_POSITION: ToastPosition = "top-center";
-
 export const TOAST_TOAST_OPTIONS = {
   duration: TOAST_DURATION_MS,
   style: {
@@ -16,14 +14,12 @@ export const TOAST_TOAST_OPTIONS = {
     boxShadow: "0 20px 40px -20px rgba(33, 19, 10, 0.55)",
   },
 };
-
 export const TOAST_SUCCESS_STYLE = {
   iconTheme: {
     primary: "#c3924f",
     secondary: "#21130a",
   },
 };
-
 export const TOAST_ERROR_STYLE = {
   iconTheme: {
     primary: "#b1592f",

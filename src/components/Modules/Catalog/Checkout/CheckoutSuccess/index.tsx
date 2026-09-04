@@ -1,5 +1,4 @@
 "use client";
-
 import { Check, FileText } from "lucide-react";
 import { motion } from "motion/react";
 import { formatPrice } from "@/components/Modules/Catalog/Home/Products/product.types";
@@ -10,14 +9,11 @@ import {
   springSnappy,
   successVariants,
 } from "../checkout.motion";
-
 export function CheckoutSuccess() {
   const result = useCheckoutStore((state) => state.result);
   const reset = useCheckoutStore((state) => state.reset);
   const clearCart = useCartStore((state) => state.clear);
-
   if (!result) return null;
-
   return (
     <motion.div
       variants={successVariants}
@@ -35,7 +31,6 @@ export function CheckoutSuccess() {
           >
             <Check className="size-8" strokeWidth={2.5} />
           </motion.span>
-
           <motion.div
             variants={listItemVariants}
             className="flex flex-col gap-1.5"
@@ -43,12 +38,10 @@ export function CheckoutSuccess() {
             <h3 className="font-display text-xl text-primary">
               Pedido confirmado
             </h3>
-
             <p className="text-sm leading-relaxed text-primary/60">
               {result.mensagem ?? "Recebemos seu pedido com sucesso."}
             </p>
           </motion.div>
-
           <motion.dl
             variants={listItemVariants}
             className="flex w-full flex-col gap-2 rounded-xl border border-primary/12 bg-white p-4 text-left text-sm"
@@ -61,7 +54,6 @@ export function CheckoutSuccess() {
                 </dd>
               </div>
             )}
-
             {result.numeroPedidoOmie && (
               <div className="flex items-center justify-between">
                 <dt className="text-primary/60">Pedido Omie</dt>
@@ -70,7 +62,6 @@ export function CheckoutSuccess() {
                 </dd>
               </div>
             )}
-
             <div className="flex items-center justify-between border-t border-primary/10 pt-2">
               <dt className="font-medium text-primary">Total</dt>
               <dd className="font-sans text-lg font-semibold tabular-nums text-primary">
@@ -78,7 +69,6 @@ export function CheckoutSuccess() {
               </dd>
             </div>
           </motion.dl>
-
           <motion.div
             variants={listItemVariants}
             className="flex w-full flex-col gap-2.5"
@@ -97,7 +87,6 @@ export function CheckoutSuccess() {
           </motion.div>
         </div>
       </div>
-
       <div className="border-t border-primary/10 bg-cream p-4 sm:p-6">
         <motion.button
           type="button"

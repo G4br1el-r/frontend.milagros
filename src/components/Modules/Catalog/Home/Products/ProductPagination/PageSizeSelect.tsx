@@ -1,13 +1,10 @@
 "use client";
-
 import { useId } from "react";
 import { useProductFiltersUrl } from "@/lib/query-state/use-product-filters-url";
 import { PRODUCTS_PER_PAGE_OPTIONS } from "../product.constants";
-
 export function PageSizeSelect() {
   const id = useId();
   const { pageSize, setPageSize } = useProductFiltersUrl();
-
   return (
     <label
       htmlFor={id}

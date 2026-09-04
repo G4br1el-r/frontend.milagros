@@ -1,5 +1,4 @@
 "use client";
-
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 import { getPaginationRange } from "./get-pagination-range";
@@ -10,16 +9,13 @@ interface ProductPaginationProps {
   totalPages: number;
   onPageChange: (page: number) => void;
 }
-
 export function ProductPagination({
   page,
   totalPages,
   onPageChange,
 }: ProductPaginationProps) {
   if (totalPages <= 1) return null;
-
   const items = getPaginationRange(page, totalPages);
-
   return (
     <nav
       aria-label="Paginação de produtos"
@@ -39,7 +35,6 @@ export function ProductPagination({
       >
         <ChevronLeft className="size-4" strokeWidth={2} />
       </button>
-
       {items.map((item) =>
         item.type === "ellipsis" ? (
           <span
@@ -65,7 +60,6 @@ export function ProductPagination({
           </button>
         ),
       )}
-
       <button
         type="button"
         disabled={page === totalPages}

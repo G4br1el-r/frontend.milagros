@@ -1,9 +1,7 @@
 "use client";
-
 import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 import { heroCtaArrow, heroCtaLift, heroRise } from "../hero.motion";
-
 export function HeroCta() {
   return (
     <motion.div variants={heroRise} className="inline-flex">
@@ -25,12 +23,10 @@ export function HeroCta() {
         >
           <ArrowRight className="size-4" strokeWidth={2.5} />
         </motion.span>
-
         <span
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-linear-to-b from-white/30 to-transparent opacity-0 transition-opacity duration-500 ease-[cubic-bezier(0.33,1,0.68,1)] group-hover:opacity-100"
         />
-
         <span
           aria-hidden="true"
           className="pointer-events-none absolute inset-y-0 -left-full w-2/3 skew-x-[-20deg] bg-white/25 blur-xl transition-[left] duration-1200 ease-in-out group-hover:left-[160%]"

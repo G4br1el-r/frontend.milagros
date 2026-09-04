@@ -1,28 +1,22 @@
 "use client";
-
 import { useProductFiltersUrl } from "@/lib/query-state/use-product-filters-url";
 import { cn } from "@/lib/utils/cn";
 import { ALPHABET_LETTERS } from "../filters.constants";
 import { useProductLetters } from "../use-filter-options";
 import { LetterFilterSkeleton } from "./LetterFilterSkeleton";
-
 export function LetterFilter() {
   const { letra, setLetra } = useProductFiltersUrl();
   const { data: letters, isLoading } = useProductLetters();
-
   if (isLoading) {
     return <LetterFilterSkeleton />;
   }
-
   const countByLetter = new Map(
     letters?.map((item) => [item.letra.toUpperCase(), item.totalProdutos]),
   );
-
   return (
     <div className="grid grid-cols-7 gap-1.5">
       {ALPHABET_LETTERS.map((letter) => {
         const hasProducts = (countByLetter.get(letter) ?? 0) > 0;
-
         return (
           <button
             key={letter}

@@ -1,17 +1,13 @@
 "use client";
-
 import { useQuery } from "@tanstack/react-query";
 import { fetchOrdersByDocument } from "@/lib/checkout/checkout.client";
 import { accountQueryKeys } from "@/lib/query/keys";
-
 export function useCustomerOrders(cpfCnpj: string) {
   const query = useQuery({
     queryKey: accountQueryKeys.orders(cpfCnpj),
     queryFn: () => fetchOrdersByDocument(cpfCnpj),
-    // Pedido novo pode chegar a qualquer momento — mantem fresco por pouco tempo.
     staleTime: 2 * 60 * 1000,
   });
-
   return {
     orders: query.data ?? [],
     isLoading: query.isPending,

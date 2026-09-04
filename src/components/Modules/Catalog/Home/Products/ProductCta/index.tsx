@@ -1,5 +1,4 @@
 "use client";
-
 import { ShoppingBag } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { QuantityStepper } from "@/components/shared/quantity-stepper";
@@ -13,19 +12,15 @@ interface ProductCtaProps {
   image: string | null;
   price: number;
 }
-
 const CTA_CLASS =
   "absolute inset-0 flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-full text-sm font-medium transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none";
-
 export function ProductCta({ id, name, image, price }: ProductCtaProps) {
   const quantity = useCartStore(
     (state) => state.items.find((item) => item.id === id)?.quantity ?? 0,
   );
   const setQuantity = useCartStore((state) => state.setQuantity);
   const removeItem = useCartStore((state) => state.removeItem);
-  // Passa pelo guard: sem cliente identificado, abre o modal antes de adicionar.
   const { addToCart } = useIdentityGuard();
-
   return (
     <div className="relative h-12 w-full">
       <AnimatePresence initial={false} mode="popLayout">

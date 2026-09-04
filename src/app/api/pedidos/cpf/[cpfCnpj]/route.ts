@@ -8,17 +8,14 @@ import type { PedidoDetalhesDto } from "@/lib/checkout/checkout.types";
 interface RouteContext {
   params: Promise<{ cpfCnpj: string }>;
 }
-
 export async function GET(_request: NextRequest, { params }: RouteContext) {
   const { cpfCnpj } = await params;
-
   try {
     const pedidos = await withAuthRetry(() =>
       api.get<PedidoDetalhesDto[]>(
         `/api/pedidos/cpf/${encodeURIComponent(cpfCnpj)}`,
       ),
     );
-
     return NextResponse.json(pedidos);
   } catch (error) {
     return routeErrorResponse(error);

@@ -1,5 +1,4 @@
 import type { ProductSearchFilters } from "@/components/Modules/Catalog/Home/Products/ProductFilters/filters.types";
-
 export const productQueryKeys = {
   all: ["products"] as const,
   search: (filters: ProductSearchFilters) =>
@@ -10,7 +9,6 @@ export const productQueryKeys = {
   letters: ["product-letters"] as const,
   priceRange: ["product-price-range"] as const,
 };
-
 export const accountQueryKeys = {
   orders: (cpfCnpj: string) => ["account-orders", cpfCnpj] as const,
 };

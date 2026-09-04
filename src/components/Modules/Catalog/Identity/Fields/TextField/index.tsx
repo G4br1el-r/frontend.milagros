@@ -1,5 +1,4 @@
 "use client";
-
 import { cn } from "@/lib/utils/cn";
 
 interface TextFieldProps {
@@ -15,7 +14,6 @@ interface TextFieldProps {
   maxLength?: number;
   uppercase?: boolean;
 }
-
 export function TextField({
   id,
   value,

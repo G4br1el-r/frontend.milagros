@@ -1,5 +1,4 @@
 "use client";
-
 import { X } from "lucide-react";
 import { useProductFiltersUrl } from "@/lib/query-state/use-product-filters-url";
 import { formatPrice } from "../../product.types";
@@ -9,12 +8,6 @@ interface Chip {
   label: string;
   onRemove: () => void;
 }
-
-/**
- * Filtro aplicado tem que aparecer fora do drawer como chip removível
- * individualmente (seção 3) — sem isso, o único jeito de saber "por que
- * estou vendo esses produtos" é abrir o drawer de novo, ou limpar tudo.
- */
 export function ActiveFilterChips() {
   const {
     termo,
@@ -27,9 +20,7 @@ export function ActiveFilterChips() {
     setCategoria,
     setPrecoRange,
   } = useProductFiltersUrl();
-
   const chips: Chip[] = [];
-
   if (termo) {
     chips.push({
       key: "termo",
@@ -37,7 +28,6 @@ export function ActiveFilterChips() {
       onRemove: () => setTermo(""),
     });
   }
-
   if (letra) {
     chips.push({
       key: "letra",
@@ -45,7 +35,6 @@ export function ActiveFilterChips() {
       onRemove: () => setLetra(null),
     });
   }
-
   if (categoria) {
     chips.push({
       key: "categoria",
@@ -53,22 +42,18 @@ export function ActiveFilterChips() {
       onRemove: () => setCategoria(null),
     });
   }
-
   if (precoMin !== undefined || precoMax !== undefined) {
     const min = precoMin !== undefined ? formatPrice(precoMin) : null;
     const max = precoMax !== undefined ? formatPrice(precoMax) : null;
     const label =
       min && max ? `${min} – ${max}` : min ? `Acima de ${min}` : `Até ${max}`;
-
     chips.push({
       key: "preco",
       label,
       onRemove: () => setPrecoRange(undefined, undefined),
     });
   }
-
   if (chips.length === 0) return null;
-
   return (
     <ul className="flex flex-wrap items-center gap-2 px-3 sm:px-4">
       {chips.map((chip) => (

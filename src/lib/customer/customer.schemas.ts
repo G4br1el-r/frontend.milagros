@@ -3,11 +3,6 @@ import { z } from "zod";
 import { CEP_LENGTH, CNPJ_LENGTH, CPF_LENGTH } from "./customer.constants";
 
 const onlyDigits = (value: string) => value.replace(/\D/g, "");
-
-/**
- * Um unico campo aceita CPF ou CNPJ: o comprimento decide qual validador roda.
- * A mascara garante o formato; o validador garante o digito verificador.
- */
 export const documentSchema = z
   .string()
   .trim()
@@ -22,14 +17,11 @@ export const documentSchema = z
       digits.length === CPF_LENGTH ? cpf.isValid(digits) : cnpj.isValid(digits),
     "Documento invalido",
   );
-
 export const documentFormSchema = z.object({
   cpfCnpj: documentSchema,
 });
-
 export type DocumentFormValues = z.input<typeof documentFormSchema>;
 export type DocumentFormOutput = z.output<typeof documentFormSchema>;
-
 export const customerFormSchema = z.object({
   cpfCnpj: documentSchema,
   nomeRazaoSocial: z
@@ -56,6 +48,5 @@ export const customerFormSchema = z.object({
   cidade: z.string().trim().min(1, "Informe a cidade"),
   uf: z.string().trim().length(2, "UF invalida"),
 });
-
 export type CustomerFormValues = z.input<typeof customerFormSchema>;
 export type CustomerFormOutput = z.output<typeof customerFormSchema>;

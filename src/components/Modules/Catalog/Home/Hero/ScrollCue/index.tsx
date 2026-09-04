@@ -1,11 +1,8 @@
 "use client";
-
 import { motion, useReducedMotion } from "motion/react";
 import { EASE_OUT_EXPO } from "../hero.motion";
-
 export function ScrollCue() {
   const reduceMotion = useReducedMotion();
-
   return (
     <motion.a
       href="#catalog"
@@ -18,7 +15,6 @@ export function ScrollCue() {
       <span className="text-[9px] font-medium tracking-[0.35em] uppercase sm:text-[10px] sm:tracking-[0.4em]">
         Deslize
       </span>
-
       <span className="relative block h-8 w-px overflow-hidden bg-cream/25 sm:h-12">
         <motion.span
           className="absolute inset-x-0 top-0 block h-1/2 bg-linear-to-b from-transparent to-cream"

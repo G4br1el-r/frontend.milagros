@@ -1,5 +1,4 @@
 "use client";
-
 import { Images, Star } from "lucide-react";
 import Link from "next/link";
 import { ProductCardShell } from "../ProductCardShell";
@@ -13,16 +12,6 @@ interface ProductCardProps {
   product: Product;
   priority?: boolean;
 }
-
-/**
- * Card inteiro é clicável (não só imagem+título como antes — dois
- * controles duplicados para leitor de tela, encontrado no AUDIT.md). Um
- * único link "esticado" (absolute inset-0, z-index abaixo do CTA) cobre a
- * área toda e leva à página do produto; o restante do conteúdo (imagem,
- * nome, preço) é decorativo e não intercepta clique. O CTA de carrinho
- * fica acima na pilha de z-index para continuar clicável de forma
- * independente.
- */
 export function ProductCard({ product, priority }: ProductCardProps) {
   const {
     attributes,
@@ -36,7 +25,6 @@ export function ProductCard({ product, priority }: ProductCardProps) {
     rating,
     reviewCount,
   } = product;
-
   return (
     <ProductCardShell>
       <Link
@@ -44,7 +32,6 @@ export function ProductCard({ product, priority }: ProductCardProps) {
         aria-label={`Ver detalhes de ${name}`}
         className="absolute inset-0 z-0 cursor-pointer focus-visible:outline-none"
       />
-
       <div className="pointer-events-none">
         <ProductMedia
           src={image}
@@ -58,7 +45,6 @@ export function ProductCard({ product, priority }: ProductCardProps) {
                   {images.length}
                 </span>
               )}
-
               {attributes.length > 0 && (
                 <ProductPanel>
                   <dl className="flex items-center justify-between gap-3">
@@ -82,7 +68,6 @@ export function ProductCard({ product, priority }: ProductCardProps) {
           }
         />
       </div>
-
       <div className="pointer-events-none flex flex-1 flex-col gap-3 p-5 sm:p-6">
         <div className="flex items-center justify-between gap-3">
           {category && (
@@ -90,7 +75,6 @@ export function ProductCard({ product, priority }: ProductCardProps) {
               {category}
             </span>
           )}
-
           {rating !== null && (
             <span className="ml-auto inline-flex shrink-0 items-center gap-1 text-xs text-primary/70">
               <Star
@@ -107,11 +91,9 @@ export function ProductCard({ product, priority }: ProductCardProps) {
             </span>
           )}
         </div>
-
         <h3 className="font-display text-xl leading-tight text-primary transition-colors duration-200 sm:text-2xl">
           {name}
         </h3>
-
         <div className="mt-auto flex flex-col gap-6 pt-3">
           <div className="flex flex-col">
             {compareAtPrice && (
@@ -123,7 +105,6 @@ export function ProductCard({ product, priority }: ProductCardProps) {
               {formatPrice(price)}
             </span>
           </div>
-
           <div className="pointer-events-auto relative z-10">
             <ProductCta id={id} name={name} image={image} price={price} />
           </div>

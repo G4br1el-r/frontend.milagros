@@ -1,5 +1,4 @@
 "use client";
-
 import { Check } from "lucide-react";
 import { useId } from "react";
 import { cn } from "@/lib/utils/cn";
@@ -10,7 +9,6 @@ interface CategoryOptionProps {
   selected: boolean;
   onSelect: () => void;
 }
-
 export function CategoryOption({
   label,
   count,
@@ -18,7 +16,6 @@ export function CategoryOption({
   onSelect,
 }: CategoryOptionProps) {
   const id = useId();
-
   return (
     <label
       htmlFor={id}
@@ -49,7 +46,6 @@ export function CategoryOption({
           strokeWidth={3}
         />
       </span>
-
       <span
         className={cn(
           "flex-1 text-sm transition-colors duration-200",
@@ -60,7 +56,6 @@ export function CategoryOption({
       >
         {label}
       </span>
-
       <span className="text-xs text-primary/40 tabular-nums">{count}</span>
     </label>
   );

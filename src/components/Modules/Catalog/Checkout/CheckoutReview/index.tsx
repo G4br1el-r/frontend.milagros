@@ -1,5 +1,4 @@
 "use client";
-
 import { AlertCircle, ArrowLeft, Loader2 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef } from "react";
@@ -10,54 +9,39 @@ import { useCustomerStore } from "@/lib/stores/customer";
 import { listItemVariants, stepVariants } from "../checkout.motion";
 import { OrderSummary } from "../OrderSummary";
 import { ReviewItem } from "./ReviewItem";
-
 export function CheckoutReview() {
   const items = useCartStore((state) => state.items);
   const total = useCartTotal();
   const customer = useCustomerStore((state) => state.customer);
-
   const closeCheckout = useCheckoutStore((state) => state.close);
   const resetCheckout = useCheckoutStore((state) => state.reset);
   const openCart = useCartStore((state) => state.open);
   const goToStep = useCheckoutStore((state) => state.goToStep);
-
   const isValidating = useCheckoutStore((state) => state.isValidating);
   const validation = useCheckoutStore((state) => state.validation);
   const validationError = useCheckoutStore((state) => state.validationError);
-
   const { validate } = useCheckout();
-
   const handleBackToCart = () => {
     closeCheckout();
     resetCheckout();
     openCart();
   };
-
   const isApproved = Boolean(validation?.valido);
-
   const handlePrimaryAction = () => {
     if (isApproved) {
       goToStep("pagamento");
       return;
     }
-
     void validate();
   };
-
-  // Valida uma vez ao abrir; o usuario so revalida se voltar e tentar de novo.
   const hasAutoValidated = useRef(false);
-
   useEffect(() => {
     if (hasAutoValidated.current || validation || isValidating) return;
     if (!customer || items.length === 0) return;
-
     hasAutoValidated.current = true;
     void validate();
   }, [customer, items.length, validation, isValidating, validate]);
-
-  // Recusa da API (pedido minimo, por exemplo) chega como valido=false.
   const rejection = validation && !validation.valido ? validation : null;
-
   return (
     <motion.div
       variants={stepVariants}
@@ -76,7 +60,6 @@ export function CheckoutReview() {
             <ArrowLeft className="size-3.5" strokeWidth={2.5} />
             Voltar ao carrinho
           </button>
-
           <motion.ul variants={listItemVariants} className="flex flex-col">
             <AnimatePresence initial={false}>
               {items.map((item) => (
@@ -84,11 +67,9 @@ export function CheckoutReview() {
               ))}
             </AnimatePresence>
           </motion.ul>
-
           <motion.div variants={listItemVariants}>
             <OrderSummary subtotal={total} total={total} />
           </motion.div>
-
           <AnimatePresence mode="wait">
             {(rejection || validationError) && (
               <motion.div
@@ -111,7 +92,6 @@ export function CheckoutReview() {
           </AnimatePresence>
         </div>
       </div>
-
       <div className="border-t border-primary/10 bg-cream p-4 sm:p-6">
         <motion.button
           type="button"

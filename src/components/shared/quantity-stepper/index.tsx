@@ -1,5 +1,4 @@
 "use client";
-
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { type ChangeEvent, useState } from "react";
@@ -14,9 +13,7 @@ interface QuantityStepperProps {
   className?: string;
   showRemoveButton?: boolean;
 }
-
 const NUMERIC_PATTERN = /^\d*$/;
-
 export function QuantityStepper({
   quantity,
   onChange,
@@ -29,17 +26,13 @@ export function QuantityStepper({
   const [draft, setDraft] = useState<string | null>(null);
   const [isFocused, setIsFocused] = useState(false);
   const [pulseDelete, setPulseDelete] = useState(false);
-
   const clamp = (value: number) => Math.min(max, Math.max(min, value));
-
   const commit = (value: number) => {
     setDraft(null);
     setIsFocused(false);
     onChange(clamp(value));
   };
-
   const bump = (delta: number) => onChange(clamp(quantity + delta));
-
   const handleDecrement = () => {
     if (quantity <= min) {
       setPulseDelete(true);
@@ -48,12 +41,10 @@ export function QuantityStepper({
     }
     bump(-1);
   };
-
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     if (NUMERIC_PATTERN.test(value)) setDraft(value);
   };
-
   const handleBlur = () => {
     if (draft === null || draft === "") {
       commit(min);
@@ -61,9 +52,7 @@ export function QuantityStepper({
     }
     commit(Number(draft));
   };
-
   const isAtMin = quantity <= min;
-
   return (
     <div className={cn("flex items-center gap-1.5", className)}>
       <AnimatePresence initial={false}>
@@ -89,7 +78,6 @@ export function QuantityStepper({
           </motion.div>
         )}
       </AnimatePresence>
-
       <div className="flex flex-1 items-center gap-1 rounded-full border border-primary/12 bg-white px-1 py-1">
         <motion.button
           type="button"
@@ -130,7 +118,6 @@ export function QuantityStepper({
             )}
           </AnimatePresence>
         </motion.button>
-
         <div className="relative flex h-7 flex-1 items-center justify-center px-2">
           <AnimatePresence mode="popLayout" initial={false}>
             {!isFocused && (
@@ -147,7 +134,6 @@ export function QuantityStepper({
               </motion.span>
             )}
           </AnimatePresence>
-
           <input
             type="text"
             inputMode="numeric"
@@ -166,7 +152,6 @@ export function QuantityStepper({
             aria-label="Quantidade"
           />
         </div>
-
         <motion.button
           type="button"
           onClick={() => bump(1)}

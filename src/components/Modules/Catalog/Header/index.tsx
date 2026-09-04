@@ -1,5 +1,4 @@
 "use client";
-
 import { ShoppingCart } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
@@ -12,19 +11,13 @@ import { cn } from "@/lib/utils/cn";
 import { MobileMenu } from "./MobileMenu";
 import { NAV_LINKS } from "./nav-links.constants";
 import { useScrolled } from "./useScrolled";
-
 export function Header() {
   const { scrolled, hidden } = useScrolled();
   const count = useCartCount();
   const openCart = useCartStore((state) => state.open);
   const pathname = usePathname();
-
-  // O header transparente so funciona sobre o hero escuro da home: em cima
-  // de qualquer pagina de fundo claro (bg-cream), texto e icones em linho
-  // sumiriam. Fora da home ele ja nasce solido, sem esperar o scroll.
   const overDarkHero = pathname === "/";
   const solid = scrolled || !overDarkHero;
-
   return (
     <motion.header
       animate={{ y: hidden ? "-100%" : "0%" }}
@@ -48,7 +41,6 @@ export function Header() {
             </a>
           ))}
         </nav>
-
         <Link
           href="/"
           aria-label="Milagros — página inicial"
@@ -64,10 +56,8 @@ export function Header() {
             className="h-10 w-auto object-contain sm:h-14"
           />
         </Link>
-
         <div className="flex items-center justify-end gap-2 sm:gap-3">
           <CustomerMenu />
-
           <button
             type="button"
             onClick={openCart}
@@ -77,7 +67,6 @@ export function Header() {
             className="relative flex size-11 cursor-pointer items-center justify-center rounded-full border border-linho/20 text-linho transition-colors duration-300 hover:border-ouro hover:text-ouro focus-visible:outline-2 focus-visible:outline-ouro focus-visible:outline-offset-2"
           >
             <ShoppingCart className="size-5" strokeWidth={1.75} />
-
             <AnimatePresence>
               {count !== null && count > 0 && (
                 <motion.span
@@ -93,7 +82,6 @@ export function Header() {
               )}
             </AnimatePresence>
           </button>
-
           <MobileMenu />
         </div>
       </Container>

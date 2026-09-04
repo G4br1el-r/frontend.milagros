@@ -1,15 +1,10 @@
 import { Mail, Phone } from "lucide-react";
 import Image from "next/image";
 import { Container } from "@/components/Layout/Container";
-import { Body, Heading, Meta } from "@/components/Typography";
+import { Heading, Meta } from "@/components/Typography";
 import { WHATSAPP_URL } from "@/lib/contact/whatsapp";
 import { WhatsappIcon } from "./brandIcons";
 
-const FACTS = [
-  "Fundada em 24 de junho de 2002.",
-  "Incenso Nossa Senhora Aparecida usado no Vaticano desde 2008.",
-  "Fornecedora oficial nas visitas de Bento XVI (2007) e Francisco (2013) ao Brasil.",
-] as const;
 const CONTACTS = [
   {
     icon: Phone,
@@ -75,21 +70,11 @@ export function Footer() {
             ))}
           </ul>
         </div>
-        <div className="flex flex-col gap-3 border-t border-ouro/10 pt-8">
-          {FACTS.map((fact) => (
-            <Body
-              key={fact}
-              variant="ui"
-              size="step-neg-1"
-              className="text-fumaca"
-            >
-              {fact}
-            </Body>
-          ))}
+        <div className="border-t border-ouro/10 pt-8">
+          <Meta className="text-fumaca">
+            MILAGROS® — incensos e carvões litúrgicos
+          </Meta>
         </div>
-        <Meta className="text-fumaca">
-          MILAGROS® — incensos e carvões litúrgicos
-        </Meta>
       </Container>
     </footer>
   );

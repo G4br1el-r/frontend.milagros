@@ -44,7 +44,7 @@ export function ProductsResults() {
       <FadeIn distance={16} delay={0.1}>
         <ProductSearch />
       </FadeIn>
-      <div className="mb-4 flex flex-col gap-3 px-3 sm:px-4">
+      <FadeIn distance={16} delay={0.2} className="mb-4 flex flex-col gap-3 px-3 sm:px-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <span className="text-sm text-primary/55" aria-live="polite">
             {countLabel}
@@ -57,7 +57,7 @@ export function ProductsResults() {
           </div>
         </div>
         <ActiveFilterChips />
-      </div>
+      </FadeIn>
       <div className="flex items-start gap-4 px-3 sm:px-4 xl:gap-5">
         <ProductFilters desktopOnly />
         <div className="min-w-0 flex-1">

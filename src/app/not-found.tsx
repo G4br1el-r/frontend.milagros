@@ -2,7 +2,6 @@ import { ArrowRight, Sparkle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Container } from "@/components/Layout/Container";
-import { FadeIn } from "@/components/motion/fade-in";
 export default function NotFound() {
   return (
     <main className="relative flex min-h-[calc(100vh-120px)] w-full flex-col items-center justify-center overflow-hidden bg-cream">
@@ -17,11 +16,7 @@ export default function NotFound() {
         <div className="absolute inset-0 bg-linear-to-r from-cream via-transparent to-cream" />
       </div>
       <Container className="relative z-10 flex w-full flex-col items-center text-center">
-        <FadeIn
-          className="mx-auto flex flex-col items-center gap-6"
-          distance={20}
-          onMount
-        >
+        <div className="mx-auto flex flex-col items-center gap-6">
           <div className="flex items-center gap-3 rounded-full border border-gold/40 bg-white/50 px-5 py-2 backdrop-blur-md">
             <Sparkle className="size-4 text-gold" strokeWidth={2} />
             <span className="text-xs font-medium tracking-[0.3em] text-primary-dark uppercase">
@@ -59,7 +54,7 @@ export default function NotFound() {
               className="pointer-events-none absolute inset-y-0 -left-full w-2/3 skew-x-[-20deg] bg-white/25 blur-xl transition-[left] duration-1200 ease-in-out group-hover:left-[160%]"
             />
           </Link>
-        </FadeIn>
+        </div>
       </Container>
     </main>
   );

@@ -69,7 +69,7 @@ export function CheckoutPayment() {
               rows={3}
               maxLength={500}
               placeholder="Alguma instrução para o pedido? (opcional)"
-              className="w-full resize-none rounded-lg border border-primary/15 bg-white px-3.5 py-2.5 text-sm text-primary outline-none transition-colors duration-200 placeholder:text-primary/35 focus-visible:border-gold focus-visible:ring-2 focus-visible:ring-gold/25"
+              className="w-full resize-none rounded-lg border border-primary/15 bg-white px-3.5 py-2.5 text-base text-primary outline-none transition-colors duration-200 placeholder:text-primary/35 focus-visible:border-gold focus-visible:ring-2 focus-visible:ring-gold/25"
             />
           </motion.div>
           <motion.div variants={listItemVariants}>

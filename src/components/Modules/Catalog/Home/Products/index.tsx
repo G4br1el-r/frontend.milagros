@@ -18,7 +18,7 @@ export function Products() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-linear-to-r from-cream/80 via-cream/40 to-transparent" />
+        <div className="absolute inset-0 bg-cream/55 sm:bg-linear-to-r sm:from-cream/80 sm:via-cream/40 sm:to-transparent" />
         <Container className="relative w-full">
           <StaggerReveal
             className="mx-auto flex max-w-3xl flex-col items-center justify-center text-center gap-5 sm:gap-8"

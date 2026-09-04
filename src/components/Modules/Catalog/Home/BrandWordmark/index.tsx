@@ -15,7 +15,7 @@ export function BrandWordmark() {
         initial="hidden"
         animate="show"
         variants={reduceMotion ? undefined : wordmarkReveal}
-        className="block px-[0.04em] text-[clamp(2.25rem,11.5vw,7rem)] leading-[1.2] font-medium tracking-[-0.005em] [text-shadow:0_24px_90px_rgba(90,70,42,0.55)] sm:text-[12.5vw] lg:text-[9.5vw] xl:text-[8.75vw]"
+        className="block px-[0.04em] text-[clamp(2.5rem,9vw,7rem)] leading-[1.2] font-medium tracking-[-0.02em] [text-shadow:0_24px_90px_rgba(90,70,42,0.55)] sm:text-[12.5vw] sm:tracking-[-0.005em] lg:text-[9.5vw] xl:text-[8.75vw]"
       >
         {WORDMARK}
       </motion.span>

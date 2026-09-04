@@ -15,7 +15,7 @@ export function PageSizeSelect() {
         id={id}
         value={pageSize}
         onChange={(event) => setPageSize(Number(event.target.value))}
-        className="rounded-full border border-primary/15 bg-white px-3 py-1.5 text-sm text-primary focus:outline-none"
+        className="rounded-full border border-primary/15 bg-white px-3 py-1.5 text-base text-primary focus:outline-none"
       >
         {PRODUCTS_PER_PAGE_OPTIONS.map((option) => (
           <option key={option} value={option}>

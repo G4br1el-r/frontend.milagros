@@ -12,6 +12,7 @@ interface QuantityStepperProps {
   min?: number;
   max?: number;
   className?: string;
+  showRemoveButton?: boolean;
 }
 
 const NUMERIC_PATTERN = /^\d*$/;
@@ -21,8 +22,9 @@ export function QuantityStepper({
   onChange,
   onRemove,
   min = 1,
-  max = 99,
+  max = 9999,
   className,
+  showRemoveButton = true,
 }: QuantityStepperProps) {
   const [draft, setDraft] = useState<string | null>(null);
   const [isFocused, setIsFocused] = useState(false);
@@ -63,98 +65,119 @@ export function QuantityStepper({
   const isAtMin = quantity <= min;
 
   return (
-    <div
-      className={cn(
-        "inline-flex items-center gap-1 rounded-full border border-primary/12 bg-white px-1 py-1",
-        className,
-      )}
-    >
-      <motion.button
-        type="button"
-        onClick={handleDecrement}
-        animate={pulseDelete ? { scale: [1, 0.85, 1] } : { scale: 1 }}
-        onAnimationComplete={() => setPulseDelete(false)}
-        aria-label={isAtMin ? "Remover item" : "Diminuir quantidade"}
-        className={cn(
-          "flex size-7 cursor-pointer items-center justify-center rounded-full transition-colors duration-200",
-          isAtMin
-            ? "text-terracotta hover:bg-terracotta/10"
-            : "text-primary/70 hover:bg-primary/8 hover:text-primary",
+    <div className={cn("flex items-center gap-1.5", className)}>
+      <AnimatePresence initial={false}>
+        {showRemoveButton && !isAtMin && (
+          <motion.div
+            initial={{ gridTemplateColumns: "0fr", opacity: 0 }}
+            animate={{ gridTemplateColumns: "1fr", opacity: 1 }}
+            exit={{ gridTemplateColumns: "0fr", opacity: 0 }}
+            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="grid shrink-0"
+          >
+            <div className="min-w-0 overflow-hidden rounded-full border border-primary/12 bg-white p-1">
+              <motion.button
+                type="button"
+                onClick={onRemove}
+                whileTap={{ scale: 0.85 }}
+                aria-label="Remover item"
+                className="flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-full text-terracotta transition-colors duration-200 hover:bg-terracotta/10"
+              >
+                <Trash2 className="size-3.5" strokeWidth={2} />
+              </motion.button>
+            </div>
+          </motion.div>
         )}
-      >
-        <AnimatePresence mode="wait" initial={false}>
-          {isAtMin ? (
-            <motion.span
-              key="trash"
-              initial={{ opacity: 0, rotate: -45, scale: 0.6 }}
-              animate={{ opacity: 1, rotate: 0, scale: 1 }}
-              exit={{ opacity: 0, rotate: 45, scale: 0.6 }}
-              transition={{ duration: 0.2 }}
-              className="flex"
-            >
-              <Trash2 className="size-3.5" strokeWidth={2} />
-            </motion.span>
-          ) : (
-            <motion.span
-              key="minus"
-              initial={{ opacity: 0, rotate: 45, scale: 0.6 }}
-              animate={{ opacity: 1, rotate: 0, scale: 1 }}
-              exit={{ opacity: 0, rotate: -45, scale: 0.6 }}
-              transition={{ duration: 0.2 }}
-              className="flex"
-            >
-              <Minus className="size-3.5" strokeWidth={2.5} />
-            </motion.span>
-          )}
-        </AnimatePresence>
-      </motion.button>
+      </AnimatePresence>
 
-      <div className="relative flex h-7 w-9 items-center justify-center">
-        <AnimatePresence mode="popLayout" initial={false}>
-          {!isFocused && (
-            <motion.span
-              key={quantity}
-              aria-hidden="true"
-              initial={{ y: 10, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -10, opacity: 0 }}
-              transition={{ duration: 0.18 }}
-              className="pointer-events-none absolute text-sm font-semibold text-primary tabular-nums"
-            >
-              {quantity}
-            </motion.span>
-          )}
-        </AnimatePresence>
-
-        <input
-          type="text"
-          inputMode="numeric"
-          pattern="[0-9]*"
-          value={draft ?? quantity}
-          onChange={handleInputChange}
-          onFocus={() => {
-            setIsFocused(true);
-            setDraft(String(quantity));
-          }}
-          onBlur={handleBlur}
+      <div className="flex flex-1 items-center gap-1 rounded-full border border-primary/12 bg-white px-1 py-1">
+        <motion.button
+          type="button"
+          onClick={handleDecrement}
+          animate={pulseDelete ? { scale: [1, 0.85, 1] } : { scale: 1 }}
+          onAnimationComplete={() => setPulseDelete(false)}
+          aria-label={isAtMin ? "Remover item" : "Diminuir quantidade"}
           className={cn(
-            "absolute w-full bg-transparent text-center text-sm font-semibold text-primary tabular-nums outline-none",
-            !isFocused && "opacity-0",
+            "flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-full transition-colors duration-200",
+            isAtMin
+              ? "text-terracotta hover:bg-terracotta/10"
+              : "text-primary/70 hover:bg-primary/8 hover:text-primary",
           )}
-          aria-label="Quantidade"
-        />
-      </div>
+        >
+          <AnimatePresence mode="wait" initial={false}>
+            {isAtMin ? (
+              <motion.span
+                key="trash"
+                initial={{ opacity: 0, rotate: -45, scale: 0.6 }}
+                animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                exit={{ opacity: 0, rotate: 45, scale: 0.6 }}
+                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                className="flex"
+              >
+                <Trash2 className="size-3.5" strokeWidth={2} />
+              </motion.span>
+            ) : (
+              <motion.span
+                key="minus"
+                initial={{ opacity: 0, rotate: 45, scale: 0.6 }}
+                animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                exit={{ opacity: 0, rotate: -45, scale: 0.6 }}
+                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                className="flex"
+              >
+                <Minus className="size-3.5" strokeWidth={2.5} />
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </motion.button>
 
-      <motion.button
-        type="button"
-        onClick={() => bump(1)}
-        whileTap={{ scale: 0.85 }}
-        disabled={quantity >= max}
-        aria-label="Aumentar quantidade"
-        className="flex size-7 cursor-pointer items-center justify-center rounded-full text-primary/70 transition-colors duration-200 hover:bg-primary/8 hover:text-primary disabled:pointer-events-none disabled:opacity-30"
-      >
-        <Plus className="size-3.5" strokeWidth={2.5} />
-      </motion.button>
+        <div className="relative flex h-7 flex-1 items-center justify-center px-2">
+          <AnimatePresence mode="popLayout" initial={false}>
+            {!isFocused && (
+              <motion.span
+                key={quantity}
+                aria-hidden="true"
+                initial={{ y: 10, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -10, opacity: 0 }}
+                transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+                className="pointer-events-none absolute text-sm font-semibold text-primary tabular-nums"
+              >
+                {quantity}
+              </motion.span>
+            )}
+          </AnimatePresence>
+
+          <input
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            value={draft ?? quantity}
+            onChange={handleInputChange}
+            onFocus={() => {
+              setIsFocused(true);
+              setDraft(String(quantity));
+            }}
+            onBlur={handleBlur}
+            className={cn(
+              "w-full cursor-text bg-transparent text-center text-base font-semibold text-primary tabular-nums outline-none",
+              !isFocused && "absolute inset-0 opacity-0",
+            )}
+            aria-label="Quantidade"
+          />
+        </div>
+
+        <motion.button
+          type="button"
+          onClick={() => bump(1)}
+          whileTap={{ scale: 0.85 }}
+          disabled={quantity >= max}
+          aria-label="Aumentar quantidade"
+          className="flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-full text-primary/70 transition-colors duration-200 hover:bg-primary/8 hover:text-primary disabled:pointer-events-none disabled:opacity-30"
+        >
+          <Plus className="size-3.5" strokeWidth={2.5} />
+        </motion.button>
+      </div>
     </div>
   );
 }

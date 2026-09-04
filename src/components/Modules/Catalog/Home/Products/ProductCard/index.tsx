@@ -1,25 +1,36 @@
-import { Flame, Star } from "lucide-react";
+"use client";
+
+import { Images, Star } from "lucide-react";
+import Link from "next/link";
 import { ProductCardShell } from "../ProductCardShell";
 import { ProductCta } from "../ProductCta";
 import { ProductMedia } from "../ProductMedia";
 import { ProductPanel } from "../ProductPanel";
+import { buildProductSlug } from "../product.slug";
 import { formatPrice, type Product } from "../product.types";
-import { ProductBadgeTag } from "./ProductBadgeTag";
 
 interface ProductCardProps {
   product: Product;
   priority?: boolean;
 }
 
+/**
+ * Card inteiro é clicável (não só imagem+título como antes — dois
+ * controles duplicados para leitor de tela, encontrado no AUDIT.md). Um
+ * único link "esticado" (absolute inset-0, z-index abaixo do CTA) cobre a
+ * área toda e leva à página do produto; o restante do conteúdo (imagem,
+ * nome, preço) é decorativo e não intercepta clique. O CTA de carrinho
+ * fica acima na pilha de z-index para continuar clicável de forma
+ * independente.
+ */
 export function ProductCard({ product, priority }: ProductCardProps) {
   const {
     attributes,
-    badge,
+    category,
     compareAtPrice,
-    description,
-    devotion,
     id,
     image,
+    images,
     name,
     price,
     rating,
@@ -28,91 +39,94 @@ export function ProductCard({ product, priority }: ProductCardProps) {
 
   return (
     <ProductCardShell>
-      <ProductMedia
-        src={image}
-        alt={name}
-        priority={priority}
-        overlay={
-          <ProductPanel>
-            <dl className="flex items-center justify-between gap-3">
-              {attributes.map((attribute) => (
-                <div
-                  key={attribute.label}
-                  className="flex min-w-0 flex-col gap-0.5"
-                >
-                  <dt className="text-[9px] tracking-[0.18em] text-gold-light/80 uppercase">
-                    {attribute.label}
-                  </dt>
-                  <dd className="truncate text-xs font-medium text-cream">
-                    {attribute.value}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </ProductPanel>
-        }
+      <Link
+        href={`/produtos/${buildProductSlug(name, id)}`}
+        aria-label={`Ver detalhes de ${name}`}
+        className="absolute inset-0 z-0 cursor-pointer focus-visible:outline-none"
       />
 
-      {badge && (
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-start p-4">
-          <ProductBadgeTag badge={badge} />
-        </div>
-      )}
+      <div className="pointer-events-none">
+        <ProductMedia
+          src={image}
+          alt={name}
+          priority={priority}
+          overlay={
+            <>
+              {images.length > 1 && (
+                <span className="absolute top-3 right-3 z-10 inline-flex items-center gap-1 rounded-full bg-primary-darkest/70 px-2.5 py-1 text-[10px] font-medium text-cream backdrop-blur-md">
+                  <Images className="size-3" strokeWidth={2} />
+                  {images.length}
+                </span>
+              )}
 
-      <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
+              {attributes.length > 0 && (
+                <ProductPanel>
+                  <dl className="flex items-center justify-between gap-3">
+                    {attributes.map((attribute) => (
+                      <div
+                        key={attribute.label}
+                        className="flex min-w-0 flex-col gap-0.5"
+                      >
+                        <dt className="text-[9px] tracking-[0.18em] text-gold-light/80 uppercase">
+                          {attribute.label}
+                        </dt>
+                        <dd className="truncate text-xs font-medium text-cream">
+                          {attribute.value}
+                        </dd>
+                      </div>
+                    ))}
+                  </dl>
+                </ProductPanel>
+              )}
+            </>
+          }
+        />
+      </div>
+
+      <div className="pointer-events-none flex flex-1 flex-col gap-3 p-5 sm:p-6">
         <div className="flex items-center justify-between gap-3">
-          <span className="inline-flex items-center gap-1.5 text-[10px] font-medium tracking-[0.22em] text-primary-dark uppercase">
-            <Flame
-              className="size-3 shrink-0 text-terracotta"
-              strokeWidth={2}
-            />
-            {devotion}
-          </span>
-
-          <span className="inline-flex shrink-0 items-center gap-1 text-xs text-primary/70">
-            <Star
-              className="size-3.5 fill-gold text-gold"
-              strokeWidth={1.5}
-              aria-hidden="true"
-            />
-            <span className="font-semibold text-primary">
-              {rating.toFixed(1)}
+          {category && (
+            <span className="inline-flex items-center gap-1.5 text-[10px] font-medium tracking-[0.22em] text-primary-dark uppercase">
+              {category}
             </span>
-            <span className="sr-only">de 5, com</span>
-            <span>({reviewCount})</span>
-            <span className="sr-only">avaliações</span>
-          </span>
+          )}
+
+          {rating !== null && (
+            <span className="ml-auto inline-flex shrink-0 items-center gap-1 text-xs text-primary/70">
+              <Star
+                className="size-3.5 fill-gold text-gold"
+                strokeWidth={1.5}
+                aria-hidden="true"
+              />
+              <span className="font-semibold text-primary">
+                {rating.toFixed(1)}
+              </span>
+              <span className="sr-only">de 5, com</span>
+              <span>({reviewCount})</span>
+              <span className="sr-only">avaliações</span>
+            </span>
+          )}
         </div>
 
-        <h3 className="font-display text-xl leading-tight text-primary sm:text-2xl">
+        <h3 className="font-display text-xl leading-tight text-primary transition-colors duration-200 sm:text-2xl">
           {name}
         </h3>
 
-        <p className="line-clamp-2 text-sm leading-relaxed text-primary/60">
-          {description}
-        </p>
-
         <div className="mt-auto flex flex-col gap-6 pt-3">
-          <div className="flex items-end justify-between gap-3">
-            <div className="flex flex-col">
-              {compareAtPrice && (
-                <span className="text-xs text-primary/45 line-through">
-                  {formatPrice(compareAtPrice)}
-                </span>
-              )}
-              <span className="font-display text-2xl leading-none text-primary">
-                {formatPrice(price)}
+          <div className="flex flex-col">
+            {compareAtPrice && (
+              <span className="font-sans text-xs tabular-nums text-primary/45 line-through">
+                {formatPrice(compareAtPrice)}
               </span>
-            </div>
-
-            <span className="pb-0.5 text-right text-[10px] leading-tight tracking-[0.1em] text-primary/50 uppercase">
-              até 3x
-              <br />
-              sem juros
+            )}
+            <span className="font-sans text-2xl leading-none font-semibold tabular-nums text-primary">
+              {formatPrice(price)}
             </span>
           </div>
 
-          <ProductCta id={id} name={name} image={image} price={price} />
+          <div className="pointer-events-auto relative z-10">
+            <ProductCta id={id} name={name} image={image} price={price} />
+          </div>
         </div>
       </div>
     </ProductCardShell>

@@ -11,7 +11,7 @@ export function BrandWordmark() {
   return (
     <motion.h1
       variants={wordmarkStage}
-      className="font-display flex w-full items-end justify-center text-cream uppercase"
+      className="font-brand flex w-full items-end justify-center text-cream uppercase"
       aria-label={WORDMARK}
     >
       {WORDMARK.split("").map((char, index) => (

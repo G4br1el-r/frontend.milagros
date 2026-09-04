@@ -1,55 +1,26 @@
 import { type ClassValue, clsx } from "clsx";
 import { extendTailwindMerge } from "tailwind-merge";
 
+/**
+ * Cores da marca declaradas no `@theme` de globals.css. O tailwind-merge nao
+ * as conhece por padrao, entao sem esta lista ele trata `bg-cream` e
+ * `bg-primary` como grupos distintos e deixa as duas classes sobreviverem.
+ * As demais cores do tema (primary, muted, sidebar-*, chart-*) ja fazem parte
+ * do vocabulario padrao do tailwind-merge e nao precisam ser repetidas aqui.
+ */
+const BRAND_COLORS = [
+  "cream",
+  "gold",
+  "gold-light",
+  "primary-dark",
+  "primary-darkest",
+  "terracotta",
+] as const;
+
 const twMerge = extendTailwindMerge({
   extend: {
     theme: {
-      color: [
-        "accent",
-        "accent-foreground",
-        "background",
-        "border",
-        "brand",
-        "brand-deep",
-        "brand-light",
-        "destructive",
-        "destructive-foreground",
-        "foreground",
-        "gray-dark",
-        "input",
-        "muted",
-        "muted-foreground",
-        "panel-accent",
-        "panel-accent-foreground",
-        "panel-accent-light",
-        "panel-border",
-        "panel-muted",
-        "panel-muted-foreground",
-        "panel-page",
-        "panel-surface",
-        "panel-surface-foreground",
-        "primary",
-        "primary-foreground",
-        "ring",
-        "secondary",
-        "secondary-foreground",
-        "sidebar",
-        "sidebar-accent",
-        "sidebar-accent-foreground",
-        "sidebar-border",
-        "sidebar-foreground",
-        "sidebar-primary",
-        "sidebar-primary-foreground",
-        "sidebar-ring",
-        "status-danger",
-        "status-danger-bg",
-        "status-info",
-        "status-info-bg",
-        "status-success",
-        "status-success-bg",
-        "status-warning",
-        "status-warning-bg",
-      ],
+      color: [...BRAND_COLORS],
     },
   },
 });

@@ -69,9 +69,9 @@ export function ProductCard({ product, priority }: ProductCardProps) {
         />
       </div>
       <div className="pointer-events-none flex flex-1 flex-col gap-3 p-5 sm:p-6">
-        <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center justify-between gap-3 min-w-0">
           {category && (
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-medium tracking-[0.22em] text-primary-dark uppercase">
+            <span className="truncate inline-flex items-center gap-1.5 text-[10px] font-medium tracking-[0.22em] text-primary-dark uppercase">
               {category}
             </span>
           )}
@@ -91,7 +91,7 @@ export function ProductCard({ product, priority }: ProductCardProps) {
             </span>
           )}
         </div>
-        <h3 className="font-display text-xl leading-tight text-primary transition-colors duration-200 sm:text-2xl">
+        <h3 className="font-display text-xl leading-tight text-balance line-clamp-2 text-primary transition-colors duration-200 sm:text-2xl">
           {name}
         </h3>
         <div className="mt-auto flex flex-col gap-6 pt-3">

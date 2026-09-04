@@ -29,7 +29,7 @@ export function CustomerMenu() {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger
         aria-label={`Conta de ${customer.nomeRazaoSocial}`}
-        className="flex size-11 cursor-pointer items-center justify-center rounded-full border border-cream/40 text-cream transition-colors duration-300 hover:border-cream hover:bg-cream/10 focus-visible:ring-2 focus-visible:ring-cream focus-visible:outline-none"
+        className="flex size-9 sm:size-11 cursor-pointer items-center justify-center rounded-full border border-cream/40 text-cream transition-colors duration-300 hover:border-cream hover:bg-cream/10 focus-visible:ring-2 focus-visible:ring-cream focus-visible:outline-none"
       >
         <UserRound className="size-5" strokeWidth={1.75} />
       </PopoverTrigger>

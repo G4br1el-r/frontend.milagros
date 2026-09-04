@@ -56,7 +56,7 @@ export function Header() {
             className="h-10 w-auto object-contain sm:h-14"
           />
         </Link>
-        <div className="flex items-center justify-end gap-2 sm:gap-3">
+        <div className="flex items-center justify-end gap-1.5 sm:gap-3">
           <CustomerMenu />
           <button
             type="button"
@@ -64,7 +64,7 @@ export function Header() {
             aria-label={
               count && count > 0 ? `Carrinho (${count} itens)` : "Carrinho"
             }
-            className="relative flex size-11 cursor-pointer items-center justify-center rounded-full border border-linho/20 text-linho transition-colors duration-300 hover:border-ouro hover:text-ouro focus-visible:outline-2 focus-visible:outline-ouro focus-visible:outline-offset-2"
+            className="relative flex size-9 sm:size-11 cursor-pointer items-center justify-center rounded-full border border-linho/20 text-linho transition-colors duration-300 hover:border-ouro hover:text-ouro focus-visible:outline-2 focus-visible:outline-ouro focus-visible:outline-offset-2"
           >
             <ShoppingCart className="size-5" strokeWidth={1.75} />
             <AnimatePresence>

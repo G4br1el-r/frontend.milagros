@@ -31,17 +31,15 @@ export const fieldVariants: Variants = {
   exit: { opacity: 0, y: -6, transition: { duration: 0.14 } },
 };
 
-/** Mensagem de erro do campo: altura animada para nao empurrar o layout seco. */
+/**
+ * Mensagem de erro do campo. A seção 2.7 proíbe animar height — o wrapper
+ * (FieldError) usa grid-template-rows: 0fr → 1fr; aqui só opacity e o leve
+ * y de entrada, que são as propriedades permitidas.
+ */
 export const errorVariants: Variants = {
-  hidden: { opacity: 0, height: 0, y: -4 },
-  visible: { opacity: 1, height: "auto", y: 0, transition: springSnappy },
-  exit: { opacity: 0, height: 0, y: -4, transition: { duration: 0.14 } },
-};
-
-export const popoverVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.96, y: -6 },
-  visible: { opacity: 1, scale: 1, y: 0, transition: springSnappy },
-  exit: { opacity: 0, scale: 0.96, y: -6, transition: { duration: 0.13 } },
+  hidden: { opacity: 0, y: -4 },
+  visible: { opacity: 1, y: 0, transition: springSnappy },
+  exit: { opacity: 0, y: -4, transition: { duration: 0.14 } },
 };
 
 /** Respeita quem pediu menos movimento no sistema. */

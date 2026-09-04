@@ -22,24 +22,16 @@ function filtersCleared() {
   });
 }
 
-function filtersApplied(resultCount: Promise<number>) {
-  toast.promise(
-    resultCount,
-    {
-      loading: "Buscando produtos…",
-      success: (count) =>
-        count > 0
-          ? `${count} ${count === 1 ? "produto encontrado" : "produtos encontrados"}`
-          : "Nenhum produto encontrado",
-      error: "Não foi possível buscar os produtos",
-    },
-    { id: TOAST_IDS.filters, duration: TOAST_DURATION_MS },
-  );
-}
-
 function productsLoadError(message?: string) {
   toast.error(message ?? "Não foi possível carregar os produtos", {
     id: TOAST_IDS.productsError,
+    duration: TOAST_DURATION_MS,
+  });
+}
+
+function accountUpdated() {
+  toast.success("Dados atualizados", {
+    id: TOAST_IDS.account,
     duration: TOAST_DURATION_MS,
   });
 }
@@ -48,6 +40,6 @@ export const appToast = {
   cartAdded,
   cartRemoved,
   filtersCleared,
-  filtersApplied,
   productsLoadError,
+  accountUpdated,
 };

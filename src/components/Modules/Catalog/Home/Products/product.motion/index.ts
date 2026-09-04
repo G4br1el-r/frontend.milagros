@@ -8,21 +8,6 @@ export const CARD_SPRING: Transition = {
   mass: 0.8,
 };
 
-export const gridStage: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08 } },
-};
-
-export const cardEnter: Variants = {
-  hidden: { opacity: 0, y: 32, filter: "blur(8px)" },
-  show: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.9, ease: EASE_OUT_EXPO },
-  },
-};
-
 export const cardLift: Variants = {
   rest: {
     boxShadow: "0 10px 30px -20px rgba(33,19,10,0.45)",

@@ -105,7 +105,10 @@ export function createApiClient(config: ApiClientConfig): ApiClient {
 
     if (!response.ok) {
       const { data, raw } = await safeParseBody(response);
-      const message = extractMessage(data) ?? raw ?? `HTTP ${response.status}`;
+      const message =
+        extractMessage(data) ??
+        safeRawMessage(raw) ??
+        `HTTP ${response.status}`;
       throw httpErrorFromStatus(response.status, message, {
         details: data ?? raw,
       });
@@ -168,6 +171,25 @@ async function safeParseBody(
   } catch {
     return { data: undefined, raw };
   }
+}
+
+/**
+ * Corpo cru so vira mensagem de usuario se parecer mesmo uma mensagem.
+ * Sem isto, um erro que nao responde JSON — o 404 do IIS quando a API esta
+ * fora do ar, uma pagina de proxy/WAF — despeja o HTML inteiro dentro de um
+ * toast. `details` continua guardando o corpo original para depuracao.
+ */
+const RAW_MESSAGE_MAX_LENGTH = 200;
+
+function safeRawMessage(raw: string | undefined): string | undefined {
+  if (!raw) return undefined;
+
+  const trimmed = raw.trim();
+  if (!trimmed || trimmed.length > RAW_MESSAGE_MAX_LENGTH) return undefined;
+  // Qualquer coisa com tag ou doctype e documento, nao mensagem.
+  if (/<[a-z!/]/i.test(trimmed)) return undefined;
+
+  return trimmed;
 }
 
 function extractMessage(data: unknown): string | undefined {

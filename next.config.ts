@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import bundleAnalyzer from "@next/bundle-analyzer";
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
@@ -15,4 +16,11 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: ["192.168.0.207"],
 };
 
-export default nextConfig;
+// ANALYZE=true pnpm build abre o relatorio de bundle no navegador ao final
+// do build. Sem a env var, withBundleAnalyzer e um passthrough — nao muda o
+// build normal.
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
+
+export default withBundleAnalyzer(nextConfig);

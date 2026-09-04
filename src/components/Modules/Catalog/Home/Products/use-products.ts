@@ -1,8 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
-import { useEffect, useRef } from "react";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { productQueryKeys } from "@/lib/query/keys";
 import { useProductFiltersUrl } from "@/lib/query-state/use-product-filters-url";
-import { appToast } from "@/lib/toast/toast";
 import type { ProductSearchFilters } from "./ProductFilters/filters.types";
 import { fetchProducts } from "./product.client";
 import { mapProdutoToProduct } from "./product.mapper";
@@ -24,52 +22,23 @@ export function useProducts() {
   const query = useQuery({
     queryKey: productQueryKeys.search(filters),
     queryFn: () => fetchProducts(filters),
+    // A grade anterior continua visivel enquanto a nova chega, em vez de
+    // voltar ao skeleton a cada troca de filtro ou pagina.
+    placeholderData: keepPreviousData,
   });
 
-  const searchFilters: ProductSearchFilters = {
-    termo: filters.termo,
-    letra: filters.letra,
-    categoria: filters.categoria,
-    precoMin: filters.precoMin,
-    precoMax: filters.precoMax,
-  };
-
-  useFiltersAppliedToast(searchFilters, query.refetch);
-
-  const products = query.data?.itens.map(mapProdutoToProduct) ?? [];
+  const products = query.data?.itens?.map(mapProdutoToProduct) ?? [];
 
   return {
     products,
     total: query.data?.total ?? 0,
     totalPages: query.data?.totalPaginas ?? 1,
     page: query.data?.pagina ?? page,
-    isLoading: query.isFetching,
+    // Skeleton so no primeiro load; depois disso a grade anterior fica no ar.
+    isLoading: query.isPending,
+    isFetching: query.isFetching,
     isError: query.isError,
     error: query.error,
+    refetch: query.refetch,
   };
-}
-
-function useFiltersAppliedToast(
-  filters: ProductSearchFilters,
-  refetch: () => Promise<{ data?: { total?: number } }>,
-) {
-  const filtersKey = JSON.stringify(filters);
-  const hasLoadedOnce = useRef(false);
-  const previousFiltersKey = useRef(filtersKey);
-  const refetchRef = useRef(refetch);
-  refetchRef.current = refetch;
-
-  useEffect(() => {
-    if (!hasLoadedOnce.current) {
-      hasLoadedOnce.current = true;
-      return;
-    }
-
-    if (previousFiltersKey.current === filtersKey) return;
-    previousFiltersKey.current = filtersKey;
-
-    appToast.filtersApplied(
-      refetchRef.current().then((result) => result.data?.total ?? 0),
-    );
-  }, [filtersKey]);
 }

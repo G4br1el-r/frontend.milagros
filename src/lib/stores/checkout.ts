@@ -72,8 +72,6 @@ export const useCheckoutStore = create<CheckoutState>()((set) => ({
     set({
       validation,
       isValidating: false,
-      // So avanca para o pagamento quando o carrinho passa nas regras.
-      step: validation.valido ? "pagamento" : "revisao",
     }),
 
   failValidation: (message) =>

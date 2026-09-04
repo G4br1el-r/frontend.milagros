@@ -1,4 +1,5 @@
 import type {
+  ClienteAtualizarRequest,
   ClienteCadastroRequest,
   ClienteResponse,
   EnderecoCepDto,
@@ -89,4 +90,18 @@ export async function fetchAddressByCep(cep: string): Promise<EnderecoCepDto> {
   const response = await fetch(`/api/enderecos/${digits}`);
 
   return parseJsonOrThrow<EnderecoCepDto>(response);
+}
+
+export async function updateCustomer(
+  cpfCnpj: string,
+  payload: ClienteAtualizarRequest,
+): Promise<ClienteResponse> {
+  const digits = cpfCnpj.replace(/\D/g, "");
+  const response = await fetch(`/api/clientes/cpf/${digits}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+
+  return parseJsonOrThrow<ClienteResponse>(response);
 }

@@ -3,8 +3,6 @@ export const PRODUCT_FALLBACK_DESCRIPTION =
 
 export const PRODUCT_FALLBACK_TEXT = "Não informado";
 
-export const PRODUCT_OUT_OF_STOCK_LABEL = "Indisponível";
-
 export const PRODUCT_MAX_ATTRIBUTES = 4;
 
 export const DEFAULT_PRODUCTS_PER_PAGE = 24;

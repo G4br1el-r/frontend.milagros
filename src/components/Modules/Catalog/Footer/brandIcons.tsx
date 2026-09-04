@@ -2,64 +2,6 @@ import type { SVGProps } from "react";
 
 type BrandIconProps = SVGProps<SVGSVGElement>;
 
-export function InstagramIcon(props: BrandIconProps) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.75}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.5" cy="6.5" r="0.6" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
-
-export function FacebookIcon(props: BrandIconProps) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.75}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <path d="M15 8.5h-2c-.83 0-1.5.67-1.5 1.5v2h3.4l-.5 3H11.5v7h-3v-7H6v-3h2.5v-2.3C8.5 6.9 10 5.5 12.4 5.5H15v3z" />
-    </svg>
-  );
-}
-
-export function YoutubeIcon(props: BrandIconProps) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={1.75}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      {...props}
-    >
-      <rect x="2.5" y="6" width="19" height="12" rx="4" />
-      <path
-        d="M10.5 9.3v5.4l4.8-2.7-4.8-2.7z"
-        fill="currentColor"
-        stroke="none"
-      />
-    </svg>
-  );
-}
-
 export function WhatsappIcon(props: BrandIconProps) {
   return (
     <svg

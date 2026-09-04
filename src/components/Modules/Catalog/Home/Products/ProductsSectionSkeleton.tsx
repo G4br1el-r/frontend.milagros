@@ -10,7 +10,7 @@ export function ProductsSectionSkeleton() {
         <div className="flex items-start gap-4 px-3 sm:px-4 xl:gap-5">
           <div className="hidden w-80 shrink-0 animate-pulse rounded-xl bg-primary/5 lg:block lg:h-[600px]" />
 
-          <div className="grid min-w-0 flex-1 grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5">
+          <div className="grid min-w-0 flex-1 grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 2xl:grid-cols-5">
             {Array.from(
               { length: PRODUCT_SKELETON_FALLBACK_COUNT },
               (_, index) => (

@@ -14,6 +14,9 @@ interface ProductCtaProps {
   price: number;
 }
 
+const CTA_CLASS =
+  "absolute inset-0 flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-full text-sm font-medium transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none";
+
 export function ProductCta({ id, name, image, price }: ProductCtaProps) {
   const quantity = useCartStore(
     (state) => state.items.find((item) => item.id === id)?.quantity ?? 0,
@@ -53,7 +56,7 @@ export function ProductCta({ id, name, image, price }: ProductCtaProps) {
             exit={{ opacity: 0, scale: 0.94 }}
             transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
             whileTap="tap"
-            className="absolute inset-0 flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-primary text-sm font-medium text-cream transition-colors duration-200 hover:bg-primary-darkest focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none"
+            className={`${CTA_CLASS} bg-primary text-cream hover:bg-primary-darkest focus-visible:ring-primary`}
           >
             <ShoppingBag className="size-4" strokeWidth={2} />
             Adicionar ao carrinho

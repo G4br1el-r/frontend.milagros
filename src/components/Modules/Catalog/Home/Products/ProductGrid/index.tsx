@@ -1,18 +1,18 @@
-"use client";
-
-import { motion } from "motion/react";
 import type { ReactNode } from "react";
-import { gridStage } from "../product.motion";
 
-export function ProductGrid({ children }: { children: ReactNode }) {
+interface ProductGridProps {
+  children: ReactNode;
+}
+
+/**
+ * Sem entrada animada por scroll (banida na seção 2.7/3). Server Component:
+ * sem "use client", sem motion/react, um componente a menos atravessando
+ * a fronteira.
+ */
+export function ProductGrid({ children }: ProductGridProps) {
   return (
-    <motion.div
-      initial="hidden"
-      animate="show"
-      variants={gridStage}
-      className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5"
-    >
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 2xl:grid-cols-5">
       {children}
-    </motion.div>
+    </div>
   );
 }

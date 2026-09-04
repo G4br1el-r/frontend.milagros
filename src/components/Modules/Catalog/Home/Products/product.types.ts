@@ -45,7 +45,6 @@ export interface Product {
   unit: string | null;
   weightKg: number | null;
   stock: number | null;
-  inStock: boolean;
   burnTime: string | null;
   rating: number | null;
   reviewCount: number;

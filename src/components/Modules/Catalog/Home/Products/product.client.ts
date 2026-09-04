@@ -4,7 +4,11 @@ import type {
   LetraFiltroDto,
   ProductSearchFilters,
 } from "./ProductFilters/filters.types";
-import type { ProdutosPaginadosDto } from "./product.types";
+import {
+  buildProductSearchQuery,
+  productSearchHasTerms,
+} from "./product.query";
+import type { ProdutoCatalogoDto, ProdutosPaginadosDto } from "./product.types";
 
 async function parseJsonOrThrow<T>(response: Response): Promise<T> {
   if (!response.ok) {
@@ -15,38 +19,11 @@ async function parseJsonOrThrow<T>(response: Response): Promise<T> {
   return response.json() as Promise<T>;
 }
 
-function buildSearchQuery(filters: ProductSearchFilters): string {
-  const params = new URLSearchParams();
-
-  if (filters.termo) params.set("Termo", filters.termo);
-  if (filters.letra) params.set("Letra", filters.letra);
-  if (filters.categoria) params.set("Categoria", filters.categoria);
-  if (filters.precoMin !== undefined)
-    params.set("PrecoMin", String(filters.precoMin));
-  if (filters.precoMax !== undefined)
-    params.set("PrecoMax", String(filters.precoMax));
-  if (filters.page !== undefined) params.set("Page", String(filters.page));
-  if (filters.pageSize !== undefined)
-    params.set("PageSize", String(filters.pageSize));
-
-  return params.toString();
-}
-
-function hasSearchTerms(filters: ProductSearchFilters): boolean {
-  return Boolean(
-    filters.termo ||
-      filters.letra ||
-      filters.categoria ||
-      filters.precoMin !== undefined ||
-      filters.precoMax !== undefined,
-  );
-}
-
 export async function fetchProducts(
   filters: ProductSearchFilters,
 ): Promise<ProdutosPaginadosDto> {
-  const query = buildSearchQuery(filters);
-  const path = hasSearchTerms(filters)
+  const query = buildProductSearchQuery(filters);
+  const path = productSearchHasTerms(filters)
     ? `/api/produtos/pesquisa?${query}`
     : `/api/produtos?${query}`;
 
@@ -67,4 +44,13 @@ export async function fetchProductLetters(): Promise<LetraFiltroDto[]> {
 export async function fetchProductPriceRange(): Promise<FaixaPrecoDto> {
   const response = await fetch("/api/produtos/faixa-preco");
   return parseJsonOrThrow<FaixaPrecoDto>(response);
+}
+
+export async function fetchProductByCode(
+  codigoOmie: string,
+): Promise<ProdutoCatalogoDto> {
+  const response = await fetch(
+    `/api/produtos/${encodeURIComponent(codigoOmie)}`,
+  );
+  return parseJsonOrThrow<ProdutoCatalogoDto>(response);
 }

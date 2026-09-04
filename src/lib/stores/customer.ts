@@ -21,6 +21,12 @@ interface CustomerState {
   pendingIntent: PendingIntent | null;
   /** Documento digitado no modal, reaproveitado como valor inicial do cadastro. */
   draftDocument: string;
+  /**
+   * Falso ate o persist reidratar do localStorage. O servidor sempre renderiza
+   * falso, entao quem depende de `customer` espera esta flag em vez de tratar
+   * "sem cliente" como certeza antes da hidratacao terminar.
+   */
+  hasHydrated: boolean;
 
   requestIdentity: (intent: PendingIntent) => void;
   goToRegister: (document: string) => void;
@@ -28,6 +34,7 @@ interface CustomerState {
   cancel: () => void;
   consumePendingIntent: () => PendingIntent | null;
   signOut: () => void;
+  setHasHydrated: (value: boolean) => void;
 }
 
 export const useCustomerStore = create<CustomerState>()(
@@ -37,6 +44,7 @@ export const useCustomerStore = create<CustomerState>()(
       step: "idle",
       pendingIntent: null,
       draftDocument: "",
+      hasHydrated: false,
 
       requestIdentity: (intent) =>
         set({ step: "document", pendingIntent: intent, draftDocument: "" }),
@@ -62,11 +70,16 @@ export const useCustomerStore = create<CustomerState>()(
           pendingIntent: null,
           draftDocument: "",
         }),
+
+      setHasHydrated: (value) => set({ hasHydrated: value }),
     }),
     {
       name: CUSTOMER_STORAGE_KEY,
       // Apenas o cliente persiste; estado de UI e intencao morrem com a sessao.
       partialize: (state) => ({ customer: state.customer }),
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated(true);
+      },
     },
   ),
 );

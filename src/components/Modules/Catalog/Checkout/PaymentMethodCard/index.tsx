@@ -81,22 +81,30 @@ export function PaymentMethodCard({
       <AnimatePresence initial={false}>
         {selected && forma.opcoesParcelamento.length > 0 && (
           <motion.div
-            variants={collapseVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="overflow-hidden"
+            initial={{ gridTemplateRows: "0fr" }}
+            animate={{ gridTemplateRows: "1fr" }}
+            exit={{ gridTemplateRows: "0fr" }}
+            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="grid"
           >
-            <div className="flex flex-col gap-2 border-t border-primary/10 p-3.5">
-              {forma.opcoesParcelamento.map((option) => (
-                <InstallmentOption
-                  key={option.numeroParcelas}
-                  option={option}
-                  selected={selectedParcelas === option.numeroParcelas}
-                  onSelect={() => onSelectParcelas(option.numeroParcelas)}
-                />
-              ))}
-            </div>
+            <motion.div
+              variants={collapseVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="min-h-0 overflow-hidden"
+            >
+              <div className="flex flex-col gap-2 border-t border-primary/10 p-3.5">
+                {forma.opcoesParcelamento.map((option) => (
+                  <InstallmentOption
+                    key={option.numeroParcelas}
+                    option={option}
+                    selected={selectedParcelas === option.numeroParcelas}
+                    onSelect={() => onSelectParcelas(option.numeroParcelas)}
+                  />
+                ))}
+              </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

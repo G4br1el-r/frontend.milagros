@@ -44,7 +44,9 @@ export function useProductFiltersUrl() {
     }
 
     const query = params.toString();
-    router.replace(query ? `${pathname}?${query}` : pathname, {
+    // push, nao replace: cada filtro vira uma entrada de historico, entao o
+    // botao voltar desfaz um filtro por vez em vez de sair da pagina.
+    router.push(query ? `${pathname}?${query}` : pathname, {
       scroll: false,
     });
   }
@@ -85,6 +87,6 @@ export function useProductFiltersUrl() {
         { [URL_PARAM_KEYS.pagina]: value === 1 ? undefined : value },
         { resetPage: false },
       ),
-    reset: () => router.replace(pathname, { scroll: false }),
+    reset: () => router.push(pathname, { scroll: false }),
   };
 }

@@ -2,15 +2,20 @@
 
 import { motion } from "motion/react";
 import type { ReactNode } from "react";
-import { cardEnter, cardLift } from "../product.motion";
+import { cardLift } from "../product.motion";
 
 interface ProductCardShellProps {
   children: ReactNode;
 }
 
+/**
+ * Sem entrada animada (seção 2.7/3 banem fade-up de card no scroll) — só a
+ * reação de hover/foco (cardLift), que é bem-vinda porque mostra o que
+ * mudou em resposta a uma ação do usuário.
+ */
 export function ProductCardShell({ children }: ProductCardShellProps) {
   return (
-    <motion.article variants={cardEnter} className="h-full">
+    <article className="h-full">
       <motion.div
         initial="rest"
         animate="rest"
@@ -21,6 +26,6 @@ export function ProductCardShell({ children }: ProductCardShellProps) {
       >
         {children}
       </motion.div>
-    </motion.article>
+    </article>
   );
 }

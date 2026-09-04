@@ -79,3 +79,17 @@ export async function fetchOrder(id: string): Promise<PedidoDetalhesDto> {
   const response = await fetch(`/api/pedidos/${id}`);
   return parseJsonOrThrow<PedidoDetalhesDto>(response);
 }
+
+/** Histórico completo de pedidos do cliente, do mais recente ao mais antigo. */
+export async function fetchOrdersByDocument(
+  cpfCnpj: string,
+): Promise<PedidoDetalhesDto[]> {
+  const digits = cpfCnpj.replace(/\D/g, "");
+  const response = await fetch(`/api/pedidos/cpf/${digits}`);
+  const pedidos = await parseJsonOrThrow<PedidoDetalhesDto[]>(response);
+
+  return [...pedidos].sort(
+    (a, b) =>
+      new Date(b.dataPedido).getTime() - new Date(a.dataPedido).getTime(),
+  );
+}

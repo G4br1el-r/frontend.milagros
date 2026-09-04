@@ -22,7 +22,7 @@ export function CheckoutSheet() {
     <Sheet open={isOpen} onOpenChange={(next) => !next && close()}>
       <SheetContent
         side="right"
-        className="flex w-full flex-col gap-0 border-primary/10 bg-cream p-0 sm:max-w-md"
+        className="flex w-full flex-col gap-0 border-primary/10 bg-cream p-0 sm:max-w-lg"
       >
         <SheetHeader className="flex flex-col gap-4 border-b border-primary/10 p-4 sm:p-6">
           <SheetTitle className="font-display text-xl text-primary">

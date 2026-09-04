@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, FileText, MessageCircle } from "lucide-react";
+import { Check, FileText } from "lucide-react";
 import { motion } from "motion/react";
 import { formatPrice } from "@/components/Modules/Catalog/Home/Products/product.types";
 import { useCartStore } from "@/lib/stores/cart";
@@ -73,7 +73,7 @@ export function CheckoutSuccess() {
 
             <div className="flex items-center justify-between border-t border-primary/10 pt-2">
               <dt className="font-medium text-primary">Total</dt>
-              <dd className="font-display text-lg text-primary">
+              <dd className="font-sans text-lg font-semibold tabular-nums text-primary">
                 {formatPrice(result.valorTotal)}
               </dd>
             </div>
@@ -83,27 +83,15 @@ export function CheckoutSuccess() {
             variants={listItemVariants}
             className="flex w-full flex-col gap-2.5"
           >
-            {result.pdfUrl && (
+            {result.pedidoId && (
               <a
-                href={result.pdfUrl}
+                href={`/api/pedidos/${result.pedidoId}/pdf`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full border border-primary/15 px-5 py-3 text-[11px] font-semibold tracking-[0.1em] text-primary uppercase transition-colors duration-200 hover:border-primary/30 hover:bg-primary/5"
               >
                 <FileText className="size-4" strokeWidth={1.75} />
                 Baixar PDF do pedido
-              </a>
-            )}
-
-            {result.whatsappUrl && (
-              <a
-                href={result.whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-full bg-emerald-600 px-5 py-3 text-[11px] font-semibold tracking-[0.1em] text-white uppercase transition-opacity duration-200 hover:opacity-90"
-              >
-                <MessageCircle className="size-4" strokeWidth={1.75} />
-                Confirmar no WhatsApp
               </a>
             )}
           </motion.div>

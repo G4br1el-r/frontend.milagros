@@ -31,6 +31,20 @@ export interface ClienteResponse extends ClienteCadastroRequest {
   codigoClienteOmie: number | null;
 }
 
+/** Corpo de PUT /api/clientes/cpf/{cpfCnpj} — todos os campos opcionais. */
+export interface ClienteAtualizarRequest {
+  nomeRazaoSocial?: string;
+  email?: string;
+  telefone?: string;
+  cep?: string;
+  logradouro?: string;
+  numero?: string;
+  complemento?: string;
+  bairro?: string;
+  cidade?: string;
+  uf?: string;
+}
+
 /** Cliente identificado, como fica persistido no localStorage. */
 export interface Customer {
   id: string;

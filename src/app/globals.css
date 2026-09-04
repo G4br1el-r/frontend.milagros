@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
+@import "./styles/tokens.css";
 @custom-variant dark (&:is(.dark *));
 
 html {
@@ -13,10 +14,18 @@ body {
 }
 
 @theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-display: var(--font-fraunces);
-  --font-serif: var(--font-geist-sans);
-  --font-heading: var(--font-fraunces);
+  /* --font-serif e --font-sans são Cardo/Inter Tight, a dupla da seção 2.5.
+   * --font-display é Playfair Display: serifa de alto contraste com peso
+   * real, usada em todo título de produto, card e seção. Substituiu a
+   * Fraunces (serifas dramáticas demais nesse papel) e depois a Instrument
+   * Serif, que só tem peso 400 e saía fina. --font-brand
+   * mantém a Fraunces onde ela é o ponto: hero e assinatura da marca.
+   * --font-heading acompanha --font-serif: dialog/sheet ganham Cardo. */
+  --font-sans: var(--font-inter-tight);
+  --font-display: var(--font-playfair);
+  --font-brand: var(--font-fraunces);
+  --font-serif: var(--font-cardo);
+  --font-heading: var(--font-cardo);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -94,39 +103,41 @@ body {
   }
   /* biome-ignore-end lint/complexity/noImportantStyles: must outrank utilities */
 }
+/*
+ * Ponte para components/ui/* (dialog, sheet, popover, button — vivos,
+ * ver AUDIT.md §4.3). Mesmos nomes de variável que o shadcn espera, agora
+ * apontando para a paleta da seção 2.2 em vez da paleta antiga. Esses
+ * componentes ganham a cara nova sem serem tocados nesta fase — a revisão
+ * deles (contraste, uso correto de --brasa) é escopo das fases 5 e 6.
+ */
 :root {
-  --background: #f7ecdc;
-  --foreground: #3a2213;
-  --card: #f7ecdc;
-  --card-foreground: #3a2213;
-  --popover: #f7ecdc;
-  --popover-foreground: #3a2213;
-  --primary: #3a2213;
-  --primary-foreground: #f7ecdc;
-  --secondary: #e0bd8c;
-  --secondary-foreground: #3a2213;
-  --muted: #efe1cc;
-  --muted-foreground: #876c43;
-  --accent: #c3924f;
-  --accent-foreground: #3a2213;
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: rgb(58 34 19 / 12%);
-  --input: rgb(58 34 19 / 15%);
-  --ring: #c3924f;
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 1.25rem;
-  --sidebar: #f7ecdc;
-  --sidebar-foreground: #3a2213;
-  --sidebar-primary: #3a2213;
-  --sidebar-primary-foreground: #f7ecdc;
-  --sidebar-accent: #e0bd8c;
-  --sidebar-accent-foreground: #3a2213;
-  --sidebar-border: rgb(58 34 19 / 12%);
-  --sidebar-ring: #c3924f;
+  --background: var(--color-ink);
+  --foreground: var(--color-linho);
+  --card: var(--color-nave);
+  --card-foreground: var(--color-linho);
+  --popover: var(--color-nave);
+  --popover-foreground: var(--color-linho);
+  --primary: var(--color-linho);
+  --primary-foreground: var(--color-ink);
+  --secondary: var(--color-nave);
+  --secondary-foreground: var(--color-linho);
+  --muted: var(--color-nave);
+  --muted-foreground: var(--color-fumaca);
+  --accent: var(--color-ouro);
+  --accent-foreground: var(--color-ink);
+  --destructive: var(--color-brasa);
+  --border: color-mix(in oklab, var(--color-ouro) 20%, transparent);
+  --input: color-mix(in oklab, var(--color-ouro) 20%, transparent);
+  --ring: var(--color-ouro);
+  --radius: 6px;
+  --sidebar: var(--color-nave);
+  --sidebar-foreground: var(--color-linho);
+  --sidebar-primary: var(--color-linho);
+  --sidebar-primary-foreground: var(--color-ink);
+  --sidebar-accent: var(--color-nave);
+  --sidebar-accent-foreground: var(--color-linho);
+  --sidebar-border: color-mix(in oklab, var(--color-ouro) 20%, transparent);
+  --sidebar-ring: var(--color-ouro);
 }
 .dark {
   --background: oklch(0.145 0 0);

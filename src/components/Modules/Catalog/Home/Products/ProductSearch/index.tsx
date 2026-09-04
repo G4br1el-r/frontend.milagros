@@ -5,7 +5,10 @@ import { useEffect, useId, useRef, useState } from "react";
 import { useDebouncedValue } from "@/lib/hooks/use-debounced-value";
 import { useProductFiltersUrl } from "@/lib/query-state/use-product-filters-url";
 import { cn } from "@/lib/utils/cn";
-import { SEARCH_DEBOUNCE_MS } from "../ProductFilters/filters.constants";
+import {
+  SEARCH_DEBOUNCE_MS,
+  SEARCH_MIN_CHARS,
+} from "../ProductFilters/filters.constants";
 
 export function ProductSearch() {
   const id = useId();
@@ -18,13 +21,20 @@ export function ProductSearch() {
   setTermoRef.current = setTermo;
 
   useEffect(() => {
-    setTermoRef.current(debouncedDraft);
+    const trimmed = debouncedDraft.trim();
+    // Abaixo do minimo, so busca de novo quando o campo esvazia — nao a
+    // cada tecla de uma palavra incompleta.
+    if (trimmed.length > 0 && trimmed.length < SEARCH_MIN_CHARS) return;
+    setTermoRef.current(trimmed);
   }, [debouncedDraft]);
 
   return (
     <div
       id="catalog-search"
-      className="mx-auto mb-12 w-full max-w-xl scroll-mt-24 px-5 sm:mb-16 sm:px-8"
+      // Sobe por cima da borda dourada da faixa da foto acima (ver
+      // Products/index.tsx) — é o único elemento que atravessa essa
+      // fronteira, "furando" a transição entre a foto e a grade abaixo.
+      className="relative z-10 mx-auto -mt-7 mb-12 w-full max-w-2xl scroll-mt-24 px-5 sm:-mt-8 sm:mb-16 sm:px-8 lg:-mt-9"
     >
       <label htmlFor={id} className="sr-only">
         Buscar produto
@@ -32,7 +42,7 @@ export function ProductSearch() {
 
       <div
         className={cn(
-          "group relative flex items-center overflow-hidden rounded-full border bg-white/70 backdrop-blur-sm transition-colors duration-300",
+          "group relative flex items-center overflow-hidden rounded-full border bg-white shadow-[0_20px_50px_-20px_rgba(30,20,10,0.35)] transition-colors duration-300",
           focused ? "border-gold" : "border-primary/15 hover:border-primary/30",
         )}
       >
@@ -55,13 +65,14 @@ export function ProductSearch() {
           className="w-full bg-transparent py-4 pr-5 pl-13 text-sm text-primary placeholder:text-primary/40 focus:outline-none sm:py-4.5 sm:text-base"
         />
 
-        <span
-          aria-hidden="true"
-          className={cn(
-            "pointer-events-none absolute inset-0 -z-10 bg-linear-to-r from-gold-light/10 via-transparent to-gold-light/10 opacity-0 transition-opacity duration-500",
-            focused && "opacity-100",
-          )}
-        />
+        <button
+          type="button"
+          aria-label="Buscar"
+          onClick={() => setTermoRef.current(draft.trim())}
+          className="mr-1.5 flex size-10 shrink-0 cursor-pointer items-center justify-center rounded-full bg-linear-to-b from-gold-light to-gold text-primary-darkest transition-opacity duration-200 hover:opacity-90 focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2 sm:size-11"
+        >
+          <Search className="size-4" strokeWidth={2} />
+        </button>
       </div>
     </div>
   );

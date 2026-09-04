@@ -1,59 +1,107 @@
-import { Mail } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import Image from "next/image";
-import { FacebookIcon, InstagramIcon, WhatsappIcon } from "./brandIcons";
+import { Container } from "@/components/Layout/Container";
+import { Body, Heading, Meta } from "@/components/Typography";
+import { WHATSAPP_URL } from "@/lib/contact/whatsapp";
+import { WhatsappIcon } from "./brandIcons";
 
-const SOCIAL_LINKS = [
-  { id: "instagram", icon: InstagramIcon, href: "#", label: "Instagram" },
+const FACTS = [
+  "Fundada em 24 de junho de 2002.",
+  "Incenso Nossa Senhora Aparecida usado no Vaticano desde 2008.",
+  "Fornecedora oficial nas visitas de Bento XVI (2007) e Francisco (2013) ao Brasil.",
+] as const;
+
+const CONTACTS = [
   {
-    id: "whatsapp",
+    icon: Phone,
+    label: "Telefone",
+    value: "(12) 3133-1100",
+    href: "tel:+551231331100",
+  },
+  {
     icon: WhatsappIcon,
-    href: "https://wa.me/5519998364637",
-    label: "WhatsApp",
+    label: "Whatsapp",
+    value: "(19) 99836-4637",
+    href: WHATSAPP_URL,
   },
-  { id: "facebook", icon: FacebookIcon, href: "#", label: "Facebook" },
   {
-    id: "mail",
     icon: Mail,
-    href: "mailto:contato@milagros.com.br",
     label: "E-mail",
+    value: "contato@milagros.com.br",
+    href: "mailto:contato@milagros.com.br",
   },
-];
+] as const;
 
+/**
+ * Footer institucional — seção 1 do CLAUDE.md. Fatos autorizados e os três
+ * canais de contato oficiais confirmados pelo cliente.
+ */
 export function Footer() {
   return (
-    <footer className="w-full border-t border-white/10 bg-primary-darkest">
-      <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-7 px-5 py-14 sm:py-16">
-        <Image
-          src="/images/hero/milagros-logo.png"
-          alt="Milagros"
-          width={140}
-          height={140}
-          sizes="140px"
-          className="h-14 w-auto object-contain"
-        />
+    <footer className="w-full border-t border-ouro/10 bg-nave">
+      <Container className="flex flex-col gap-10 py-16 sm:py-20">
+        <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:justify-between">
+          <Image
+            src="/images/hero/milagros-logo.png"
+            alt="Milagros"
+            width={140}
+            height={140}
+            sizes="140px"
+            className="h-12 w-auto object-contain"
+          />
 
-        <ul className="flex items-center gap-3">
-          {SOCIAL_LINKS.map(({ id, icon: Icon, href, label }) => {
-            const isExternal = href.startsWith("http");
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex cursor-pointer items-center gap-2 rounded-full border border-ouro/20 px-5 py-2.5 font-sans text-[length:var(--text-step-neg-1)] text-linho transition-colors duration-200 hover:border-ouro hover:text-ouro focus-visible:outline-2 focus-visible:outline-ouro focus-visible:outline-offset-2"
+          >
+            <WhatsappIcon className="size-4" strokeWidth={1.75} />
+            Falar no WhatsApp
+          </a>
+        </div>
 
-            return (
-              <li key={id}>
+        <div className="flex flex-col gap-5 border-t border-ouro/10 pt-8">
+          <Heading as="h2" size="step-1" className="text-linho">
+            Atendimento
+          </Heading>
+
+          <ul className="flex flex-col gap-3">
+            {CONTACTS.map(({ icon: Icon, label, value, href }) => (
+              <li key={label}>
                 <a
                   href={href}
-                  aria-label={label}
-                  {...(isExternal && {
-                    target: "_blank",
-                    rel: "noopener noreferrer",
-                  })}
-                  className="flex size-11 items-center justify-center rounded-full border border-white/15 text-white/70 transition-[color,border-color,transform] duration-300 hover:-translate-y-0.5 hover:border-gold-light/50 hover:text-gold-light focus-visible:ring-2 focus-visible:ring-gold-light focus-visible:outline-none"
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel={
+                    href.startsWith("http") ? "noopener noreferrer" : undefined
+                  }
+                  className="inline-flex cursor-pointer items-center gap-2.5 font-sans text-[length:var(--text-step-neg-1)] text-linho/80 transition-colors duration-200 hover:text-ouro focus-visible:outline-2 focus-visible:outline-ouro focus-visible:outline-offset-2"
                 >
-                  <Icon className="size-4" strokeWidth={1.75} />
+                  <Icon className="size-4 text-ouro" strokeWidth={1.75} />
+                  {label}: {value}
                 </a>
               </li>
-            );
-          })}
-        </ul>
-      </div>
+            ))}
+          </ul>
+        </div>
+
+        <div className="flex flex-col gap-3 border-t border-ouro/10 pt-8">
+          {FACTS.map((fact) => (
+            <Body
+              key={fact}
+              variant="ui"
+              size="step-neg-1"
+              className="text-fumaca"
+            >
+              {fact}
+            </Body>
+          ))}
+        </div>
+
+        <Meta className="text-fumaca">
+          MILAGROS® — incensos e carvões litúrgicos
+        </Meta>
+      </Container>
     </footer>
   );
 }

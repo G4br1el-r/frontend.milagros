@@ -1,17 +1,28 @@
+"use client";
+
 import { Images, Star } from "lucide-react";
-import { useProductDetailStore } from "@/lib/stores/product-detail";
+import Link from "next/link";
 import { ProductCardShell } from "../ProductCardShell";
 import { ProductCta } from "../ProductCta";
 import { ProductMedia } from "../ProductMedia";
 import { ProductPanel } from "../ProductPanel";
+import { buildProductSlug } from "../product.slug";
 import { formatPrice, type Product } from "../product.types";
-import { ProductStockTag } from "./ProductStockTag";
 
 interface ProductCardProps {
   product: Product;
   priority?: boolean;
 }
 
+/**
+ * Card inteiro é clicável (não só imagem+título como antes — dois
+ * controles duplicados para leitor de tela, encontrado no AUDIT.md). Um
+ * único link "esticado" (absolute inset-0, z-index abaixo do CTA) cobre a
+ * área toda e leva à página do produto; o restante do conteúdo (imagem,
+ * nome, preço) é decorativo e não intercepta clique. O CTA de carrinho
+ * fica acima na pilha de z-index para continuar clicável de forma
+ * independente.
+ */
 export function ProductCard({ product, priority }: ProductCardProps) {
   const {
     attributes,
@@ -20,23 +31,21 @@ export function ProductCard({ product, priority }: ProductCardProps) {
     id,
     image,
     images,
-    inStock,
     name,
     price,
     rating,
     reviewCount,
   } = product;
 
-  const openDetail = useProductDetailStore((state) => state.open);
-
   return (
     <ProductCardShell>
-      <button
-        type="button"
-        onClick={() => openDetail(product)}
+      <Link
+        href={`/produtos/${buildProductSlug(name, id)}`}
         aria-label={`Ver detalhes de ${name}`}
-        className="cursor-pointer text-left focus-visible:outline-none"
-      >
+        className="absolute inset-0 z-0 cursor-pointer focus-visible:outline-none"
+      />
+
+      <div className="pointer-events-none">
         <ProductMedia
           src={image}
           alt={name}
@@ -72,15 +81,9 @@ export function ProductCard({ product, priority }: ProductCardProps) {
             </>
           }
         />
-      </button>
+      </div>
 
-      {!inStock && (
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 flex items-start p-4">
-          <ProductStockTag />
-        </div>
-      )}
-
-      <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
+      <div className="pointer-events-none flex flex-1 flex-col gap-3 p-5 sm:p-6">
         <div className="flex items-center justify-between gap-3">
           {category && (
             <span className="inline-flex items-center gap-1.5 text-[10px] font-medium tracking-[0.22em] text-primary-dark uppercase">
@@ -105,29 +108,25 @@ export function ProductCard({ product, priority }: ProductCardProps) {
           )}
         </div>
 
-        <button
-          type="button"
-          onClick={() => openDetail(product)}
-          className="cursor-pointer text-left focus-visible:outline-none"
-        >
-          <h3 className="font-display text-xl leading-tight text-primary transition-colors duration-200 hover:text-primary-dark sm:text-2xl">
-            {name}
-          </h3>
-        </button>
+        <h3 className="font-display text-xl leading-tight text-primary transition-colors duration-200 sm:text-2xl">
+          {name}
+        </h3>
 
         <div className="mt-auto flex flex-col gap-6 pt-3">
           <div className="flex flex-col">
             {compareAtPrice && (
-              <span className="text-xs text-primary/45 line-through">
+              <span className="font-sans text-xs tabular-nums text-primary/45 line-through">
                 {formatPrice(compareAtPrice)}
               </span>
             )}
-            <span className="font-display text-2xl leading-none text-primary">
+            <span className="font-sans text-2xl leading-none font-semibold tabular-nums text-primary">
               {formatPrice(price)}
             </span>
           </div>
 
-          <ProductCta id={id} name={name} image={image} price={price} />
+          <div className="pointer-events-auto relative z-10">
+            <ProductCta id={id} name={name} image={image} price={price} />
+          </div>
         </div>
       </div>
     </ProductCardShell>

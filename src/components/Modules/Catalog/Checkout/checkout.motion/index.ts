@@ -31,11 +31,15 @@ export const listItemVariants: Variants = {
   exit: { opacity: 0, y: -8, transition: { duration: 0.15 } },
 };
 
-/** Painel de parcelas que expande sob a forma escolhida. */
+/**
+ * Painel de parcelas que expande sob a forma escolhida. A seção 2.7 proíbe
+ * animar height — o wrapper (PaymentMethodCard) usa
+ * grid-template-rows: 0fr → 1fr; aqui só opacity.
+ */
 export const collapseVariants: Variants = {
-  hidden: { opacity: 0, height: 0 },
-  visible: { opacity: 1, height: "auto", transition: springSoft },
-  exit: { opacity: 0, height: 0, transition: { duration: 0.16 } },
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: springSoft },
+  exit: { opacity: 0, transition: { duration: 0.16 } },
 };
 
 export const successVariants: Variants = {

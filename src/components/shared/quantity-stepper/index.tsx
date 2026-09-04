@@ -69,21 +69,23 @@ export function QuantityStepper({
       <AnimatePresence initial={false}>
         {showRemoveButton && !isAtMin && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.7, width: 0 }}
-            animate={{ opacity: 1, scale: 1, width: "auto" }}
-            exit={{ opacity: 0, scale: 0.7, width: 0 }}
-            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="flex shrink-0 overflow-hidden rounded-full border border-primary/12 bg-white p-1"
+            initial={{ gridTemplateColumns: "0fr", opacity: 0 }}
+            animate={{ gridTemplateColumns: "1fr", opacity: 1 }}
+            exit={{ gridTemplateColumns: "0fr", opacity: 0 }}
+            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="grid shrink-0"
           >
-            <motion.button
-              type="button"
-              onClick={onRemove}
-              whileTap={{ scale: 0.85 }}
-              aria-label="Remover item"
-              className="flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-full text-terracotta transition-colors duration-200 hover:bg-terracotta/10"
-            >
-              <Trash2 className="size-3.5" strokeWidth={2} />
-            </motion.button>
+            <div className="min-w-0 overflow-hidden rounded-full border border-primary/12 bg-white p-1">
+              <motion.button
+                type="button"
+                onClick={onRemove}
+                whileTap={{ scale: 0.85 }}
+                aria-label="Remover item"
+                className="flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-full text-terracotta transition-colors duration-200 hover:bg-terracotta/10"
+              >
+                <Trash2 className="size-3.5" strokeWidth={2} />
+              </motion.button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -109,7 +111,7 @@ export function QuantityStepper({
                 initial={{ opacity: 0, rotate: -45, scale: 0.6 }}
                 animate={{ opacity: 1, rotate: 0, scale: 1 }}
                 exit={{ opacity: 0, rotate: 45, scale: 0.6 }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
                 className="flex"
               >
                 <Trash2 className="size-3.5" strokeWidth={2} />
@@ -120,7 +122,7 @@ export function QuantityStepper({
                 initial={{ opacity: 0, rotate: 45, scale: 0.6 }}
                 animate={{ opacity: 1, rotate: 0, scale: 1 }}
                 exit={{ opacity: 0, rotate: -45, scale: 0.6 }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
                 className="flex"
               >
                 <Minus className="size-3.5" strokeWidth={2.5} />
@@ -138,7 +140,7 @@ export function QuantityStepper({
                 initial={{ y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -10, opacity: 0 }}
-                transition={{ duration: 0.18 }}
+                transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
                 className="pointer-events-none absolute text-sm font-semibold text-primary tabular-nums"
               >
                 {quantity}

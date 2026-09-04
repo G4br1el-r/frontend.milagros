@@ -42,6 +42,12 @@ export function CheckoutPayment() {
     >
       <div className="flex-1 overflow-y-auto px-4 pb-6 sm:px-6">
         <div className="flex flex-col gap-5">
+          {/* Mesma posicao e estilo do "Voltar ao carrinho" do
+              CheckoutReview: no topo da area rolavel, nao no rodape — o
+              rodape e so da acao primaria. O pt-4/sm:pt-6 daqui e o respiro
+              de topo do passo. */}
+          <BackToReviewButton disabled={isFinalizing} />
+
           <motion.div
             variants={listItemVariants}
             className="flex flex-col gap-2.5"
@@ -115,7 +121,7 @@ export function CheckoutPayment() {
         </div>
       </div>
 
-      <div className="flex flex-col gap-2 border-t border-primary/10 bg-cream p-4 sm:p-6">
+      <div className="border-t border-primary/10 bg-cream p-4 sm:p-6">
         <motion.button
           type="button"
           onClick={finalize}
@@ -132,8 +138,6 @@ export function CheckoutPayment() {
             `Confirmar pedido${forma ? ` · ${forma.tipoForma}` : ""}`
           )}
         </motion.button>
-
-        <BackToReviewButton disabled={isFinalizing} />
       </div>
     </motion.div>
   );
@@ -147,10 +151,10 @@ function BackToReviewButton({ disabled }: { disabled?: boolean }) {
       type="button"
       disabled={disabled}
       onClick={() => goToStep("revisao")}
-      className="inline-flex cursor-pointer items-center justify-center gap-1.5 py-1 text-[11px] font-medium tracking-[0.06em] text-primary/60 uppercase transition-colors duration-200 hover:text-primary disabled:cursor-not-allowed"
+      className="inline-flex w-fit cursor-pointer items-center gap-1.5 pt-4 text-[11px] font-bold tracking-[0.12em] text-primary/70 uppercase transition-opacity duration-200 hover:opacity-70 disabled:cursor-not-allowed sm:pt-6"
     >
-      <ArrowLeft className="size-3.5" strokeWidth={2} />
-      Voltar
+      <ArrowLeft className="size-3.5" strokeWidth={2.5} />
+      Voltar à revisão
     </button>
   );
 }

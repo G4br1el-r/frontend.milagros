@@ -13,6 +13,12 @@ export interface CartItem {
 interface CartState {
   items: CartItem[];
   isOpen: boolean;
+  /**
+   * Falso ate o persist reidratar do localStorage. O servidor sempre renderiza
+   * falso, entao quem depende de `items` espera esta flag em vez de mostrar 0
+   * e piscar para N depois da hidratacao.
+   */
+  hasHydrated: boolean;
   addItem: (item: Omit<CartItem, "quantity">, quantity?: number) => void;
   removeItem: (id: string) => void;
   setQuantity: (id: string, quantity: number) => void;
@@ -20,6 +26,7 @@ interface CartState {
   clear: () => void;
   open: () => void;
   close: () => void;
+  setHasHydrated: (value: boolean) => void;
 }
 
 export const useCartStore = create<CartState>()(
@@ -27,6 +34,7 @@ export const useCartStore = create<CartState>()(
     (set) => ({
       items: [],
       isOpen: false,
+      hasHydrated: false,
 
       addItem: (item, quantity = 1) => {
         set((state) => {
@@ -68,17 +76,30 @@ export const useCartStore = create<CartState>()(
 
       open: () => set({ isOpen: true }),
       close: () => set({ isOpen: false }),
+
+      setHasHydrated: (hasHydrated) => set({ hasHydrated }),
     }),
     {
       name: "milagros-cart",
       partialize: (state) => ({ items: state.items }),
+      // Dispara ao fim da reidratacao — inclusive quando nao ha nada salvo,
+      // caso em que o segundo argumento vem indefinido.
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated(true);
+      },
     },
   ),
 );
 
-export function useCartCount() {
+/**
+ * Contagem do carrinho, ou `null` enquanto o store nao reidratou. Consumidores
+ * usam `null` para renderizar estado neutro em vez de zero.
+ */
+export function useCartCount(): number | null {
   return useCartStore((state) =>
-    state.items.reduce((total, item) => total + item.quantity, 0),
+    state.hasHydrated
+      ? state.items.reduce((total, item) => total + item.quantity, 0)
+      : null,
   );
 }
 

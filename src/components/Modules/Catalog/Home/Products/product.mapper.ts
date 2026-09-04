@@ -17,9 +17,7 @@ function stripHtml(html: string): string {
 }
 
 export function extractCategoryLabel(categoria: string): string {
-  const segments = categoria.split("/").filter(Boolean);
-  const id = segments.at(-1);
-  return id ? `Categoria ${id}` : categoria;
+  return categoria.trim();
 }
 
 function buildAttributes(dto: ProdutoCatalogoDto): ProductAttribute[] {
@@ -70,7 +68,6 @@ export function mapProdutoToProduct(dto: ProdutoCatalogoDto): Product {
     unit: dto.unidade,
     weightKg: dto.pesoKg,
     stock: dto.estoqueAtual,
-    inStock: dto.estoqueAtual === null || dto.estoqueAtual > 0,
     burnTime: dto.tempoQueima,
     rating: dto.rating,
     reviewCount: dto.totalAvaliacoes ?? 0,

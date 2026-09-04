@@ -1,0 +1,103 @@
+/**
+ * Fundação de tokens da Milagros — seções 2.2 a 2.6 do CLAUDE.md.
+ * Única fonte de verdade para cor, opacidade, tipo, espaço, raio e z-index.
+ * Nenhum componente declara literal (#hex, p-[Npx], text-[Npx]) depois desta
+ * fase — tudo referencia um token daqui.
+ */
+
+@theme {
+  /* ---------------------------------------------------------------------
+   * 2.2 — Paleta
+   * ------------------------------------------------------------------- */
+  --color-ink: #12100d; /* fundo da página */
+  --color-nave: #1c1813; /* superfícies elevadas: card, drawer, header sólido */
+  --color-linho: #ede7db; /* texto primário */
+  --color-fumaca: #8f8a80; /* texto secundário, metadados, disabled — só ≥14px */
+  --color-ouro: #c6a15b; /* fios de 1px, small caps, ícone, anel de foco — nunca área grande */
+  --color-brasa: #b6431a; /* ação: adicionar ao carrinho, badge de promoção — nunca decorativo */
+
+  /* 2.4 — Cores litúrgicas: só aparecem no filtro de tempo litúrgico do catálogo */
+  --color-roxo: #4a2a63; /* Advento / Quaresma */
+  --color-verde: #1f5e3d; /* Tempo Comum */
+  --color-vermelho: #8c1d18; /* Mártires / Pentecostes */
+  /* Natal / Páscoa reaproveita --color-ouro — não é uma cor nova. */
+
+  /* ---------------------------------------------------------------------
+   * 2.5 — Tipografia
+   * As famílias em si (--font-serif / --font-sans) são injetadas via
+   * next/font em layout.tsx, não aqui — tokens.css não sabe de arquivo de
+   * fonte, só do papel de cada família.
+   * ------------------------------------------------------------------- */
+  --text-step-neg-1: clamp(0.8rem, 0.78rem + 0.1vw, 0.85rem);
+  --text-step-0: clamp(1rem, 0.96rem + 0.2vw, 1.1rem);
+  --text-step-1: clamp(1.25rem, 1.16rem + 0.45vw, 1.55rem);
+  --text-step-2: clamp(1.56rem, 1.39rem + 0.85vw, 2.19rem);
+  --text-step-3: clamp(1.95rem, 1.65rem + 1.5vw, 3.09rem);
+  --text-step-4: clamp(2.44rem, 1.94rem + 2.5vw, 4.36rem);
+  --text-step-5: clamp(3.05rem, 2.24rem + 4.05vw, 6.15rem);
+
+  /* ---------------------------------------------------------------------
+   * 2.6 — Espaçamento, grid e raio
+   * ------------------------------------------------------------------- */
+  --spacing-1: 0.25rem; /* 4px */
+  --spacing-2: 0.5rem; /* 8px */
+  --spacing-3: 0.75rem; /* 12px */
+  --spacing-4: 1rem; /* 16px */
+  --spacing-5: 1.25rem; /* 20px */
+  --spacing-6: 1.5rem; /* 24px */
+  --spacing-8: 2rem; /* 32px */
+  --spacing-10: 2.5rem; /* 40px */
+  --spacing-12: 3rem; /* 48px */
+  --spacing-16: 4rem; /* 64px */
+
+  --radius-sm: 2px; /* chip, input */
+  --radius-md: 6px; /* card */
+  --radius-lg: 14px; /* drawer, modal */
+
+  /* Namespace --z-index-* (não --z-*) é o que o Tailwind v4 usa para gerar
+   * a utility z-<nome>. */
+  --z-index-base: 0;
+  --z-index-sticky: 10;
+  --z-index-overlay: 40;
+  --z-index-modal: 50;
+  --z-index-toast: 60;
+
+  /*
+   * Breakpoints — seção 2.6 pede 640 / 1024 / 1440. sm (640) e lg (1024) já
+   * são o padrão do Tailwind v4; só xl diverge (padrão é 1280px), por isso
+   * é o único redefinido aqui. Redefinir --breakpoint-xl muda o breakpoint
+   * de TODA classe xl: já usada no projeto — é a mudança que a seção pede,
+   * não um efeito colateral.
+   */
+  --breakpoint-xl: 1440px;
+}
+
+/**
+ * Fora do @theme: --container-max, --container-padding e --section-rhythm
+ * não correspondem a nenhum namespace de utility do Tailwind v4 (--container-*
+ * já é reservado para max-w-<name> via container queries). Ficam como custom
+ * properties de :root, consumidas via var() pelo componente Container e pelo
+ * ritmo entre seções — não geram classe automática.
+ */
+:root {
+  --layout-container-max: 1440px;
+  --layout-container-padding: clamp(1rem, 5vw, 4rem);
+  --layout-section-rhythm: clamp(5rem, 10vw, 9rem);
+}
+
+/**
+ * 2.3 — Escada de opacidade. O Tailwind v4 aplica /NN a qualquer cor do
+ * @theme via color-mix() nativamente — não existe um jeito de restringir a
+ * sintaxe a uma lista fechada de valores no motor do framework. A disciplina
+ * dos seis degraus abaixo é imposta por revisão (design-director, seção 8) e
+ * pela varredura da Fase 7, não por CSS:
+ *
+ *   /100  texto primário, ícone ativo         (ex.: text-linho/100)
+ *   /70   texto secundário                    (ex.: text-linho/70)
+ *   /40   texto desabilitado, ícone inativo   (ex.: text-fumaca/40)
+ *   /20   borda visível, divisor              (ex.: border-ouro/20)
+ *   /10   borda sutil, hairline               (ex.: border-ouro/10)
+ *   /05   fundo de superfície tênue           (ex.: bg-nave/5)
+ *
+ * Qualquer outro valor (/3, /12, /35, /45, /65…) é erro de revisão.
+ */

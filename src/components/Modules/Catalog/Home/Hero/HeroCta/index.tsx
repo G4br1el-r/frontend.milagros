@@ -15,7 +15,7 @@ export function HeroCta() {
         whileFocus="hover"
         whileTap="tap"
         variants={heroCtaLift}
-        className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-linear-to-b from-gold-light to-gold px-7 py-3.5 text-[11px] font-bold tracking-[0.12em] text-primary-darkest uppercase focus-visible:ring-2 focus-visible:ring-cream focus-visible:ring-offset-2 focus-visible:ring-offset-primary-dark focus-visible:outline-none sm:px-8 sm:py-4 sm:text-xs"
+        className="group relative inline-flex cursor-pointer items-center gap-2.5 overflow-hidden rounded-full bg-linear-to-b from-gold-light to-gold px-7 py-3.5 text-[11px] font-bold tracking-[0.12em] text-primary-darkest uppercase focus-visible:ring-2 focus-visible:ring-cream focus-visible:ring-offset-2 focus-visible:ring-offset-primary-dark focus-visible:outline-none sm:px-8 sm:py-4 sm:text-xs"
       >
         <span className="relative z-10">Conhecer o Catálogo</span>
         <motion.span

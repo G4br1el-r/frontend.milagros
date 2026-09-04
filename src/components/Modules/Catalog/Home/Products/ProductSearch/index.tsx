@@ -50,7 +50,7 @@ export function ProductSearch() {
           placeholder="Buscar por nome, santo ou devoção…"
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
-          className="w-full bg-transparent py-4 pr-5 pl-13 text-sm text-primary placeholder:text-primary/40 focus:outline-none sm:py-4.5 sm:text-base"
+          className="w-full bg-transparent py-4 pr-5 pl-13 text-base text-primary placeholder:text-primary/40 focus:outline-none sm:py-4.5"
         />
         <button
           type="button"

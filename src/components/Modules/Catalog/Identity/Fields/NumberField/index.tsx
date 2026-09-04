@@ -36,7 +36,7 @@ export function NumberField({
         disabled={disabled || withoutNumber}
         aria-invalid={invalid || undefined}
         className={cn(
-          "h-11 w-full rounded-lg border bg-white px-3.5 text-sm text-primary transition-colors duration-200 outline-none placeholder:text-primary/35",
+          "h-11 w-full rounded-lg border bg-white px-3.5 text-base text-primary transition-colors duration-200 outline-none placeholder:text-primary/35",
           "focus-visible:border-gold focus-visible:ring-2 focus-visible:ring-gold/25",
           "disabled:cursor-not-allowed disabled:bg-primary/5 disabled:text-primary/45",
           invalid

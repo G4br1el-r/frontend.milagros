@@ -23,7 +23,7 @@ function PopoverArrow({
     <PopoverPrimitive.Arrow
       data-slot="popover-arrow"
       className={cn(
-        "data-[side=bottom]:-top-1.75 data-[side=left]:-right-1.75 data-[side=left]:rotate-90 data-[side=right]:-left-1.75 data-[side=right]:-rotate-90 data-[side=top]:-bottom-1.75 data-[side=top]:rotate-180",
+        "data-[side=bottom]:-top-1.75 data-[side=bottom]:rotate-180 data-[side=left]:-right-1.75 data-[side=left]:rotate-90 data-[side=right]:-left-1.75 data-[side=right]:-rotate-90 data-[side=top]:-bottom-1.75",
         className,
       )}
       {...props}

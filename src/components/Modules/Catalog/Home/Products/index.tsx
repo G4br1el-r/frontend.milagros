@@ -9,7 +9,7 @@ export function Products() {
       id="catalog"
       className="relative z-10 w-full scroll-mt-24 bg-cream"
     >
-      <div className="relative flex min-h-104 items-center overflow-hidden border-b-4 border-gold sm:min-h-0 sm:aspect-1672/941 sm:max-h-184">
+      <div className="relative flex h-[400px] sm:h-[450px] lg:h-[500px] items-center justify-center overflow-hidden border-y-4 border-gold">
         <Image
           src="/images/search/background-search.png"
           alt=""
@@ -18,26 +18,27 @@ export function Products() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-linear-to-r from-cream/95 via-cream/55 to-transparent" />
-        <Container className="relative w-full py-20 sm:py-24">
+        <div className="absolute inset-0 bg-cream/70" />
+        <Container className="relative w-full">
           <FadeIn
-            className="flex max-w-xl flex-col items-start gap-6 text-left sm:pl-6 lg:pl-12"
+            className="mx-auto flex max-w-3xl flex-col items-center justify-center text-center gap-6 sm:gap-8"
             distance={20}
           >
-            <span className="flex items-center gap-2.5 text-[10px] font-medium tracking-[0.3em] text-primary-dark uppercase sm:text-[11px] sm:tracking-[0.38em]">
-              <Sparkle className="size-3.5 text-gold" strokeWidth={2} />
+            <span className="flex items-center justify-center gap-2.5 text-xs font-medium tracking-[0.3em] text-primary-dark uppercase sm:text-sm sm:tracking-[0.38em]">
+              <Sparkle className="size-4 text-gold" strokeWidth={2} />
               Catálogo
             </span>
-            <h2 className="font-display text-3xl leading-tight text-balance text-primary sm:text-4xl lg:text-5xl">
+            <h2 className="font-display text-4xl leading-tight text-balance text-primary sm:text-5xl lg:text-6xl">
               A maior variedade de incensos litúrgicos
             </h2>
-            <div className="flex items-center gap-4 sm:gap-5">
+            <div className="flex items-center justify-center gap-4 sm:gap-5">
               <span className="h-px w-14 bg-linear-to-r from-transparent to-primary/40 sm:w-24" />
-              <span className="font-display shrink-0 text-[10px] tracking-[0.3em] text-primary/70 italic sm:text-xs">
+              <span className="font-display shrink-0 text-xs tracking-[0.3em] text-primary/70 italic sm:text-sm">
                 ad maiorem Dei gloriam
               </span>
+              <span className="h-px w-14 bg-linear-to-l from-transparent to-primary/40 sm:w-24" />
             </div>
-            <p className="max-w-md text-balance text-sm leading-relaxed text-primary/70 sm:text-base">
+            <p className="max-w-xl text-balance text-base leading-relaxed text-primary/80 sm:text-lg">
               Incensos de resina, carvões e acessórios religiosos, para toda
               paróquia, capela e devoto.
             </p>

@@ -1,7 +1,7 @@
 import { ArrowRight, Sparkle } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Container } from "@/components/Layout/Container";
+import "./globals.css";
 export default function NotFound() {
   return (
     <main className="relative flex min-h-[calc(100vh-120px)] w-full flex-col items-center justify-center overflow-hidden bg-cream">
@@ -15,7 +15,7 @@ export default function NotFound() {
         <div className="absolute inset-0 bg-linear-to-b from-cream via-transparent to-cream" />
         <div className="absolute inset-0 bg-linear-to-r from-cream via-transparent to-cream" />
       </div>
-      <Container className="relative z-10 flex w-full flex-col items-center text-center">
+      <div className="relative z-10 flex w-full flex-col items-center text-center px-4">
         <div className="mx-auto flex flex-col items-center gap-6">
           <div className="flex items-center gap-3 rounded-full border border-gold/40 bg-white/50 px-5 py-2 backdrop-blur-md">
             <Sparkle className="size-4 text-gold" strokeWidth={2} />
@@ -55,7 +55,7 @@ export default function NotFound() {
             />
           </Link>
         </div>
-      </Container>
+      </div>
     </main>
   );
 }

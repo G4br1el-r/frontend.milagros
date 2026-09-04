@@ -14,7 +14,7 @@ export function MobileMenu() {
     <Sheet>
       <SheetTrigger
         aria-label="Abrir menu"
-        className="flex size-11 cursor-pointer items-center justify-center rounded-(--radius-sm) text-linho transition-colors duration-200 hover:text-ouro focus-visible:outline-2 focus-visible:outline-ouro focus-visible:outline-offset-2 lg:hidden"
+        className="flex size-9 sm:size-11 cursor-pointer items-center justify-center rounded-(--radius-sm) text-linho transition-colors duration-200 hover:text-ouro focus-visible:outline-2 focus-visible:outline-ouro focus-visible:outline-offset-2 lg:hidden"
       >
         <Menu className="size-5" strokeWidth={1.75} />
       </SheetTrigger>

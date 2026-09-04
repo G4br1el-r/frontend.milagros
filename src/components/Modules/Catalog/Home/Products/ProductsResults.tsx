@@ -30,7 +30,7 @@ export function ProductsResults() {
     refetch,
   } = useProducts();
   const { setPage } = usePaginationNavigation(page);
-  const { termo } = useProductFiltersUrl();
+  const { termo, letra, categoria, precoMin, precoMax, pageSize } = useProductFiltersUrl();
   useEffect(() => {
     if (isError) appToast.productsLoadError(error?.message);
   }, [isError, error]);
@@ -69,7 +69,7 @@ export function ProductsResults() {
             <ProductEmptyState />
           ) : (
             <>
-              <ProductGrid>
+              <ProductGrid key={termo + letra + categoria + precoMin + precoMax + page + pageSize}>
                 {products.map((product, index) => (
                   <ProductCard
                     key={product.id}

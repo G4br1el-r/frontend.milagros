@@ -14,7 +14,11 @@ function PopoverPortal({ ...props }: PopoverPrimitive.Portal.Props) {
 function PopoverClose({ ...props }: PopoverPrimitive.Close.Props) {
   return <PopoverPrimitive.Close data-slot="popover-close" {...props} />;
 }
-function PopoverArrow({ className, ...props }: PopoverPrimitive.Arrow.Props) {
+function PopoverArrow({
+  className,
+  fillClassName,
+  ...props
+}: PopoverPrimitive.Arrow.Props & { fillClassName?: string }) {
   return (
     <PopoverPrimitive.Arrow
       data-slot="popover-arrow"
@@ -33,7 +37,7 @@ function PopoverArrow({ className, ...props }: PopoverPrimitive.Arrow.Props) {
       >
         <path
           d="M0 0 L8 8 L16 0"
-          className="fill-popover stroke-foreground/10"
+          className={cn("fill-popover stroke-foreground/10", fillClassName)}
           strokeWidth="1"
         />
       </svg>
@@ -46,12 +50,14 @@ function PopoverContent({
   side = "bottom",
   sideOffset = 8,
   showArrow = true,
+  arrowClassName,
   ...props
 }: PopoverPrimitive.Popup.Props & {
   align?: PopoverPrimitive.Positioner.Props["align"];
   side?: PopoverPrimitive.Positioner.Props["side"];
   sideOffset?: PopoverPrimitive.Positioner.Props["sideOffset"];
   showArrow?: boolean;
+  arrowClassName?: string;
 }) {
   return (
     <PopoverPortal>
@@ -71,7 +77,7 @@ function PopoverContent({
           {...props}
         >
           {props.children}
-          {showArrow && <PopoverArrow />}
+          {showArrow && <PopoverArrow fillClassName={arrowClassName} />}
         </PopoverPrimitive.Popup>
       </PopoverPrimitive.Positioner>
     </PopoverPortal>

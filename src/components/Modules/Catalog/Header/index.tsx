@@ -30,17 +30,20 @@ export function Header() {
       )}
     >
       <Container className="relative grid h-16 grid-cols-[1fr_auto_1fr] items-center sm:h-24">
-        <nav className="hidden items-center gap-8 lg:flex">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="cursor-pointer font-serif text-[length:var(--text-step-0)] text-linho/70 transition-colors duration-200 hover:text-ouro focus-visible:text-ouro focus-visible:outline-2 focus-visible:outline-ouro focus-visible:outline-offset-4"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
+        <div className="flex items-center justify-self-start">
+          <nav className="hidden items-center gap-8 lg:flex">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="cursor-pointer font-serif text-[length:var(--text-step-0)] text-linho/70 transition-colors duration-200 hover:text-ouro focus-visible:text-ouro focus-visible:outline-2 focus-visible:outline-ouro focus-visible:outline-offset-4"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+          <MobileMenu />
+        </div>
         <Link
           href="/"
           aria-label="Milagros — página inicial"
@@ -82,7 +85,6 @@ export function Header() {
               )}
             </AnimatePresence>
           </button>
-          <MobileMenu />
         </div>
       </Container>
     </motion.header>

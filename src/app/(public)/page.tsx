@@ -4,6 +4,7 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import { Suspense } from "react";
+import { BestSellers } from "@/components/Modules/Catalog/Home/BestSellers";
 import { Hero } from "@/components/Modules/Catalog/Home/Hero";
 import { Products } from "@/components/Modules/Catalog/Home/Products";
 import type { ProductSearchFilters } from "@/components/Modules/Catalog/Home/Products/ProductFilters/filters.types";
@@ -30,6 +31,7 @@ export default async function Home() {
   return (
     <main id="conteudo-principal" className="w-full flex-1">
       <Hero />
+      <BestSellers />
       <HydrationBoundary state={dehydrate(queryClient)}>
         <Suspense fallback={<ProductsSectionSkeleton />}>
           <Products />

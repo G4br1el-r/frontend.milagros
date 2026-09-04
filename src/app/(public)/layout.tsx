@@ -7,6 +7,7 @@ import {
   Playfair_Display,
 } from "next/font/google";
 import { SkipLink } from "@/components/Layout/SkipLink";
+import { SplashScreen } from "@/components/Layout/SplashScreen";
 import { Footer } from "@/components/Modules/Catalog/Footer";
 import { Header } from "@/components/Modules/Catalog/Header";
 import { DeferredOverlays } from "@/components/Providers/DeferredOverlays";
@@ -64,6 +65,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${fraunces.variable} ${playfairDisplay.variable} ${cardo.variable} ${interTight.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <SplashScreen />
         <SkipLink />
         <QueryProvider>
           <Header />

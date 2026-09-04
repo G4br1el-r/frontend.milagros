@@ -34,14 +34,9 @@ export function FadeIn({
 }: FadeInProps) {
   const MotionTag = motion[as as keyof typeof motion] as typeof motion.div;
   const variants = buildFadeVariants(direction, distance, fromScale);
-  const trigger = onMount
-    ? { animate: "visible" as const }
-    : {
-        whileInView: "visible" as const,
-        viewport: viewportMargin
-          ? { ...DEFAULT_VIEWPORT, margin: viewportMargin }
-          : DEFAULT_VIEWPORT,
-      };
+  const trigger = {
+    animate: "visible" as const,
+  };
   return (
     <MotionTag
       className={className}

@@ -12,6 +12,7 @@ export interface ScrollRevealProps {
   amount?: "some" | "all" | number;
   direction?: "up" | "down" | "left" | "right";
   as?: React.ElementType;
+  customViewport?: any;
 }
 export function ScrollReveal({
   children,
@@ -59,8 +60,7 @@ export function ScrollReveal({
     <MotionComponent
       variants={variants}
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once, amount }}
+      animate="visible"
       className={cn(className)}
     >
       {children}
@@ -75,6 +75,7 @@ export function StaggerReveal({
   once = true,
   amount = 0.2,
   as: Component = "div",
+  customViewport,
 }: Omit<ScrollRevealProps, "duration" | "distance" | "direction"> & {
   staggerChildren?: number;
 }) {
@@ -94,7 +95,7 @@ export function StaggerReveal({
       variants={variants}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, amount }}
+      viewport={customViewport || { once, amount }}
       className={cn(className)}
     >
       {children}

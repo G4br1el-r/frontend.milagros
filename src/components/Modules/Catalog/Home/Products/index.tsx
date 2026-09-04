@@ -18,7 +18,7 @@ export function Products() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-cream/70" />
+        <div className="absolute inset-0 bg-linear-to-r from-cream/80 via-cream/40 to-transparent" />
         <Container className="relative w-full">
           <FadeIn
             className="mx-auto flex max-w-3xl flex-col items-center justify-center text-center gap-6 sm:gap-8"

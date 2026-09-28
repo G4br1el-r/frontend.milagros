@@ -1,5 +1,6 @@
 "use client";
-import { motion, useReducedMotion } from "motion/react";
+import { useReducedMotion } from "motion/react";
+import * as m from "motion/react-m";
 import { wordmarkReveal } from "../Hero/hero.motion";
 
 const WORDMARK = "MILAGROS";
@@ -9,7 +10,7 @@ export function BrandWordmark() {
   return (
     <h1 className="font-brand flex w-full items-end justify-center text-cream uppercase">
       <span className="sr-only normal-case">{WORDMARK_TEXT}</span>
-      <motion.span
+      <m.span
         aria-hidden="true"
         initial="hidden"
         animate="show"
@@ -17,7 +18,7 @@ export function BrandWordmark() {
         className="block px-[0.04em] text-[clamp(2.5rem,9vw,7rem)] leading-[1.2] font-medium tracking-[-0.02em] [text-shadow:0_24px_90px_rgba(90,70,42,0.55)] sm:text-[12.5vw] sm:tracking-[-0.005em] lg:text-[9.5vw] xl:text-[8.75vw]"
       >
         {WORDMARK}
-      </motion.span>
+      </m.span>
     </h1>
   );
 }

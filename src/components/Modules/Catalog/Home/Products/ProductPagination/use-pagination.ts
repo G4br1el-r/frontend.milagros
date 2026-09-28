@@ -1,13 +1,6 @@
 import { useProductFiltersUrl } from "@/lib/query-state/use-product-filters-url";
-import { PAGINATION_SCROLL_TARGET_ID } from "./pagination.constants";
+import { scrollToResultsTop } from "../scroll-to-results";
 
-function scrollToResultsTop() {
-  requestAnimationFrame(() => {
-    document
-      .getElementById(PAGINATION_SCROLL_TARGET_ID)
-      ?.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
-}
 export function usePaginationNavigation(page: number) {
   const { setPage: setUrlPage } = useProductFiltersUrl();
   return {

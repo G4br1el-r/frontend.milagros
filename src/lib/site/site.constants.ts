@@ -1,0 +1,10 @@
+export const SITE_NAME = "Milagros";
+export const SITE_LOCALE = "pt_BR";
+export const DEV_FALLBACK_SITE_URL = "http://localhost:3000";
+export const SITE_LOGO_PATH = "/images/hero/milagros-logo.png";
+export const DEFAULT_OG_IMAGE_PATH = "/images/hero/hero-poster.webp";
+export const DEFAULT_OG_IMAGE_WIDTH = 1536;
+export const DEFAULT_OG_IMAGE_HEIGHT = 1024;
+export const DEFAULT_OG_IMAGE_ALT = "Milagros — incensos e carvões litúrgicos";
+export const TWITTER_CARD = "summary_large_image";
+export const SITEMAP_MAX_PRODUCT_PAGES = 20;

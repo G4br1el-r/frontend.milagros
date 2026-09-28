@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { cardGlow, cardMedia } from "../product.motion";
@@ -21,7 +21,7 @@ export function ProductMedia({
   return (
     <div className="relative aspect-4/3 w-full overflow-hidden rounded-t-xl bg-primary-darkest">
       {src ? (
-        <motion.div variants={cardMedia} className="absolute inset-0">
+        <m.div variants={cardMedia} className="absolute inset-0">
           <Image
             src={src}
             alt={alt}
@@ -30,7 +30,7 @@ export function ProductMedia({
             priority={priority}
             className="object-cover"
           />
-        </motion.div>
+        </m.div>
       ) : (
         <ImagePlaceholder />
       )}
@@ -38,7 +38,7 @@ export function ProductMedia({
         aria-hidden="true"
         className="absolute inset-0 bg-linear-to-t from-primary-darkest/85 via-primary-darkest/10 to-transparent"
       />
-      <motion.div
+      <m.div
         aria-hidden="true"
         variants={cardGlow}
         className="absolute inset-0 bg-linear-to-t from-terracotta/35 via-transparent to-gold/20 mix-blend-soft-light"

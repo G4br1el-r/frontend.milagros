@@ -1,6 +1,7 @@
 "use client";
 import { RotateCw } from "lucide-react";
 import { useEffect } from "react";
+import { MAIN_CONTENT_ID } from "@/components/Layout/skip-link.constants";
 export default function RouteError({
   error,
   reset,
@@ -12,7 +13,10 @@ export default function RouteError({
     console.error(error);
   }, [error]);
   return (
-    <main className="flex w-full flex-1 items-center justify-center bg-cream px-5 py-32">
+    <main
+      id={MAIN_CONTENT_ID}
+      className="flex w-full flex-1 items-center justify-center bg-cream px-5 py-32"
+    >
       <div className="flex max-w-md flex-col items-center gap-5 text-center">
         <h1 className="font-display text-3xl leading-tight text-primary sm:text-4xl">
           Esta página não carregou

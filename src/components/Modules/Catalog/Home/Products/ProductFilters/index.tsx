@@ -15,7 +15,7 @@ export function ProductFilters({
       {!mobileOnly && <FilterSidebar />}
       {!desktopOnly && (
         <FilterDrawer>
-          <FilterPanelContent />
+          <FilterPanelContent withCategories={false} />
         </FilterDrawer>
       )}
     </>

@@ -1,14 +1,14 @@
 "use client";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import type { ReactNode } from "react";
 import { cardPanel } from "../product.motion";
 export function ProductPanel({ children }: { children: ReactNode }) {
   return (
-    <motion.div
+    <m.div
       variants={cardPanel}
-      className="absolute inset-x-0 bottom-0 border-t border-cream/15 bg-primary-darkest/85 px-5 py-3.5 backdrop-blur-md"
+      className="absolute inset-x-0 bottom-0 border-t border-cream/15 bg-primary-darkest/85 px-5 py-3.5"
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

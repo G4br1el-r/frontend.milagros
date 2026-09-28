@@ -1,8 +1,8 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
-import { motion } from "motion/react";
-import { useState } from "react";
+import * as m from "motion/react-m";
+import { useId, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   CustomerApiError,
@@ -13,15 +13,19 @@ import {
   type CustomerFormValues,
   customerFormSchema,
 } from "@/lib/customer/customer.schemas";
+import { SERVER_ERROR_MIN_STATUS } from "@/lib/http/http.constants";
 import { useCustomerStore } from "@/lib/stores/customer";
+import { AddressSection } from "../CustomerFormSections/AddressSection";
+import { IdentitySection } from "../CustomerFormSections/IdentitySection";
 import { FieldError } from "../Fields/FieldError";
 import { modalContentVariants } from "../identity.motion";
-import { RegisterAddressSection } from "./RegisterAddressSection";
-import { RegisterIdentitySection } from "./RegisterIdentitySection";
+
+const REGISTER_FIELD_ID_PREFIX = "register-";
 export function RegisterForm() {
   const draftDocument = useCustomerStore((state) => state.draftDocument);
   const identify = useCustomerStore((state) => state.identify);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const submitErrorId = useId();
   const {
     control,
     handleSubmit,
@@ -50,7 +54,10 @@ export function RegisterForm() {
       const cliente = await createCustomer(values);
       identify(toCustomer(cliente));
     } catch (error) {
-      if (error instanceof CustomerApiError && error.status >= 500) {
+      if (
+        error instanceof CustomerApiError &&
+        error.status >= SERVER_ERROR_MIN_STATUS
+      ) {
         setSubmitError(
           "O servidor nao conseguiu concluir o cadastro. Tente novamente em instantes.",
         );
@@ -64,32 +71,35 @@ export function RegisterForm() {
     }
   }
   return (
-    <motion.form
+    <m.form
       variants={modalContentVariants}
       initial="hidden"
       animate="visible"
       onSubmit={handleSubmit(onSubmit)}
       className="flex min-h-0 flex-1 flex-col"
+      aria-describedby={submitError ? submitErrorId : undefined}
       noValidate
     >
       <div className="flex-1 overflow-y-auto px-4 pb-6 sm:px-6">
         <div className="flex flex-col gap-7">
-          <RegisterIdentitySection
+          <IdentitySection
             control={control}
             errors={errors}
+            idPrefix={REGISTER_FIELD_ID_PREFIX}
             disabled={isSubmitting}
           />
-          <RegisterAddressSection
+          <AddressSection
             control={control}
             errors={errors}
             setValue={setValue}
+            idPrefix={REGISTER_FIELD_ID_PREFIX}
             disabled={isSubmitting}
           />
         </div>
       </div>
       <div className="flex flex-col gap-2 border-t border-primary/10 bg-cream p-4 sm:p-6">
-        <FieldError message={submitError ?? undefined} />
-        <motion.button
+        <FieldError id={submitErrorId} message={submitError ?? undefined} />
+        <m.button
           type="submit"
           disabled={isSubmitting}
           whileTap={{ scale: 0.985 }}
@@ -103,8 +113,8 @@ export function RegisterForm() {
           ) : (
             "Concluir cadastro"
           )}
-        </motion.button>
+        </m.button>
       </div>
-    </motion.form>
+    </m.form>
   );
 }

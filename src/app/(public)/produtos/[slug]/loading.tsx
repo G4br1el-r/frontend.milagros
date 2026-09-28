@@ -1,6 +1,8 @@
+import { MAIN_CONTENT_ID } from "@/components/Layout/skip-link.constants";
+
 export default function Loading() {
   return (
-    <main className="w-full flex-1 bg-cream">
+    <main id={MAIN_CONTENT_ID} className="w-full flex-1 bg-cream">
       <div className="mx-auto w-full max-w-7xl px-5 pt-28 pb-24 sm:px-8 sm:pt-32 lg:px-12">
         <div className="mb-8 h-4 w-56 animate-pulse rounded-full bg-primary/10 sm:mb-10" />
         <div className="grid gap-10 lg:grid-cols-[1.05fr_1fr] lg:gap-16">

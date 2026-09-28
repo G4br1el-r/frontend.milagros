@@ -1,6 +1,7 @@
 "use client";
 import { AlertCircle, ArrowLeft, Loader2 } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 import { sortPaymentMethods } from "@/lib/checkout/checkout.format";
 import { useCheckout } from "@/lib/hooks/use-checkout";
 import {
@@ -27,7 +28,7 @@ export function CheckoutPayment() {
   if (!validation) return null;
   const formas = sortPaymentMethods(validation.formasPagamento);
   return (
-    <motion.div
+    <m.div
       variants={stepVariants}
       initial="hidden"
       animate="visible"
@@ -37,10 +38,7 @@ export function CheckoutPayment() {
       <div className="flex-1 overflow-y-auto px-4 pb-6 sm:px-6">
         <div className="flex flex-col gap-5">
           <BackToReviewButton disabled={isFinalizing} />
-          <motion.div
-            variants={listItemVariants}
-            className="flex flex-col gap-2.5"
-          >
+          <m.div variants={listItemVariants} className="flex flex-col gap-2.5">
             {formas.map((item) => (
               <PaymentMethodCard
                 key={item.id}
@@ -51,11 +49,8 @@ export function CheckoutPayment() {
                 onSelectParcelas={selectParcelas}
               />
             ))}
-          </motion.div>
-          <motion.div
-            variants={listItemVariants}
-            className="flex flex-col gap-1.5"
-          >
+          </m.div>
+          <m.div variants={listItemVariants} className="flex flex-col gap-1.5">
             <label
               htmlFor="observacoes"
               className="text-[11px] font-semibold tracking-[0.08em] text-primary/70 uppercase"
@@ -71,8 +66,8 @@ export function CheckoutPayment() {
               placeholder="Alguma instrução para o pedido? (opcional)"
               className="w-full resize-none rounded-lg border border-primary/15 bg-white px-3.5 py-2.5 text-sm text-primary outline-none transition-colors duration-200 placeholder:text-primary/35 focus-visible:border-gold focus-visible:ring-2 focus-visible:ring-gold/25"
             />
-          </motion.div>
-          <motion.div variants={listItemVariants}>
+          </m.div>
+          <m.div variants={listItemVariants}>
             <OrderSummary
               subtotal={validation.totalPedido}
               total={validation.totalPedido}
@@ -82,10 +77,10 @@ export function CheckoutPayment() {
                   : null
               }
             />
-          </motion.div>
+          </m.div>
           <AnimatePresence mode="wait">
             {finalizeError && (
-              <motion.div
+              <m.div
                 key={finalizeError}
                 initial={{ opacity: 0, y: -6 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -100,13 +95,13 @@ export function CheckoutPayment() {
                 <p className="text-xs leading-relaxed text-red-800">
                   {finalizeError}
                 </p>
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
         </div>
       </div>
       <div className="border-t border-primary/10 bg-cream p-4 sm:p-6">
-        <motion.button
+        <m.button
           type="button"
           onClick={finalize}
           disabled={!canFinalize || isFinalizing}
@@ -121,9 +116,9 @@ export function CheckoutPayment() {
           ) : (
             `Confirmar pedido${forma ? ` · ${forma.tipoForma}` : ""}`
           )}
-        </motion.button>
+        </m.button>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 function BackToReviewButton({ disabled }: { disabled?: boolean }) {

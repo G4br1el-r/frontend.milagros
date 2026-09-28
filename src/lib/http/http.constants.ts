@@ -1,0 +1,1 @@
+export const SERVER_ERROR_MIN_STATUS = 500;

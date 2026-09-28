@@ -1,6 +1,6 @@
 "use client";
-import { motion } from "motion/react";
 import type { ElementType, ReactNode } from "react";
+import { resolveMotionTag } from "@/components/motion/resolve-motion-tag";
 import {
   buildFadeVariants,
   DEFAULT_EASE,
@@ -32,7 +32,7 @@ export function FadeIn({
   onMount = false,
   viewportMargin,
 }: FadeInProps) {
-  const MotionTag = motion[as as keyof typeof motion] as typeof motion.div;
+  const MotionTag = resolveMotionTag(as);
   const variants = buildFadeVariants(direction, distance, fromScale);
   const trigger = {
     animate: "visible" as const,

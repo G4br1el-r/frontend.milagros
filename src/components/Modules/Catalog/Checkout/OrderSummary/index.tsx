@@ -1,5 +1,6 @@
 "use client";
 import { formatPrice } from "@/components/Modules/Catalog/Home/Products/product.types";
+import { QuoteNotice } from "../QuoteNotice";
 
 interface OrderSummaryProps {
   subtotal: number;
@@ -14,30 +15,33 @@ export function OrderSummary({
   parcelaLabel,
 }: OrderSummaryProps) {
   return (
-    <dl className="flex flex-col gap-2 text-sm">
-      <div className="flex items-center justify-between">
-        <dt className="text-primary/60">Subtotal</dt>
-        <dd className="font-sans tabular-nums text-primary">
-          {formatPrice(subtotal)}
-        </dd>
-      </div>
-      {desconto > 0 && (
+    <div className="flex flex-col gap-3">
+      <dl className="flex flex-col gap-2 text-sm">
         <div className="flex items-center justify-between">
-          <dt className="text-primary/60">Desconto</dt>
-          <dd className="font-sans tabular-nums text-emerald-700">
-            − {formatPrice(desconto)}
+          <dt className="text-primary/60">Subtotal</dt>
+          <dd className="font-sans tabular-nums text-primary">
+            {formatPrice(subtotal)}
           </dd>
         </div>
-      )}
-      <div className="flex items-center justify-between border-t border-primary/10 pt-2">
-        <dt className="font-medium text-primary">Total</dt>
-        <dd className="font-sans text-xl font-semibold tabular-nums text-primary">
-          {formatPrice(total)}
-        </dd>
-      </div>
-      {parcelaLabel && (
-        <p className="text-right text-xs text-primary/55">{parcelaLabel}</p>
-      )}
-    </dl>
+        {desconto > 0 && (
+          <div className="flex items-center justify-between">
+            <dt className="text-primary/60">Desconto</dt>
+            <dd className="font-sans tabular-nums text-emerald-700">
+              − {formatPrice(desconto)}
+            </dd>
+          </div>
+        )}
+        <div className="flex items-center justify-between border-t border-primary/10 pt-2">
+          <dt className="font-medium text-primary">Total estimado</dt>
+          <dd className="font-sans text-xl font-semibold tabular-nums text-primary">
+            {formatPrice(total)}
+          </dd>
+        </div>
+        {parcelaLabel && (
+          <p className="text-right text-xs text-primary/55">{parcelaLabel}</p>
+        )}
+      </dl>
+      <QuoteNotice />
+    </div>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 import type { FormaPagamentoDto } from "@/lib/checkout/checkout.types";
 import { cn } from "@/lib/utils/cn";
 import {
@@ -25,7 +26,7 @@ export function PaymentMethodCard({
   onSelectParcelas,
 }: PaymentMethodCardProps) {
   return (
-    <motion.div
+    <m.div
       variants={listItemVariants}
       className={cn(
         "overflow-hidden rounded-xl border transition-colors duration-200",
@@ -56,7 +57,7 @@ export function PaymentMethodCard({
             </span>
           )}
         </span>
-        <motion.span
+        <m.span
           animate={{
             borderColor: selected
               ? "var(--color-gold)"
@@ -65,23 +66,23 @@ export function PaymentMethodCard({
           transition={springSnappy}
           className="flex size-4 shrink-0 items-center justify-center rounded-full border"
         >
-          <motion.span
+          <m.span
             animate={{ scale: selected ? 1 : 0 }}
             transition={springSnappy}
             className="size-2 rounded-full bg-gold"
           />
-        </motion.span>
+        </m.span>
       </button>
       <AnimatePresence initial={false}>
         {selected && forma.opcoesParcelamento.length > 0 && (
-          <motion.div
+          <m.div
             initial={{ gridTemplateRows: "0fr" }}
             animate={{ gridTemplateRows: "1fr" }}
             exit={{ gridTemplateRows: "0fr" }}
             transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="grid"
           >
-            <motion.div
+            <m.div
               variants={collapseVariants}
               initial="hidden"
               animate="visible"
@@ -98,10 +99,10 @@ export function PaymentMethodCard({
                   />
                 ))}
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </m.div>
   );
 }

@@ -6,6 +6,7 @@ import { api } from "@/lib/api";
 import { routeErrorResponse } from "@/lib/api/route-error-response";
 import { withAuthRetry } from "@/lib/api/with-auth-retry";
 import { withPriceTableParams } from "@/lib/api/with-price-table";
+import { NotFoundError } from "@/lib/api-client";
 
 function isPlaceholderProduct(dto: ProdutoCatalogoDto): boolean {
   return dto.nome === "Produto" && dto.preco === 0 && !dto.categoria;
@@ -17,6 +18,9 @@ export async function GET(
   try {
     const { slug } = await params;
     const codigoOmie = parseProductSlug(slug);
+    if (codigoOmie === null) {
+      return routeErrorResponse(new NotFoundError("Produto não encontrado"));
+    }
     const searchParams = await withPriceTableParams(new URLSearchParams());
     const produto = await withAuthRetry(() =>
       api.get<ProdutoCatalogoDto>(

@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useId, useState } from "react";
 import { cn } from "@/lib/utils/cn";
+import { formatPrice } from "../../product.types";
 import { useProductPriceRange } from "../use-filter-options";
 import { PriceRangeSkeleton } from "./PriceRangeSkeleton";
 import { PRICE_RANGE_STEP } from "./price-range.constants";
@@ -50,6 +51,7 @@ function PriceRangeSlider({
           value={selectedMin}
           onChange={(event) => setMin(Number(event.target.value))}
           aria-label="Preço mínimo"
+          aria-valuetext={formatPrice(selectedMin)}
           className={cn(RANGE_INPUT_CLASS, "z-20")}
         />
         <input
@@ -60,6 +62,7 @@ function PriceRangeSlider({
           value={selectedMax}
           onChange={(event) => setMax(Number(event.target.value))}
           aria-label="Preço máximo"
+          aria-valuetext={formatPrice(selectedMax)}
           className={cn(RANGE_INPUT_CLASS, "z-10")}
         />
       </div>

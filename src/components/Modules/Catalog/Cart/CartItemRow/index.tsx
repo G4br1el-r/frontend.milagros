@@ -1,6 +1,6 @@
 "use client";
 import { Trash2 } from "lucide-react";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import Image from "next/image";
 import Link from "next/link";
 import { ImagePlaceholder } from "@/components/Modules/Catalog/Home/Products/ProductMedia/ImagePlaceholder";
@@ -18,7 +18,7 @@ export function CartItemRow({ item }: CartItemRowProps) {
   const closeCart = useCartStore((state) => state.close);
   const productHref = `/produtos/${buildProductSlug(item.name, item.id)}`;
   return (
-    <motion.div
+    <m.div
       layout
       initial={{ gridTemplateRows: "0fr", opacity: 0 }}
       animate={{ gridTemplateRows: "1fr", opacity: 1 }}
@@ -83,6 +83,6 @@ export function CartItemRow({ item }: CartItemRowProps) {
           </div>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

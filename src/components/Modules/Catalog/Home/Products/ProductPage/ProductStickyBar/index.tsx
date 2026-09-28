@@ -1,5 +1,6 @@
 "use client";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 import { type RefObject, useEffect, useState } from "react";
 import { ProductCta } from "../../ProductCta";
 import { formatPrice, type Product } from "../../product.types";
@@ -26,7 +27,7 @@ export function ProductStickyBar({
   return (
     <AnimatePresence>
       {visible && (
-        <motion.div
+        <m.div
           initial={{ y: "110%" }}
           animate={{ y: "0%" }}
           exit={{ y: "110%" }}
@@ -51,7 +52,7 @@ export function ProductStickyBar({
               />
             </div>
           </div>
-        </motion.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

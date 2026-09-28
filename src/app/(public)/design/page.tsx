@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { MAIN_CONTENT_ID } from "@/components/Layout/skip-link.constants";
 import { Body, Display, Heading, Latin, Meta } from "@/components/Typography";
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
@@ -41,7 +42,10 @@ const RADII = [
 const SPACE_SCALE = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16] as const;
 export default function DesignPage() {
   return (
-    <main className="min-h-screen bg-ink px-6 py-16 sm:px-12">
+    <main
+      id={MAIN_CONTENT_ID}
+      className="min-h-screen bg-ink px-6 py-16 sm:px-12"
+    >
       <div className="mx-auto flex max-w-5xl flex-col gap-16">
         <header className="flex flex-col gap-2">
           <Meta>Fase 1 — fundação</Meta>

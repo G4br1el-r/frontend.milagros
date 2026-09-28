@@ -1,6 +1,7 @@
 "use client";
 import { AlertCircle, ArrowLeft, Loader2 } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 import { useEffect, useRef } from "react";
 import { useCheckout } from "@/lib/hooks/use-checkout";
 import { useCartStore, useCartTotal } from "@/lib/stores/cart";
@@ -43,7 +44,7 @@ export function CheckoutReview() {
   }, [customer, items.length, validation, isValidating, validate]);
   const rejection = validation && !validation.valido ? validation : null;
   return (
-    <motion.div
+    <m.div
       variants={stepVariants}
       initial="hidden"
       animate="visible"
@@ -60,19 +61,19 @@ export function CheckoutReview() {
             <ArrowLeft className="size-3.5" strokeWidth={2.5} />
             Voltar ao carrinho
           </button>
-          <motion.ul variants={listItemVariants} className="flex flex-col">
+          <m.ul variants={listItemVariants} className="flex flex-col">
             <AnimatePresence initial={false}>
               {items.map((item) => (
                 <ReviewItem key={item.id} item={item} />
               ))}
             </AnimatePresence>
-          </motion.ul>
-          <motion.div variants={listItemVariants}>
+          </m.ul>
+          <m.div variants={listItemVariants}>
             <OrderSummary subtotal={total} total={total} />
-          </motion.div>
+          </m.div>
           <AnimatePresence mode="wait">
             {(rejection || validationError) && (
-              <motion.div
+              <m.div
                 key={rejection?.mensagem ?? validationError}
                 initial={{ opacity: 0, y: -6 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -87,13 +88,13 @@ export function CheckoutReview() {
                 <p className="text-xs leading-relaxed text-amber-900">
                   {rejection?.mensagem ?? validationError}
                 </p>
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
         </div>
       </div>
       <div className="border-t border-primary/10 bg-cream p-4 sm:p-6">
-        <motion.button
+        <m.button
           type="button"
           onClick={handlePrimaryAction}
           disabled={isValidating || items.length === 0 || Boolean(rejection)}
@@ -110,8 +111,8 @@ export function CheckoutReview() {
           ) : (
             "Validar pedido"
           )}
-        </motion.button>
+        </m.button>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

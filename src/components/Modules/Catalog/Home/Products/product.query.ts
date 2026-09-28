@@ -4,6 +4,7 @@ export function buildProductSearchQuery(filters: ProductSearchFilters): string {
   if (filters.termo) params.set("Termo", filters.termo);
   if (filters.letra) params.set("Letra", filters.letra);
   if (filters.categoria) params.set("Categoria", filters.categoria);
+  if (filters.subcategoria) params.set("Subcategoria", filters.subcategoria);
   if (filters.precoMin !== undefined)
     params.set("PrecoMin", String(filters.precoMin));
   if (filters.precoMax !== undefined)
@@ -18,6 +19,7 @@ export function productSearchHasTerms(filters: ProductSearchFilters): boolean {
     filters.termo ||
       filters.letra ||
       filters.categoria ||
+      filters.subcategoria ||
       filters.precoMin !== undefined ||
       filters.precoMax !== undefined,
   );

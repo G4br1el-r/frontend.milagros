@@ -1,5 +1,10 @@
+"use client";
+import * as m from "motion/react-m";
 import type { ReactNode } from "react";
-import { StaggerReveal } from "@/components/motion/ScrollReveal";
+import {
+  PRODUCT_GRID_STAGGER_SECONDS,
+  PRODUCT_GRID_VARIANTS,
+} from "./product-grid.motion";
 
 interface ProductGridProps {
   children: ReactNode;
@@ -7,12 +12,14 @@ interface ProductGridProps {
 
 export function ProductGrid({ children }: ProductGridProps) {
   return (
-    <StaggerReveal
+    <m.div
+      variants={PRODUCT_GRID_VARIANTS}
+      initial="hidden"
+      animate="visible"
+      transition={{ staggerChildren: PRODUCT_GRID_STAGGER_SECONDS }}
       className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 2xl:grid-cols-5"
-      staggerChildren={0.05}
-      amount="some"
     >
       {children}
-    </StaggerReveal>
+    </m.div>
   );
 }

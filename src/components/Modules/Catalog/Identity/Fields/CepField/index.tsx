@@ -1,6 +1,7 @@
 "use client";
 import { Loader2 } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 import { CEP_LENGTH } from "@/lib/customer/customer.constants";
 import { MaskedField } from "../MaskedField";
 
@@ -39,14 +40,14 @@ export function CepField({
       />
       <AnimatePresence>
         {isLoading && (
-          <motion.span
+          <m.span
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             className="absolute top-1/2 right-3 -translate-y-1/2 text-primary/50"
           >
             <Loader2 className="size-4 animate-spin" />
-          </motion.span>
+          </m.span>
         )}
       </AnimatePresence>
     </div>

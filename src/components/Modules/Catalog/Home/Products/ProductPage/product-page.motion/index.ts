@@ -1,4 +1,4 @@
-import type { Transition, Variants } from "motion/react";
+import type { TargetAndTransition, Transition, Variants } from "motion/react";
 import { EASE_OUT_EXPO } from "../../../Hero/hero.motion";
 export const PAGE_SPRING: Transition = {
   type: "spring",
@@ -30,9 +30,8 @@ export const riseSoft: Variants = {
   },
 };
 export const revealMedia: Variants = {
-  hidden: { opacity: 0, x: -24, scale: 0.97 },
+  hidden: { x: -24, scale: 0.97 },
   show: {
-    opacity: 1,
     x: 0,
     scale: 1,
     transition: { duration: 1, ease: EASE_OUT_EXPO },
@@ -69,4 +68,9 @@ export const AMBIENT_GLOW: Transition = {
   repeatType: "mirror",
   ease: "easeInOut",
 };
+export const AMBIENT_GLOW_LOOP: TargetAndTransition = {
+  opacity: [0.35, 0.6, 0.35],
+  transition: AMBIENT_GLOW,
+};
+export const AMBIENT_GLOW_REST: TargetAndTransition = { opacity: 0.35 };
 export const DETAIL_VIEWPORT = { once: true, margin: "-60px" } as const;

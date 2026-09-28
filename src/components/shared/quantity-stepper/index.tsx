@@ -1,6 +1,7 @@
 "use client";
 import { Minus, Plus, Trash2 } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 import { type ChangeEvent, useState } from "react";
 import { cn } from "@/lib/utils/cn";
 
@@ -57,7 +58,7 @@ export function QuantityStepper({
     <div className={cn("flex items-center gap-1.5", className)}>
       <AnimatePresence initial={false}>
         {showRemoveButton && !isAtMin && (
-          <motion.div
+          <m.div
             initial={{ gridTemplateColumns: "0fr", opacity: 0 }}
             animate={{ gridTemplateColumns: "1fr", opacity: 1 }}
             exit={{ gridTemplateColumns: "0fr", opacity: 0 }}
@@ -65,7 +66,7 @@ export function QuantityStepper({
             className="grid shrink-0"
           >
             <div className="min-w-0 overflow-hidden rounded-full border border-primary/12 bg-white p-1">
-              <motion.button
+              <m.button
                 type="button"
                 onClick={onRemove}
                 whileTap={{ scale: 0.85 }}
@@ -73,13 +74,13 @@ export function QuantityStepper({
                 className="flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-full text-terracotta transition-colors duration-200 hover:bg-terracotta/10"
               >
                 <Trash2 className="size-3.5" strokeWidth={2} />
-              </motion.button>
+              </m.button>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
       <div className="flex flex-1 items-center gap-1 rounded-full border border-primary/12 bg-white px-1 py-1">
-        <motion.button
+        <m.button
           type="button"
           onClick={handleDecrement}
           animate={pulseDelete ? { scale: [1, 0.85, 1] } : { scale: 1 }}
@@ -94,7 +95,7 @@ export function QuantityStepper({
         >
           <AnimatePresence mode="wait" initial={false}>
             {isAtMin ? (
-              <motion.span
+              <m.span
                 key="trash"
                 initial={{ opacity: 0, rotate: -45, scale: 0.6 }}
                 animate={{ opacity: 1, rotate: 0, scale: 1 }}
@@ -103,9 +104,9 @@ export function QuantityStepper({
                 className="flex"
               >
                 <Trash2 className="size-3.5" strokeWidth={2} />
-              </motion.span>
+              </m.span>
             ) : (
-              <motion.span
+              <m.span
                 key="minus"
                 initial={{ opacity: 0, rotate: 45, scale: 0.6 }}
                 animate={{ opacity: 1, rotate: 0, scale: 1 }}
@@ -114,14 +115,14 @@ export function QuantityStepper({
                 className="flex"
               >
                 <Minus className="size-3.5" strokeWidth={2.5} />
-              </motion.span>
+              </m.span>
             )}
           </AnimatePresence>
-        </motion.button>
+        </m.button>
         <div className="relative flex h-7 flex-1 items-center justify-center px-2">
           <AnimatePresence mode="popLayout" initial={false}>
             {!isFocused && (
-              <motion.span
+              <m.span
                 key={quantity}
                 aria-hidden="true"
                 initial={{ y: 10, opacity: 0 }}
@@ -131,7 +132,7 @@ export function QuantityStepper({
                 className="pointer-events-none absolute text-sm font-semibold text-primary tabular-nums"
               >
                 {quantity}
-              </motion.span>
+              </m.span>
             )}
           </AnimatePresence>
           <input
@@ -152,7 +153,7 @@ export function QuantityStepper({
             aria-label="Quantidade"
           />
         </div>
-        <motion.button
+        <m.button
           type="button"
           onClick={() => bump(1)}
           whileTap={{ scale: 0.85 }}
@@ -161,7 +162,7 @@ export function QuantityStepper({
           className="flex size-7 shrink-0 cursor-pointer items-center justify-center rounded-full text-primary/70 transition-colors duration-200 hover:bg-primary/8 hover:text-primary disabled:pointer-events-none disabled:opacity-30"
         >
           <Plus className="size-3.5" strokeWidth={2.5} />
-        </motion.button>
+        </m.button>
       </div>
     </div>
   );

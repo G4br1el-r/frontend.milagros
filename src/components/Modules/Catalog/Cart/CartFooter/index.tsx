@@ -1,5 +1,7 @@
 "use client";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
+import { QuoteNotice } from "@/components/Modules/Catalog/Checkout/QuoteNotice";
 import { formatPrice } from "@/components/Modules/Catalog/Home/Products/product.types";
 import { useIdentityGuard } from "@/lib/hooks/use-identity-guard";
 
@@ -10,11 +12,12 @@ export function CartFooter({ total }: CartFooterProps) {
   const { checkout } = useIdentityGuard();
   return (
     <div className="flex flex-col gap-4 border-t border-primary/10 p-4 sm:p-6">
+      <QuoteNotice />
       <div className="flex items-center justify-between">
         <span className="text-sm text-primary/60">Subtotal</span>
         <div className="relative overflow-hidden">
           <AnimatePresence mode="popLayout" initial={false}>
-            <motion.span
+            <m.span
               key={total}
               initial={{ y: 8, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -23,18 +26,18 @@ export function CartFooter({ total }: CartFooterProps) {
               className="block font-sans text-xl font-semibold text-primary tabular-nums"
             >
               {formatPrice(total)}
-            </motion.span>
+            </m.span>
           </AnimatePresence>
         </div>
       </div>
-      <motion.button
+      <m.button
         type="button"
         onClick={checkout}
         whileTap={{ scale: 0.985 }}
         className="relative inline-flex w-full cursor-pointer items-center justify-center gap-2.5 overflow-hidden rounded-full bg-linear-to-b from-gold-light to-gold px-6 py-3.5 text-[11px] font-bold tracking-[0.12em] text-primary-darkest uppercase transition-opacity duration-300 hover:opacity-90"
       >
         Finalizar compra
-      </motion.button>
+      </m.button>
     </div>
   );
 }

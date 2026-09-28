@@ -1,3 +1,4 @@
+import { parseInternalApiResponse } from "@/lib/http/internal-api";
 import type {
   CategoriaFiltroDto,
   FaixaPrecoDto,
@@ -10,12 +11,12 @@ import {
 } from "./product.query";
 import type { ProdutoCatalogoDto, ProdutosPaginadosDto } from "./product.types";
 
-async function parseJsonOrThrow<T>(response: Response): Promise<T> {
-  if (!response.ok) {
-    const body = await response.json().catch(() => null);
-    throw new Error(body?.message ?? "Falha ao consumir a API de produtos");
-  }
-  return response.json() as Promise<T>;
+function parseJsonOrThrow<T>(response: Response): Promise<T> {
+  return parseInternalApiResponse<T>(
+    response,
+    (_status, message) =>
+      new Error(message ?? "Falha ao consumir a API de produtos"),
+  );
 }
 export async function fetchProducts(
   filters: ProductSearchFilters,

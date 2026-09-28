@@ -1,7 +1,8 @@
 "use client";
 import { ShoppingCart } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
-import { CustomerMenu } from "@/components/Modules/Catalog/Identity";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
+import { CustomerMenu } from "@/components/Modules/Catalog/Identity/CustomerMenu";
 import { useCartCount, useCartStore } from "@/lib/stores/cart";
 import { MobileMenu } from "./MobileMenu";
 export function HeaderActions() {
@@ -21,7 +22,7 @@ export function HeaderActions() {
         <ShoppingCart className="size-5" strokeWidth={1.75} />
         <AnimatePresence>
           {count !== null && count > 0 && (
-            <motion.span
+            <m.span
               key="count"
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
@@ -30,7 +31,7 @@ export function HeaderActions() {
               className="absolute -top-0.5 -right-0.5 flex size-5 items-center justify-center rounded-full bg-brasa text-[length:var(--text-step-neg-1)] font-bold text-linho"
             >
               {count}
-            </motion.span>
+            </m.span>
           )}
         </AnimatePresence>
       </button>

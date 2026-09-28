@@ -1,6 +1,11 @@
 export interface CategoriaFiltroDto {
+  id: number;
   nome: string;
+  isPrincipal: boolean;
+  categoriaPaiId: number | null;
+  categoriaPaiNome: string | null;
   totalProdutos: number;
+  subcategorias: CategoriaFiltroDto[];
 }
 export interface LetraFiltroDto {
   letra: string;
@@ -14,6 +19,7 @@ export interface ProductSearchFilters {
   termo?: string;
   letra?: string;
   categoria?: string;
+  subcategoria?: string;
   precoMin?: number;
   precoMax?: number;
   page?: number;

@@ -1,6 +1,7 @@
 "use client";
 import { ShoppingBag } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 import { QuantityStepper } from "@/components/shared/quantity-stepper";
 import { useIdentityGuard } from "@/lib/hooks/use-identity-guard";
 import { useCartStore } from "@/lib/stores/cart";
@@ -25,7 +26,7 @@ export function ProductCta({ id, name, image, price }: ProductCtaProps) {
     <div className="relative h-12 w-full">
       <AnimatePresence initial={false} mode="popLayout">
         {quantity > 0 ? (
-          <motion.div
+          <m.div
             key="stepper"
             initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -39,9 +40,9 @@ export function ProductCta({ id, name, image, price }: ProductCtaProps) {
               onRemove={() => removeItem(id)}
               className="h-12 w-full justify-between"
             />
-          </motion.div>
+          </m.div>
         ) : (
-          <motion.button
+          <m.button
             key="add"
             type="button"
             onClick={() => addToCart({ id, name, image, price })}
@@ -55,7 +56,7 @@ export function ProductCta({ id, name, image, price }: ProductCtaProps) {
           >
             <ShoppingBag className="size-4" strokeWidth={2} />
             Adicionar ao carrinho
-          </motion.button>
+          </m.button>
         )}
       </AnimatePresence>
     </div>

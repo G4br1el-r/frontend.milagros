@@ -1,12 +1,13 @@
 "use client";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight, ZoomIn, ZoomOut } from "lucide-react";
-import { motion, useReducedMotion } from "motion/react";
+import { useInView, useReducedMotion } from "motion/react";
+import * as m from "motion/react-m";
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils/cn";
 import { ImagePlaceholder } from "../../ProductMedia/ImagePlaceholder";
-import { AMBIENT_GLOW } from "../product-page.motion";
+import { AMBIENT_GLOW_LOOP, AMBIENT_GLOW_REST } from "../product-page.motion";
 
 interface ProductPageGalleryProps {
   images: string[];
@@ -14,12 +15,42 @@ interface ProductPageGalleryProps {
 }
 const SIZES = "(min-width: 1024px) 820px, 96vw";
 const ZOOM_SCALE = 2.4;
+const ZOOM_ORIGIN_MIN_PERCENT = 0;
+const ZOOM_ORIGIN_MAX_PERCENT = 100;
+const ZOOM_ORIGIN_CENTER_PERCENT = 50;
+const ZOOM_ORIGIN_KEYBOARD_STEP_PERCENT = 10;
+interface ZoomOrigin {
+  x: number;
+  y: number;
+}
+interface ZoomOriginKeyStep {
+  axis: keyof ZoomOrigin;
+  step: number;
+}
+const ZOOM_ORIGIN_CENTER: ZoomOrigin = {
+  x: ZOOM_ORIGIN_CENTER_PERCENT,
+  y: ZOOM_ORIGIN_CENTER_PERCENT,
+};
+const ZOOM_ORIGIN_KEY_STEPS: Record<string, ZoomOriginKeyStep> = {
+  ArrowLeft: { axis: "x", step: -ZOOM_ORIGIN_KEYBOARD_STEP_PERCENT },
+  ArrowRight: { axis: "x", step: ZOOM_ORIGIN_KEYBOARD_STEP_PERCENT },
+  ArrowUp: { axis: "y", step: -ZOOM_ORIGIN_KEYBOARD_STEP_PERCENT },
+  ArrowDown: { axis: "y", step: ZOOM_ORIGIN_KEYBOARD_STEP_PERCENT },
+};
+function clampZoomOriginPercent(value: number) {
+  return Math.min(
+    Math.max(value, ZOOM_ORIGIN_MIN_PERCENT),
+    ZOOM_ORIGIN_MAX_PERCENT,
+  );
+}
 export function ProductPageGallery({ images, alt }: ProductPageGalleryProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", loop: true });
   const [index, setIndex] = useState(0);
   const [zoomed, setZoomed] = useState(false);
-  const [origin, setOrigin] = useState("50% 50%");
+  const [origin, setOrigin] = useState<ZoomOrigin>(ZOOM_ORIGIN_CENTER);
   const frameRef = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
+  const glowInView = useInView(glowRef);
   const reduceMotion = useReducedMotion();
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
@@ -56,7 +87,22 @@ export function ProductPageGallery({ images, alt }: ProductPageGalleryProps) {
     const rect = frame.getBoundingClientRect();
     const x = ((event.clientX - rect.left) / rect.width) * 100;
     const y = ((event.clientY - rect.top) / rect.height) * 100;
-    setOrigin(`${x}% ${y}%`);
+    setOrigin({ x, y });
+  };
+  const toggleZoom = () => {
+    if (!zoomed) setOrigin(ZOOM_ORIGIN_CENTER);
+    setZoomed(!zoomed);
+  };
+  const moveZoomOrigin = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (!zoomed) return;
+    const move: ZoomOriginKeyStep | undefined =
+      ZOOM_ORIGIN_KEY_STEPS[event.key];
+    if (!move) return;
+    event.preventDefault();
+    setOrigin((previous) => ({
+      ...previous,
+      [move.axis]: clampZoomOriginPercent(previous[move.axis] + move.step),
+    }));
   };
   if (images.length === 0) {
     return (
@@ -68,10 +114,16 @@ export function ProductPageGallery({ images, alt }: ProductPageGalleryProps) {
   return (
     <div className="flex flex-col gap-3 lg:flex-row-reverse lg:items-start lg:gap-4">
       <div className="relative min-w-0 flex-1">
-        <motion.div
+        <m.div
+          ref={glowRef}
           aria-hidden="true"
-          animate={reduceMotion ? undefined : { opacity: [0.35, 0.6, 0.35] }}
-          transition={AMBIENT_GLOW}
+          animate={
+            reduceMotion
+              ? undefined
+              : glowInView
+                ? AMBIENT_GLOW_LOOP
+                : AMBIENT_GLOW_REST
+          }
           className="pointer-events-none absolute -inset-6 -z-10 rounded-[3rem] bg-radial from-gold/25 via-terracotta/10 to-transparent blur-2xl"
         />
         <div
@@ -94,16 +146,20 @@ export function ProductPageGallery({ images, alt }: ProductPageGalleryProps) {
                 >
                   <Image
                     src={src}
-                    alt={i === index ? alt : ""}
+                    alt={
+                      images.length > 1
+                        ? `${alt} — imagem ${i + 1} de ${images.length}`
+                        : alt
+                    }
                     fill
                     sizes={SIZES}
-                    priority={i === 0}
+                    preload={i === 0}
                     className="object-contain transition-transform duration-500 ease-out"
                     style={
                       zoomed && i === index && !reduceMotion
                         ? {
                             transform: `scale(${ZOOM_SCALE})`,
-                            transformOrigin: origin,
+                            transformOrigin: `${origin.x}% ${origin.y}%`,
                           }
                         : undefined
                     }
@@ -114,12 +170,13 @@ export function ProductPageGallery({ images, alt }: ProductPageGalleryProps) {
           </div>
           <button
             type="button"
-            onClick={() => setZoomed((previous) => !previous)}
+            onClick={toggleZoom}
+            onKeyDown={moveZoomOrigin}
             onPointerMove={zoomed ? updateOrigin : undefined}
             aria-label={zoomed ? "Reduzir imagem" : "Ampliar imagem"}
             aria-pressed={zoomed}
             className={cn(
-              "absolute inset-0 z-10 focus-visible:outline-none",
+              "absolute inset-0 z-10 rounded-2xl focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-inset focus-visible:outline-none",
               zoomed ? "cursor-zoom-out" : "cursor-zoom-in",
             )}
           />

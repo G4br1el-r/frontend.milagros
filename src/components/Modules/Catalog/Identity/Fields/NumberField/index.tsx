@@ -1,9 +1,11 @@
 "use client";
 import { Check } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 import { ADDRESS_WITHOUT_NUMBER } from "@/lib/customer/customer.constants";
-import { cn } from "@/lib/utils/cn";
 import { springSnappy } from "../../identity.motion";
+import { getFieldErrorId } from "../field-error-id";
+import { fieldInputClassName } from "../field-styles";
 
 interface NumberFieldProps {
   id?: string;
@@ -35,14 +37,8 @@ export function NumberField({
         autoComplete="address-line2"
         disabled={disabled || withoutNumber}
         aria-invalid={invalid || undefined}
-        className={cn(
-          "h-11 w-full rounded-lg border bg-white px-3.5 text-sm text-primary transition-colors duration-200 outline-none placeholder:text-primary/35",
-          "focus-visible:border-gold focus-visible:ring-2 focus-visible:ring-gold/25",
-          "disabled:cursor-not-allowed disabled:bg-primary/5 disabled:text-primary/45",
-          invalid
-            ? "border-red-400 focus-visible:border-red-400 focus-visible:ring-red-200"
-            : "border-primary/15",
-        )}
+        aria-describedby={invalid ? getFieldErrorId(id) : undefined}
+        className={fieldInputClassName(invalid)}
       />
       <label
         htmlFor={checkboxId}
@@ -59,7 +55,7 @@ export function NumberField({
             disabled={disabled}
             className="peer absolute inset-0 cursor-pointer opacity-0 disabled:cursor-not-allowed"
           />
-          <motion.span
+          <m.span
             animate={{
               backgroundColor: withoutNumber
                 ? "var(--color-gold)"
@@ -73,7 +69,7 @@ export function NumberField({
           >
             <AnimatePresence>
               {withoutNumber && (
-                <motion.span
+                <m.span
                   initial={{ scale: 0, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   exit={{ scale: 0, opacity: 0 }}
@@ -83,10 +79,10 @@ export function NumberField({
                     className="size-3 text-primary-darkest"
                     strokeWidth={3}
                   />
-                </motion.span>
+                </m.span>
               )}
             </AnimatePresence>
-          </motion.span>
+          </m.span>
         </span>
         Sem número
       </label>

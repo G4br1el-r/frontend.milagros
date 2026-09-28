@@ -1,13 +1,12 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { api } from "@/lib/api";
+import { parseRequestBody } from "@/lib/api/parse-request";
 import { routeErrorResponse } from "@/lib/api/route-error-response";
 import { withAuthRetry } from "@/lib/api/with-auth-retry";
 import { isAppError } from "@/lib/api-client";
-import type {
-  CheckoutRequest,
-  CheckoutResponse,
-} from "@/lib/checkout/checkout.types";
+import { checkoutRequestSchema } from "@/lib/checkout/checkout.schemas";
+import type { CheckoutResponse } from "@/lib/checkout/checkout.types";
 
 function isBusinessRejection(details: unknown): details is CheckoutResponse {
   return (
@@ -18,7 +17,7 @@ function isBusinessRejection(details: unknown): details is CheckoutResponse {
 }
 export async function POST(request: NextRequest) {
   try {
-    const payload = (await request.json()) as CheckoutRequest;
+    const payload = await parseRequestBody(request, checkoutRequestSchema);
     const resultado = await withAuthRetry(() =>
       api.post<CheckoutResponse>("/api/checkout", payload),
     );

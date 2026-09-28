@@ -1,15 +1,17 @@
 "use client";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 import { errorVariants } from "../../identity.motion";
 
 interface FieldErrorProps {
+  id?: string;
   message?: string;
 }
-export function FieldError({ message }: FieldErrorProps) {
+export function FieldError({ id, message }: FieldErrorProps) {
   return (
     <AnimatePresence initial={false} mode="wait">
       {message && (
-        <motion.div
+        <m.div
           key={message}
           initial={{ gridTemplateRows: "0fr" }}
           animate={{ gridTemplateRows: "1fr" }}
@@ -17,7 +19,8 @@ export function FieldError({ message }: FieldErrorProps) {
           transition={{ duration: 0.14, ease: [0.22, 1, 0.36, 1] }}
           className="grid"
         >
-          <motion.p
+          <m.p
+            id={id}
             variants={errorVariants}
             initial="hidden"
             animate="visible"
@@ -26,8 +29,8 @@ export function FieldError({ message }: FieldErrorProps) {
             className="min-h-0 overflow-hidden text-[11px] font-medium text-red-600"
           >
             {message}
-          </motion.p>
-        </motion.div>
+          </m.p>
+        </m.div>
       )}
     </AnimatePresence>
   );

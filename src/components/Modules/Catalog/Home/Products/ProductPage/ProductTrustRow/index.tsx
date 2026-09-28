@@ -1,6 +1,6 @@
 "use client";
 import { Church, PackageCheck, ShieldCheck, Truck } from "lucide-react";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import { DETAIL_VIEWPORT, specRow, specStage } from "../product-page.motion";
 
 const TRUST_ITEMS = [
@@ -27,7 +27,7 @@ const TRUST_ITEMS = [
 ] as const;
 export function ProductTrustRow() {
   return (
-    <motion.ul
+    <m.ul
       variants={specStage}
       initial="hidden"
       whileInView="show"
@@ -35,7 +35,7 @@ export function ProductTrustRow() {
       className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
     >
       {TRUST_ITEMS.map(({ icon: Icon, title, body }) => (
-        <motion.li
+        <m.li
           key={title}
           variants={specRow}
           className="flex flex-col gap-2.5 rounded-2xl border border-primary/10 bg-white/50 p-5 backdrop-blur-sm transition-colors duration-300 hover:border-gold/40"
@@ -49,8 +49,8 @@ export function ProductTrustRow() {
           <span className="text-xs leading-relaxed text-primary/65">
             {body}
           </span>
-        </motion.li>
+        </m.li>
       ))}
-    </motion.ul>
+    </m.ul>
   );
 }

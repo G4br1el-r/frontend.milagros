@@ -12,10 +12,3 @@ export function useActiveFilterCount(): number {
   if (precoMin !== undefined || precoMax !== undefined) count += 1;
   return count;
 }
-export function useRefinementFilterCount(): number {
-  const { letra, precoMin, precoMax } = useProductFiltersUrl();
-  let count = 0;
-  if (letra) count += 1;
-  if (precoMin !== undefined || precoMax !== undefined) count += 1;
-  return count;
-}

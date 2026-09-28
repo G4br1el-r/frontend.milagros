@@ -2,13 +2,9 @@ import { RotateCw, TriangleAlert } from "lucide-react";
 import { PRODUCT_LOAD_ERROR_MESSAGE } from "../product.constants";
 
 interface ProductErrorStateProps {
-  message?: string;
   onRetry?: () => void;
 }
-export function ProductErrorState({
-  message,
-  onRetry,
-}: ProductErrorStateProps) {
+export function ProductErrorState({ onRetry }: ProductErrorStateProps) {
   return (
     <div className="flex flex-col items-center gap-4 rounded-xl border border-terracotta/20 bg-terracotta/5 px-6 py-20 text-center">
       <TriangleAlert
@@ -21,7 +17,7 @@ export function ProductErrorState({
           Não foi possível carregar os produtos
         </h3>
         <p className="max-w-sm text-sm text-primary/60">
-          {message ?? PRODUCT_LOAD_ERROR_MESSAGE}
+          {PRODUCT_LOAD_ERROR_MESSAGE}
         </p>
       </div>
       {onRetry && (

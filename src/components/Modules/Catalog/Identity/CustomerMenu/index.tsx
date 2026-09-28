@@ -34,8 +34,9 @@ export function CustomerMenu() {
         <UserRound className="size-5" strokeWidth={1.75} />
       </PopoverTrigger>
       <PopoverContent
-        align="end"
+        align="start"
         sideOffset={10}
+        arrowClassName="fill-cream"
         className="w-auto rounded-xl border-primary/10 bg-cream p-4"
       >
         <CustomerMenuPanel

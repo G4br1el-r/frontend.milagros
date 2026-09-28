@@ -17,7 +17,7 @@ export function ProductGrid({ children }: ProductGridProps) {
       initial="hidden"
       animate="visible"
       transition={{ staggerChildren: PRODUCT_GRID_STAGGER_SECONDS }}
-      className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 2xl:grid-cols-5"
+      className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 @[850px]:grid-cols-3 @[1150px]:grid-cols-4"
     >
       {children}
     </m.div>

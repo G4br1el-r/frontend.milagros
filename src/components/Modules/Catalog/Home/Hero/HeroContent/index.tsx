@@ -78,7 +78,7 @@ export function HeroContent() {
       </m.div>
       <m.p
         variants={taglineStage}
-        className="mx-auto max-w-md text-balance text-base leading-relaxed font-light tracking-wide text-cream sm:max-w-xl sm:text-lg lg:text-xl"
+        className="mx-auto max-w-72 text-balance text-sm leading-relaxed font-light tracking-wide text-cream sm:max-w-xl sm:text-lg lg:text-xl"
       >
         {TAGLINE.split(" ").map((word, index) => (
           <m.span

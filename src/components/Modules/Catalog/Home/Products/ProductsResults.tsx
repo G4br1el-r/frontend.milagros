@@ -60,15 +60,15 @@ export function ProductsResults() {
         delay={0.2}
         className="mb-4 flex flex-col gap-3 px-3 sm:px-4"
       >
-        <div className="flex flex-wrap items-center justify-between gap-3">
+        <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
           <span className="text-sm text-primary/55" aria-live="polite">
             {countLabel}
           </span>
-          <div className="flex items-center gap-3">
-            {!isShowingSkeleton && products.length > 0 && <PageSizeSelect />}
+          <div className="flex items-center justify-between gap-3 sm:justify-end">
             <div className="lg:hidden">
               <ProductFilters mobileOnly />
             </div>
+            {!isShowingSkeleton && products.length > 0 && <PageSizeSelect />}
           </div>
         </div>
         <CategoryScroller />
@@ -76,9 +76,9 @@ export function ProductsResults() {
       </FadeIn>
       <div className="flex items-start gap-4 px-3 sm:px-4 xl:gap-5">
         <ProductFilters desktopOnly />
-        <div className="min-w-0 flex-1">
+        <div className="min-w-0 flex-1 @container">
           {isError ? (
-            <ProductErrorState message={error?.message} onRetry={refetch} />
+            <ProductErrorState onRetry={refetch} />
           ) : isShowingSkeleton ? (
             <ProductGridSkeleton />
           ) : products.length === 0 ? (

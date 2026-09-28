@@ -19,7 +19,7 @@ export function MobileMenu() {
         <Menu className="size-5" strokeWidth={1.75} />
       </SheetTrigger>
       <SheetContent
-        side="right"
+        side="left"
         showCloseButton={false}
         className="flex w-full flex-col gap-0 border-ouro/10 bg-nave sm:max-w-xs"
       >

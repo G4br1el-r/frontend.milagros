@@ -10,6 +10,14 @@ export const QUOTE_NOTICE_TITLE = "Este é um orçamento";
 export const QUOTE_NOTICE_SHORT = "Valores sujeitos a alteração";
 export const QUOTE_NOTICE_DESCRIPTION =
   "Os valores são uma estimativa e podem mudar após a conferência do pedido pela nossa equipe. A confirmação final é enviada junto com o pedido.";
+export const CANCELLED_ORDER_STATUSES = ["cancelado", "cancelada"];
+export const QUOTE_SENT_LABEL = "Orçamento enviado";
+export const QUOTE_CLOSED_LABEL = "Pedido encerrado sem confirmação de valor";
+export const QUOTE_CONFIRMED_LABEL = "Valor confirmado";
+export const QUOTE_PENDING_LABEL = "Aguardando confirmação da Milagros";
+export const QUOTE_ADJUSTED_UP_LABEL = "Ajustado para mais";
+export const QUOTE_ADJUSTED_DOWN_LABEL = "Ajustado para menos";
+export const QUOTE_UNCHANGED_LABEL = "Sem alteração de valor";
 export const PAYMENT_KIND_ORDER = ["Pix", "Cartao", "Boleto"] as const;
 export const ORDER_ID_MAX_LENGTH = 64;
 export const ORDER_ID_PATTERN = /^[A-Za-z0-9-]+$/;

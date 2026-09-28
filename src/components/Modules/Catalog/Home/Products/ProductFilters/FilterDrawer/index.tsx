@@ -10,14 +10,14 @@ import {
 } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils/cn";
 import { scrollToResultsTop } from "../../scroll-to-results";
-import { useRefinementFilterCount } from "../use-active-filters";
+import { useActiveFilterCount } from "../use-active-filters";
 
 interface FilterDrawerProps {
   children: ReactNode;
 }
 export function FilterDrawer({ children }: FilterDrawerProps) {
   const [open, setOpen] = useState(false);
-  const activeCount = useRefinementFilterCount();
+  const activeCount = useActiveFilterCount();
   return (
     <div className="lg:hidden">
       <Sheet open={open} onOpenChange={setOpen}>
@@ -30,7 +30,7 @@ export function FilterDrawer({ children }: FilterDrawerProps) {
           )}
         >
           <SlidersHorizontal className="size-4 shrink-0" strokeWidth={2} />
-          Refinar
+          Filtrar
           {activeCount > 0 && (
             <span className="inline-flex min-w-4.5 items-center justify-center rounded-full bg-terracotta px-1 py-0.5 text-[10px] font-bold text-cream tabular-nums">
               {activeCount}
@@ -39,28 +39,37 @@ export function FilterDrawer({ children }: FilterDrawerProps) {
         </SheetTrigger>
         <SheetContent
           side="left"
-          className="w-[85vw] max-w-sm gap-8 overflow-y-auto bg-cream p-6 pt-[calc(1.5rem+env(safe-area-inset-top))] sm:max-w-sm"
+          className="flex flex-col gap-0 bg-cream p-0 data-[side=left]:w-screen data-[side=left]:sm:max-w-none"
         >
-          <SheetHeader className="flex-row items-center justify-between gap-2.5 p-0">
+          <SheetHeader className="shrink-0 flex-row items-center justify-between gap-2.5 border-b border-primary/10 px-5 pt-[calc(1.25rem+env(safe-area-inset-top))] pb-4">
             <SheetTitle className="flex items-center gap-2.5 font-display text-lg font-normal text-primary">
               <SlidersHorizontal
                 className="size-4 shrink-0 text-terracotta"
                 strokeWidth={2}
               />
-              Refinar
+              Filtrar
+              {activeCount > 0 && (
+                <span className="inline-flex min-w-5 items-center justify-center rounded-full bg-terracotta px-1.5 py-0.5 text-[10px] font-bold text-cream tabular-nums">
+                  {activeCount}
+                </span>
+              )}
             </SheetTitle>
           </SheetHeader>
-          {children}
-          <button
-            type="button"
-            onClick={() => {
-              setOpen(false);
-              scrollToResultsTop();
-            }}
-            className="mt-2 w-full cursor-pointer rounded-full bg-linear-to-b from-gold-light to-gold px-6 py-3.5 text-[11px] font-bold tracking-[0.12em] text-primary-darkest uppercase transition-opacity duration-300 hover:opacity-90"
-          >
-            Ver resultados
-          </button>
+          <div className="flex-1 overflow-y-auto overscroll-contain px-5 py-6">
+            {children}
+          </div>
+          <div className="shrink-0 border-t border-primary/10 bg-cream px-5 pt-4 pb-[calc(1rem+env(safe-area-inset-bottom))]">
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                scrollToResultsTop();
+              }}
+              className="w-full cursor-pointer rounded-full bg-linear-to-b from-gold-light to-gold px-6 py-3.5 text-[11px] font-bold tracking-[0.12em] text-primary-darkest uppercase transition-opacity duration-300 hover:opacity-90"
+            >
+              Ver resultados
+            </button>
+          </div>
         </SheetContent>
       </Sheet>
     </div>

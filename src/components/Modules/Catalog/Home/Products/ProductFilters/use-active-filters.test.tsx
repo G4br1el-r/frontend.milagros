@@ -1,9 +1,6 @@
 import { renderHook } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import {
-  useActiveFilterCount,
-  useRefinementFilterCount,
-} from "./use-active-filters";
+import { useActiveFilterCount } from "./use-active-filters";
 
 const navigation = vi.hoisted(() => ({ pathname: "/", search: "" }));
 vi.mock("next/navigation", () => ({
@@ -46,24 +43,5 @@ describe("useActiveFilterCount", () => {
     expect(countFor("q=incenso&letra=I&subcategoria=Mirra&precoMin=10")).toBe(
       4,
     );
-  });
-});
-
-describe("useRefinementFilterCount", () => {
-  beforeEach(() => {
-    navigation.search = "";
-  });
-
-  function refinementCountFor(search: string): number {
-    navigation.search = search;
-    return renderHook(() => useRefinementFilterCount()).result.current;
-  }
-
-  it("ignora categoria e subcategoria", () => {
-    expect(refinementCountFor("categoria=Incensos&subcategoria=Mirra")).toBe(0);
-  });
-
-  it("conta apenas letra e faixa de preco", () => {
-    expect(refinementCountFor("letra=B&precoMin=10&precoMax=90")).toBe(2);
   });
 });

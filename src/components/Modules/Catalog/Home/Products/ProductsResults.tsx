@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { FadeIn } from "@/components/motion/fade-in";
 import { useProductFiltersUrl } from "@/lib/query-state/use-product-filters-url";
 import { appToast } from "@/lib/toast/toast";
-import { CategoryScroller } from "./CategoryScroller";
 import { ProductCard } from "./ProductCard";
 import { ProductEmptyState } from "./ProductEmptyState";
 import { ProductErrorState } from "./ProductErrorState";
@@ -71,7 +70,6 @@ export function ProductsResults() {
             {!isShowingSkeleton && products.length > 0 && <PageSizeSelect />}
           </div>
         </div>
-        <CategoryScroller />
         <ActiveFilterChips />
       </FadeIn>
       <div className="flex items-start gap-4 px-3 sm:px-4 xl:gap-5">

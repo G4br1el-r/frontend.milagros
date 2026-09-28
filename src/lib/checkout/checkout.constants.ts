@@ -10,7 +10,9 @@ export const QUOTE_NOTICE_TITLE = "Este é um orçamento";
 export const QUOTE_NOTICE_SHORT = "Valores sujeitos a alteração";
 export const QUOTE_NOTICE_DESCRIPTION =
   "Os valores são uma estimativa e podem mudar após a conferência do pedido pela nossa equipe. A confirmação final é enviada junto com o pedido.";
+export const CANCELLED_ORDER_STATUSES = ["cancelado", "cancelada"];
 export const QUOTE_SENT_LABEL = "Orçamento enviado";
+export const QUOTE_CLOSED_LABEL = "Pedido encerrado sem confirmação de valor";
 export const QUOTE_CONFIRMED_LABEL = "Valor confirmado";
 export const QUOTE_PENDING_LABEL = "Aguardando confirmação da Milagros";
 export const QUOTE_ADJUSTED_UP_LABEL = "Ajustado para mais";

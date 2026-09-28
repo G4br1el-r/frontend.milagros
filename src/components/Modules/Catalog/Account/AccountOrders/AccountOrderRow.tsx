@@ -109,6 +109,12 @@ export function AccountOrderRow({ order }: AccountOrderRowProps) {
                       </span>
                     </div>
                   )}
+                  <div className="flex items-center justify-between border-t border-primary/10 pt-1.5">
+                    <span className="font-medium text-primary">Total</span>
+                    <span className="font-sans text-base font-semibold text-primary tabular-nums">
+                      {formatPrice(order.valorTotal)}
+                    </span>
+                  </div>
                 </div>
                 <OrderQuoteSummary quote={quote} />
                 {quote.outcome === "pendente" && (

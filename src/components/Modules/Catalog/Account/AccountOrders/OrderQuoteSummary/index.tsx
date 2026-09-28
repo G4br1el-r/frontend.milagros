@@ -1,21 +1,24 @@
-import { ArrowDown, ArrowUp, Check, Clock } from "lucide-react";
+import { ArrowDown, ArrowUp, Ban, Check, Clock } from "lucide-react";
 import { formatPrice } from "@/components/Modules/Catalog/Home/Products/product.types";
 import {
   QUOTE_ADJUSTED_DOWN_LABEL,
   QUOTE_ADJUSTED_UP_LABEL,
+  QUOTE_CLOSED_LABEL,
   QUOTE_CONFIRMED_LABEL,
   QUOTE_PENDING_LABEL,
   QUOTE_SENT_LABEL,
   QUOTE_UNCHANGED_LABEL,
 } from "@/lib/checkout/checkout.constants";
-import type { QuoteSummary } from "@/lib/checkout/quote-status";
+import type { QuoteOutcome, QuoteSummary } from "@/lib/checkout/quote-status";
 import { cn } from "@/lib/utils/cn";
+
+type SettledOutcome = Extract<QuoteOutcome, "igual" | "maior" | "menor">;
 
 interface OrderQuoteSummaryProps {
   quote: QuoteSummary;
 }
 export function OrderQuoteSummary({ quote }: OrderQuoteSummaryProps) {
-  const pendente = quote.outcome === "pendente";
+  const confirmado = quote.valorConfirmado !== null;
   return (
     <div className="flex flex-col gap-2.5 rounded-xl border border-primary/10 bg-cream/60 p-3.5">
       <div className="flex items-center justify-between gap-3 text-sm">
@@ -31,20 +34,27 @@ export function OrderQuoteSummary({ quote }: OrderQuoteSummaryProps) {
         <span
           className={cn(
             "shrink-0 font-sans tabular-nums",
-            pendente ? "font-semibold text-primary" : "text-primary/60",
+            confirmado ? "text-primary/60" : "font-semibold text-primary",
           )}
         >
           {formatPrice(quote.valorOrcado)}
         </span>
       </div>
       <div className="ml-2.5 h-3 w-px bg-primary/15" aria-hidden="true" />
-      {pendente ? (
-        <div className="flex items-center justify-between gap-3 text-sm">
-          <span className="flex items-center gap-2 text-primary/50">
-            <Clock className="size-4 shrink-0" strokeWidth={2} />
-            {QUOTE_PENDING_LABEL}
-          </span>
-        </div>
+      {quote.outcome === "encerrado" ? (
+        <span className="flex items-center gap-2 text-sm text-primary/50">
+          <Ban className="size-4 shrink-0" strokeWidth={2} aria-hidden="true" />
+          {QUOTE_CLOSED_LABEL}
+        </span>
+      ) : quote.outcome === "pendente" ? (
+        <span className="flex items-center gap-2 text-sm text-primary/50">
+          <Clock
+            className="size-4 shrink-0"
+            strokeWidth={2}
+            aria-hidden="true"
+          />
+          {QUOTE_PENDING_LABEL}
+        </span>
       ) : (
         <div className="flex flex-col gap-1">
           <div className="flex items-center justify-between gap-3 text-sm">
@@ -57,25 +67,29 @@ export function OrderQuoteSummary({ quote }: OrderQuoteSummaryProps) {
               </span>
               {QUOTE_CONFIRMED_LABEL}
             </span>
-            <span className="shrink-0 font-sans text-base font-semibold tabular-nums text-primary">
+            <span className="shrink-0 font-sans text-base font-semibold text-primary tabular-nums">
               {formatPrice(quote.valorConfirmado ?? 0)}
             </span>
           </div>
-          <QuoteDelta quote={quote} />
+          <QuoteDelta outcome={quote.outcome} diferenca={quote.diferenca} />
         </div>
       )}
     </div>
   );
 }
-function QuoteDelta({ quote }: OrderQuoteSummaryProps) {
-  if (quote.outcome === "igual") {
+interface QuoteDeltaProps {
+  outcome: SettledOutcome;
+  diferenca: number;
+}
+function QuoteDelta({ outcome, diferenca }: QuoteDeltaProps) {
+  if (outcome === "igual") {
     return (
       <span className="pl-7 text-xs text-primary/45">
         {QUOTE_UNCHANGED_LABEL}
       </span>
     );
   }
-  const subiu = quote.outcome === "maior";
+  const subiu = outcome === "maior";
   const Icon = subiu ? ArrowUp : ArrowDown;
   return (
     <span
@@ -87,7 +101,7 @@ function QuoteDelta({ quote }: OrderQuoteSummaryProps) {
       <Icon className="size-3 shrink-0" strokeWidth={2.5} aria-hidden="true" />
       {subiu ? QUOTE_ADJUSTED_UP_LABEL : QUOTE_ADJUSTED_DOWN_LABEL}
       {" · "}
-      {formatPrice(Math.abs(quote.diferenca))}
+      {formatPrice(Math.abs(diferenca))}
     </span>
   );
 }

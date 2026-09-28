@@ -1,6 +1,6 @@
 export const SITE_NAME = "Milagros";
 export const SITE_LOCALE = "pt_BR";
-export const DEV_FALLBACK_SITE_URL = "http://localhost:3000";
+export const SITE_URL = "https://www.catalogo.milagros.com.br";
 export const SITE_LOGO_PATH = "/images/hero/milagros-logo.png";
 export const DEFAULT_OG_IMAGE_PATH = "/images/hero/hero-poster.webp";
 export const DEFAULT_OG_IMAGE_WIDTH = 1536;

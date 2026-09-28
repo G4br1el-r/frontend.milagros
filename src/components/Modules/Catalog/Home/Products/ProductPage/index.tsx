@@ -1,10 +1,6 @@
 "use client";
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useTransform,
-} from "motion/react";
+import { useReducedMotion, useScroll, useTransform } from "motion/react";
+import * as m from "motion/react-m";
 import { useRef } from "react";
 import { ProductRelated } from "../ProductRelated";
 import type { Product } from "../product.types";
@@ -36,19 +32,19 @@ export function ProductPage({ product }: ProductPageProps) {
         className="pointer-events-none absolute inset-x-0 top-0 h-96 bg-linear-to-b from-gold/12 to-transparent"
       />
       <div className="relative mx-auto w-full max-w-7xl px-5 pt-28 pb-24 sm:px-8 sm:pt-32 lg:px-12 lg:pb-32">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="mb-8 sm:mb-10"
         >
           <ProductBreadcrumb category={product.category} name={product.name} />
-        </motion.div>
+        </m.div>
         <div
           ref={heroRef}
           className="grid gap-10 lg:grid-cols-[1.45fr_1fr] lg:items-start lg:gap-14"
         >
-          <motion.div
+          <m.div
             variants={revealMedia}
             initial="hidden"
             animate="show"
@@ -56,7 +52,7 @@ export function ProductPage({ product }: ProductPageProps) {
             className="lg:sticky lg:top-28"
           >
             <ProductPageGallery images={product.images} alt={product.name} />
-          </motion.div>
+          </m.div>
           <div className="flex flex-col gap-14">
             <div ref={ctaAnchorRef}>
               <ProductBuyPanel product={product} />

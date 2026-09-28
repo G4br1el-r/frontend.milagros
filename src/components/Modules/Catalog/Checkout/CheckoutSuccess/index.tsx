@@ -1,6 +1,6 @@
 "use client";
 import { Check, FileText } from "lucide-react";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import { formatPrice } from "@/components/Modules/Catalog/Home/Products/product.types";
 import { useCartStore } from "@/lib/stores/cart";
 import { useCheckoutStore } from "@/lib/stores/checkout";
@@ -9,13 +9,14 @@ import {
   springSnappy,
   successVariants,
 } from "../checkout.motion";
+import { QuoteNotice } from "../QuoteNotice";
 export function CheckoutSuccess() {
   const result = useCheckoutStore((state) => state.result);
   const reset = useCheckoutStore((state) => state.reset);
   const clearCart = useCartStore((state) => state.clear);
   if (!result) return null;
   return (
-    <motion.div
+    <m.div
       variants={successVariants}
       initial="hidden"
       animate="visible"
@@ -23,26 +24,23 @@ export function CheckoutSuccess() {
     >
       <div className="flex-1 overflow-y-auto px-4 pb-6 sm:px-6">
         <div className="flex flex-col items-center gap-5 pt-4 text-center">
-          <motion.span
+          <m.span
             initial={{ scale: 0.4, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ ...springSnappy, delay: 0.05 }}
             className="flex size-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-700"
           >
             <Check className="size-8" strokeWidth={2.5} />
-          </motion.span>
-          <motion.div
-            variants={listItemVariants}
-            className="flex flex-col gap-1.5"
-          >
+          </m.span>
+          <m.div variants={listItemVariants} className="flex flex-col gap-1.5">
             <h3 className="font-display text-xl text-primary">
               Pedido confirmado
             </h3>
             <p className="text-sm leading-relaxed text-primary/60">
               {result.mensagem ?? "Recebemos seu pedido com sucesso."}
             </p>
-          </motion.div>
-          <motion.dl
+          </m.div>
+          <m.dl
             variants={listItemVariants}
             className="flex w-full flex-col gap-2 rounded-xl border border-primary/12 bg-white p-4 text-left text-sm"
           >
@@ -63,13 +61,16 @@ export function CheckoutSuccess() {
               </div>
             )}
             <div className="flex items-center justify-between border-t border-primary/10 pt-2">
-              <dt className="font-medium text-primary">Total</dt>
+              <dt className="font-medium text-primary">Total estimado</dt>
               <dd className="font-sans text-lg font-semibold tabular-nums text-primary">
                 {formatPrice(result.valorTotal)}
               </dd>
             </div>
-          </motion.dl>
-          <motion.div
+          </m.dl>
+          <m.div variants={listItemVariants} className="w-full">
+            <QuoteNotice />
+          </m.div>
+          <m.div
             variants={listItemVariants}
             className="flex w-full flex-col gap-2.5"
           >
@@ -84,11 +85,11 @@ export function CheckoutSuccess() {
                 Baixar PDF do pedido
               </a>
             )}
-          </motion.div>
+          </m.div>
         </div>
       </div>
       <div className="border-t border-primary/10 bg-cream p-4 sm:p-6">
-        <motion.button
+        <m.button
           type="button"
           onClick={() => {
             clearCart();
@@ -98,8 +99,8 @@ export function CheckoutSuccess() {
           className="inline-flex h-12 w-full cursor-pointer items-center justify-center rounded-full bg-linear-to-b from-gold-light to-gold px-6 text-[11px] font-bold tracking-[0.12em] text-primary-darkest uppercase transition-opacity duration-300 hover:opacity-90"
         >
           Continuar comprando
-        </motion.button>
+        </m.button>
       </div>
-    </motion.div>
+    </m.div>
   );
 }

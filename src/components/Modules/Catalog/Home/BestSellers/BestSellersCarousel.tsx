@@ -1,16 +1,25 @@
 "use client";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight, Flame } from "lucide-react";
+import { ChevronLeft, ChevronRight, Flame, Pause, Play } from "lucide-react";
+import { useReducedMotion } from "motion/react";
 import { useCallback, useEffect, useState } from "react";
 import { StaggerItem, StaggerReveal } from "@/components/motion/ScrollReveal";
 import { ProductCard } from "../Products/ProductCard";
 import type { Product } from "../Products/product.types";
 
+const AUTOPLAY_DELAY_MS = 3500;
+const AUTOPLAY_TOGGLE_LABEL = "Pausar rotação automática";
 interface BestSellersCarouselProps {
   products: Product[];
 }
 export function BestSellersCarousel({ products }: BestSellersCarouselProps) {
+  const reduceMotion = useReducedMotion();
+  const [isAutoplayPaused, setIsAutoplayPaused] = useState(false);
+  useEffect(() => {
+    if (reduceMotion) setIsAutoplayPaused(true);
+  }, [reduceMotion]);
+  const toggleAutoplay = () => setIsAutoplayPaused((previous) => !previous);
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       align: "start",
@@ -19,9 +28,11 @@ export function BestSellersCarousel({ products }: BestSellersCarouselProps) {
     },
     [
       Autoplay({
-        delay: 3500,
+        active: !isAutoplayPaused,
+        delay: AUTOPLAY_DELAY_MS,
         stopOnInteraction: false,
         stopOnMouseEnter: true,
+        stopOnFocusIn: true,
       }),
     ],
   );
@@ -72,6 +83,19 @@ export function BestSellersCarousel({ products }: BestSellersCarouselProps) {
             <div className="hidden shrink-0 items-center gap-2 sm:flex">
               <button
                 type="button"
+                onClick={toggleAutoplay}
+                aria-pressed={isAutoplayPaused}
+                aria-label={AUTOPLAY_TOGGLE_LABEL}
+                className="flex size-11 cursor-pointer items-center justify-center rounded-full border border-primary/15 bg-white/80 text-primary/70 backdrop-blur-sm transition duration-200 hover:border-gold hover:text-gold disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                {isAutoplayPaused ? (
+                  <Play className="size-5" strokeWidth={2} />
+                ) : (
+                  <Pause className="size-5" strokeWidth={2} />
+                )}
+              </button>
+              <button
+                type="button"
                 onClick={scrollPrev}
                 disabled={!canScrollPrev}
                 aria-label="Produtos anteriores"
@@ -115,6 +139,19 @@ export function BestSellersCarousel({ products }: BestSellersCarouselProps) {
         </div>
       </StaggerReveal>
       <div className="mt-6 flex items-center justify-center gap-3 sm:hidden">
+        <button
+          type="button"
+          onClick={toggleAutoplay}
+          aria-pressed={isAutoplayPaused}
+          aria-label={AUTOPLAY_TOGGLE_LABEL}
+          className="flex size-10 cursor-pointer items-center justify-center rounded-full border border-primary/15 bg-white/80 text-primary/70 transition duration-200 hover:border-gold hover:text-gold disabled:cursor-not-allowed disabled:opacity-40"
+        >
+          {isAutoplayPaused ? (
+            <Play className="size-4.5" strokeWidth={2} />
+          ) : (
+            <Pause className="size-4.5" strokeWidth={2} />
+          )}
+        </button>
         <button
           type="button"
           onClick={scrollPrev}

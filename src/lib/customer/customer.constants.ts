@@ -3,6 +3,8 @@ export const CPF_LENGTH = 11;
 export const CNPJ_LENGTH = 14;
 export const CEP_LENGTH = 8;
 export const ADDRESS_WITHOUT_NUMBER = "S/N";
+export const COMPLEMENTO_MAX_LENGTH = 60;
+export const UF_LENGTH = 2;
 export const UF_OPTIONS = [
   "AC",
   "AL",

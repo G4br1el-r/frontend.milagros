@@ -12,8 +12,16 @@ export function buildProductSlug(name: string, codigoOmie: string): string {
   const code = encodeURIComponent(codigoOmie);
   return base ? `${base}${SLUG_SEPARATOR}${code}` : code;
 }
-export function parseProductSlug(slug: string): string {
-  const decoded = decodeURIComponent(slug);
+function safeDecodeURIComponent(value: string): string | null {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return null;
+  }
+}
+export function parseProductSlug(slug: string): string | null {
+  const decoded = safeDecodeURIComponent(slug);
+  if (decoded === null) return null;
   const index = decoded.lastIndexOf(SLUG_SEPARATOR);
   if (index === -1) return decoded;
   return decoded.slice(index + SLUG_SEPARATOR.length);

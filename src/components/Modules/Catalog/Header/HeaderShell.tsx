@@ -1,15 +1,17 @@
 "use client";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils/cn";
 import { useScrolled } from "./useScrolled";
 export function HeaderShell({ children }: { children: React.ReactNode }) {
-  const { scrolled, hidden } = useScrolled();
+  const { scrolled, hidden, onFocus, onBlur } = useScrolled();
   const pathname = usePathname();
   const overDarkHero = pathname === "/";
   const solid = scrolled || !overDarkHero;
   return (
-    <motion.header
+    <m.header
+      onFocus={onFocus}
+      onBlur={onBlur}
       animate={{ y: hidden ? "-100%" : "0%" }}
       transition={{ type: "spring", stiffness: 220, damping: 28, mass: 0.9 }}
       className={cn(
@@ -20,6 +22,6 @@ export function HeaderShell({ children }: { children: React.ReactNode }) {
       )}
     >
       {children}
-    </motion.header>
+    </m.header>
   );
 }

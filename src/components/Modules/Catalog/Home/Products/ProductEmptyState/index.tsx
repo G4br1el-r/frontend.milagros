@@ -1,9 +1,10 @@
+"use client";
 import { SearchX } from "lucide-react";
-import { useProductFiltersUrl } from "@/lib/query-state/use-product-filters-url";
 import { appToast } from "@/lib/toast/toast";
+import { useProductFiltersWithScroll } from "../ProductFilters/use-filters-with-scroll";
 export function ProductEmptyState() {
   const { termo, letra, categoria, precoMin, precoMax, reset } =
-    useProductFiltersUrl();
+    useProductFiltersWithScroll();
   const hasPriceFilter = precoMin !== undefined || precoMax !== undefined;
   const description = termo
     ? `Nenhum resultado para "${termo}". Tente um termo mais curto ou busque por categoria.`

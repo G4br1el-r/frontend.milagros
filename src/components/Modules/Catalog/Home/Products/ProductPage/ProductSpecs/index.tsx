@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import { PRODUCT_FALLBACK_TEXT } from "../../product.constants";
 import type { Product } from "../../product.types";
 import {
@@ -38,7 +38,7 @@ export function ProductSpecs({ product }: ProductSpecsProps) {
   const specs = buildSpecs(product);
   if (specs.length === 0) return null;
   return (
-    <motion.section
+    <m.section
       aria-labelledby="ficha-tecnica-heading"
       variants={specStage}
       initial="hidden"
@@ -46,16 +46,16 @@ export function ProductSpecs({ product }: ProductSpecsProps) {
       viewport={DETAIL_VIEWPORT}
       className="flex flex-col gap-6"
     >
-      <motion.h2
+      <m.h2
         variants={riseSoft}
         id="ficha-tecnica-heading"
         className="font-display text-2xl text-primary sm:text-3xl"
       >
         Ficha técnica
-      </motion.h2>
+      </m.h2>
       <dl className="grid gap-x-10 sm:grid-cols-2">
         {specs.map((spec) => (
-          <motion.div
+          <m.div
             key={spec.label}
             variants={specRow}
             className="flex items-baseline justify-between gap-4 border-b border-primary/10 py-4"
@@ -66,9 +66,9 @@ export function ProductSpecs({ product }: ProductSpecsProps) {
             <dd className="text-right text-sm font-medium text-primary">
               {spec.value}
             </dd>
-          </motion.div>
+          </m.div>
         ))}
       </dl>
-    </motion.section>
+    </m.section>
   );
 }

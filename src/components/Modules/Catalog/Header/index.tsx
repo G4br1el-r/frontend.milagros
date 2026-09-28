@@ -1,25 +1,28 @@
 "use client";
 import { ShoppingCart } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Container } from "@/components/Layout/Container";
-import { CustomerMenu } from "@/components/Modules/Catalog/Identity";
+import { CustomerMenu } from "@/components/Modules/Catalog/Identity/CustomerMenu";
 import { useCartCount, useCartStore } from "@/lib/stores/cart";
 import { cn } from "@/lib/utils/cn";
 import { MobileMenu } from "./MobileMenu";
 import { NAV_LINKS } from "./nav-links.constants";
 import { useScrolled } from "./useScrolled";
 export function Header() {
-  const { scrolled, hidden } = useScrolled();
+  const { scrolled, hidden, onFocus, onBlur } = useScrolled();
   const count = useCartCount();
   const openCart = useCartStore((state) => state.open);
   const pathname = usePathname();
   const overDarkHero = pathname === "/";
   const solid = scrolled || !overDarkHero;
   return (
-    <motion.header
+    <m.header
+      onFocus={onFocus}
+      onBlur={onBlur}
       animate={{ y: hidden ? "-100%" : "0%" }}
       transition={{ type: "spring", stiffness: 220, damping: 28, mass: 0.9 }}
       className={cn(
@@ -55,7 +58,6 @@ export function Header() {
             width={160}
             height={160}
             loading="eager"
-            fetchPriority="high"
             className="h-10 w-auto object-contain sm:h-14"
           />
         </Link>
@@ -72,7 +74,7 @@ export function Header() {
             <ShoppingCart className="size-5" strokeWidth={1.75} />
             <AnimatePresence>
               {count !== null && count > 0 && (
-                <motion.span
+                <m.span
                   key="count"
                   initial={{ scale: 0, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
@@ -81,12 +83,12 @@ export function Header() {
                   className="absolute -top-0.5 -right-0.5 flex size-5 items-center justify-center rounded-full bg-brasa text-[length:var(--text-step-neg-1)] font-bold text-linho"
                 >
                   {count}
-                </motion.span>
+                </m.span>
               )}
             </AnimatePresence>
           </button>
         </div>
       </Container>
-    </motion.header>
+    </m.header>
   );
 }

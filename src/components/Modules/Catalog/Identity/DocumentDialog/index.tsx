@@ -1,6 +1,6 @@
 "use client";
 import { UserRound } from "lucide-react";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import {
   Dialog,
   DialogContent,
@@ -23,14 +23,14 @@ export function DocumentDialog() {
     >
       <DialogContent className="w-full max-w-[calc(100%-2rem)] gap-0 rounded-2xl border-primary/10 bg-cream p-6 sm:max-w-md sm:p-8">
         <DialogHeader className="gap-3">
-          <motion.span
+          <m.span
             initial={{ scale: 0.6, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={springSnappy}
             className="mx-auto flex size-12 items-center justify-center rounded-full bg-gold/15 text-gold"
           >
             <UserRound className="size-6" strokeWidth={1.75} />
-          </motion.span>
+          </m.span>
           <DialogTitle className="text-center font-display text-xl text-primary sm:text-2xl">
             Identifique-se
           </DialogTitle>
@@ -38,14 +38,14 @@ export function DocumentDialog() {
             Informe seu CPF ou CNPJ para continuar com o seu pedido.
           </DialogDescription>
         </DialogHeader>
-        <motion.div
+        <m.div
           variants={modalContentVariants}
           initial="hidden"
           animate="visible"
           className="mt-6"
         >
           <DocumentForm />
-        </motion.div>
+        </m.div>
       </DialogContent>
     </Dialog>
   );

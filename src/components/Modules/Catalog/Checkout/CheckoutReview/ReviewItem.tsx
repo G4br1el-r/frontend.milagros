@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import Image from "next/image";
 import { formatPrice } from "@/components/Modules/Catalog/Home/Products/product.types";
 import type { CartItem } from "@/lib/stores/cart";
@@ -10,7 +10,7 @@ interface ReviewItemProps {
 }
 export function ReviewItem({ item }: ReviewItemProps) {
   return (
-    <motion.li
+    <m.li
       variants={listItemVariants}
       className="flex items-center gap-3 border-b border-primary/8 py-3 last:border-b-0"
     >
@@ -34,6 +34,6 @@ export function ReviewItem({ item }: ReviewItemProps) {
       <span className="shrink-0 text-sm font-medium text-primary">
         {formatPrice(item.price * item.quantity)}
       </span>
-    </motion.li>
+    </m.li>
   );
 }

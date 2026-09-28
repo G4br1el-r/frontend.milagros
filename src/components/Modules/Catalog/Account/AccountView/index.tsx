@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo } from "react";
 import { Container } from "@/components/Layout/Container";
+import { MAIN_CONTENT_ID } from "@/components/Layout/skip-link.constants";
 import { AccountDetailsForm } from "@/components/Modules/Catalog/Account/AccountDetailsForm";
 import { AccountMetrics } from "@/components/Modules/Catalog/Account/AccountMetrics";
 import { AccountOrders } from "@/components/Modules/Catalog/Account/AccountOrders";
@@ -27,7 +28,10 @@ export function AccountView() {
     return <div className="min-h-svh bg-cream" aria-hidden="true" />;
   }
   return (
-    <main className="min-h-svh bg-cream pt-24 pb-24 sm:pt-32">
+    <main
+      id={MAIN_CONTENT_ID}
+      className="min-h-svh bg-cream pt-24 pb-24 sm:pt-32"
+    >
       <Container className="flex flex-col gap-12">
         <div className="flex flex-col gap-3">
           <nav aria-label="Trilha" className="text-xs text-primary/50">

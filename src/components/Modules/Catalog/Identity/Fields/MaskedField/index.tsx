@@ -1,6 +1,7 @@
 "use client";
 import { IMaskInput } from "react-imask";
-import { cn } from "@/lib/utils/cn";
+import { getFieldErrorId } from "../field-error-id";
+import { fieldInputClassName } from "../field-styles";
 
 interface DynamicMasked {
   value: string;
@@ -51,14 +52,8 @@ export function MaskedField({
       autoComplete={autoComplete}
       disabled={disabled}
       aria-invalid={invalid || undefined}
-      className={cn(
-        "h-11 w-full rounded-lg border bg-white px-3.5 text-sm text-primary transition-colors duration-200 outline-none placeholder:text-primary/35",
-        "focus-visible:border-gold focus-visible:ring-2 focus-visible:ring-gold/25",
-        "disabled:cursor-not-allowed disabled:bg-primary/5 disabled:text-primary/45",
-        invalid
-          ? "border-red-400 focus-visible:border-red-400 focus-visible:ring-red-200"
-          : "border-primary/15",
-      )}
+      aria-describedby={invalid ? getFieldErrorId(id) : undefined}
+      className={fieldInputClassName(invalid)}
     />
   );
 }

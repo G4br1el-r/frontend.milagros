@@ -11,7 +11,7 @@ const MOBILE_BLUR_DATA_URL =
 export function HeroBackdrop() {
   const common = {
     alt: "",
-    priority: true as const,
+    preload: true as const,
     placeholder: "blur" as const,
   };
 

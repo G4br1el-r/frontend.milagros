@@ -1,4 +1,4 @@
-import type { Transition, Variants } from "motion/react";
+import type { TargetAndTransition, Transition, Variants } from "motion/react";
 export const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const;
 const OVERTURE_DELAY = 0.35;
 export const heroStage: Variants = {
@@ -77,3 +77,27 @@ export const AMBIENT_DRIFT: Transition = {
   repeatType: "mirror",
   ease: "easeInOut",
 };
+export const AMBIENT_DRIFT_LOOP: TargetAndTransition = {
+  y: [0, -6, 0],
+  transition: AMBIENT_DRIFT,
+};
+export const AMBIENT_DRIFT_REST: TargetAndTransition = { y: 0 };
+export const FLAME_PULSE_LOOP: TargetAndTransition = {
+  opacity: [1, 0.55, 1],
+  transition: {
+    duration: 3.5,
+    repeat: Number.POSITIVE_INFINITY,
+    ease: "easeInOut",
+  },
+};
+export const FLAME_PULSE_REST: TargetAndTransition = { opacity: 1 };
+export const SCROLL_CUE_LOOP: TargetAndTransition = {
+  y: ["-100%", "200%"],
+  transition: {
+    duration: 2.4,
+    repeat: Number.POSITIVE_INFINITY,
+    ease: "easeInOut",
+    repeatDelay: 0.4,
+  },
+};
+export const SCROLL_CUE_REST: TargetAndTransition = { y: "-100%" };

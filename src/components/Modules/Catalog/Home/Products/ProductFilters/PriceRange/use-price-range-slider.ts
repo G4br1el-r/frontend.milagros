@@ -1,6 +1,7 @@
+"use client";
 import { useEffect, useRef, useState } from "react";
 import { useDebouncedValue } from "@/lib/hooks/use-debounced-value";
-import { useProductFiltersUrl } from "@/lib/query-state/use-product-filters-url";
+import { useProductFiltersWithScroll } from "../use-filters-with-scroll";
 import {
   PRICE_RANGE_DEBOUNCE_MS,
   PRICE_RANGE_MIN_GAP_RATIO,
@@ -11,7 +12,7 @@ interface PriceBounds {
   precoMaximo: number;
 }
 export function usePriceRangeSlider(bounds: PriceBounds) {
-  const { precoMin, precoMax, setPrecoRange } = useProductFiltersUrl();
+  const { precoMin, precoMax, setPrecoRange } = useProductFiltersWithScroll();
   const min = bounds.precoMinimo;
   const max = bounds.precoMaximo;
   const minGap = (max - min) * PRICE_RANGE_MIN_GAP_RATIO || 0.01;

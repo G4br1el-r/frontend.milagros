@@ -1,3 +1,4 @@
+import { PRODUCT_REVALIDATE_SECONDS } from "@/components/Providers/query-provider.constants";
 import { api } from "@/lib/api";
 import { withAuthRetry } from "@/lib/api/with-auth-retry";
 import { withPriceTableParams } from "@/lib/api/with-price-table";
@@ -17,10 +18,12 @@ export async function fetchProductsServer(
     ? "/api/produtos/pesquisa"
     : "/api/produtos";
   return withAuthRetry(() =>
-    api.get<ProdutosPaginadosDto>(`${path}?${searchParams}`),
+    api.get<ProdutosPaginadosDto>(`${path}?${searchParams}`, {
+      next: { revalidate: PRODUCT_REVALIDATE_SECONDS },
+    }),
   );
 }
-function isPlaceholderProduct(dto: ProdutoCatalogoDto): boolean {
+export function isPlaceholderProduct(dto: ProdutoCatalogoDto): boolean {
   return dto.nome === "Produto" && dto.preco === 0 && !dto.categoria;
 }
 export async function fetchProductByCodeServer(
@@ -31,6 +34,7 @@ export async function fetchProductByCodeServer(
     const produto = await withAuthRetry(() =>
       api.get<ProdutoCatalogoDto>(
         `/api/produtos/${encodeURIComponent(codigoOmie)}?${searchParams}`,
+        { next: { revalidate: PRODUCT_REVALIDATE_SECONDS } },
       ),
     );
     return isPlaceholderProduct(produto) ? null : produto;

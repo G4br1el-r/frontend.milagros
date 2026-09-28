@@ -16,8 +16,11 @@ export function ProductSearch() {
   const debouncedDraft = useDebouncedValue(draft, SEARCH_DEBOUNCE_MS);
   const setTermoRef = useRef(setTermo);
   setTermoRef.current = setTermo;
+  const termoRef = useRef(termo);
+  termoRef.current = termo;
   useEffect(() => {
     const trimmed = debouncedDraft.trim();
+    if (trimmed === termoRef.current) return;
     if (trimmed.length > 0 && trimmed.length < SEARCH_MIN_CHARS) return;
     setTermoRef.current(trimmed);
   }, [debouncedDraft]);

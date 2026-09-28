@@ -1,6 +1,6 @@
 "use client";
 import { Star } from "lucide-react";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import { ProductCta } from "../../ProductCta";
 import { formatPrice, type Product } from "../../product.types";
 import { hairline, rise, stage } from "../product-page.motion";
@@ -16,13 +16,13 @@ export function ProductBuyPanel({ product }: ProductBuyPanelProps) {
     product;
   const discount = compareAtPrice ? discountPercent(price, compareAtPrice) : 0;
   return (
-    <motion.div
+    <m.div
       variants={stage}
       initial="hidden"
       animate="show"
       className="flex flex-col gap-6"
     >
-      <motion.div variants={rise} className="flex flex-wrap items-center gap-3">
+      <m.div variants={rise} className="flex flex-wrap items-center gap-3">
         {category && (
           <span className="inline-flex items-center rounded-full bg-gold/15 px-3.5 py-1.5 text-[10px] font-medium tracking-[0.22em] text-primary-dark uppercase">
             {category}
@@ -48,23 +48,23 @@ export function ProductBuyPanel({ product }: ProductBuyPanelProps) {
             <span className="sr-only">avaliações</span>
           </span>
         )}
-      </motion.div>
-      <motion.h1
+      </m.div>
+      <m.h1
         variants={rise}
         className="font-display text-3xl leading-[1.12] text-balance text-primary sm:text-4xl"
       >
         {name}
-      </motion.h1>
-      <motion.div variants={rise} className="flex items-center gap-4">
-        <motion.span
+      </m.h1>
+      <m.div variants={rise} className="flex items-center gap-4">
+        <m.span
           variants={hairline}
           className="h-px w-16 origin-left bg-linear-to-r from-primary/40 to-transparent"
         />
         <span className="font-display shrink-0 text-[10px] tracking-[0.3em] text-primary/60 italic sm:text-xs">
           ad maiorem Dei gloriam
         </span>
-      </motion.div>
-      <motion.div
+      </m.div>
+      <m.div
         variants={rise}
         className="flex flex-col gap-2 rounded-2xl border border-primary/10 bg-white/60 p-6 backdrop-blur-sm"
       >
@@ -93,7 +93,7 @@ export function ProductBuyPanel({ product }: ProductBuyPanelProps) {
             price={product.price}
           />
         </div>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }

@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import { formatPrice } from "@/components/Modules/Catalog/Home/Products/product.types";
 import type { ParcelaOpcaoDto } from "@/lib/checkout/checkout.types";
 import { cn } from "@/lib/utils/cn";
@@ -50,7 +50,7 @@ export function InstallmentOption({
           </span>
         )}
       </span>
-      <motion.span
+      <m.span
         animate={{
           borderColor: selected
             ? "var(--color-gold)"
@@ -59,12 +59,12 @@ export function InstallmentOption({
         transition={springSnappy}
         className="flex size-4 shrink-0 items-center justify-center rounded-full border"
       >
-        <motion.span
+        <m.span
           animate={{ scale: selected ? 1 : 0 }}
           transition={springSnappy}
           className="size-2 rounded-full bg-gold"
         />
-      </motion.span>
+      </m.span>
     </button>
   );
 }

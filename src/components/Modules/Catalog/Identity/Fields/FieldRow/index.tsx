@@ -1,8 +1,9 @@
 "use client";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import type { ReactNode } from "react";
 import { fieldVariants } from "../../identity.motion";
 import { FieldError } from "../FieldError";
+import { getFieldErrorId } from "../field-error-id";
 
 interface FieldRowProps {
   id: string;
@@ -19,7 +20,7 @@ export function FieldRow({
   className,
 }: FieldRowProps) {
   return (
-    <motion.div
+    <m.div
       variants={fieldVariants}
       className={`flex flex-col gap-1.5 ${className ?? ""}`}
     >
@@ -30,7 +31,7 @@ export function FieldRow({
         {label}
       </label>
       {children}
-      <FieldError message={error} />
-    </motion.div>
+      <FieldError id={getFieldErrorId(id)} message={error} />
+    </m.div>
   );
 }

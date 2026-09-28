@@ -1,10 +1,17 @@
 "use client";
-import { motion, useReducedMotion } from "motion/react";
-import { EASE_OUT_EXPO } from "../hero.motion";
+import { useReducedMotion } from "motion/react";
+import * as m from "motion/react-m";
+import {
+  EASE_OUT_EXPO,
+  SCROLL_CUE_LOOP,
+  SCROLL_CUE_REST,
+} from "../hero.motion";
+import { useHeroVisible } from "../use-hero-visible";
 export function ScrollCue() {
   const reduceMotion = useReducedMotion();
+  const heroVisible = useHeroVisible();
   return (
-    <motion.a
+    <m.a
       href="#catalog"
       aria-label="Rolar para o catálogo"
       initial={{ opacity: 0, y: 12 }}
@@ -16,17 +23,17 @@ export function ScrollCue() {
         Deslize
       </span>
       <span className="relative block h-8 w-px overflow-hidden bg-cream/25 sm:h-12">
-        <motion.span
+        <m.span
           className="absolute inset-x-0 top-0 block h-1/2 bg-linear-to-b from-transparent to-cream"
-          animate={reduceMotion ? undefined : { y: ["-100%", "200%"] }}
-          transition={{
-            duration: 2.4,
-            repeat: Number.POSITIVE_INFINITY,
-            ease: "easeInOut",
-            repeatDelay: 0.4,
-          }}
+          animate={
+            reduceMotion
+              ? undefined
+              : heroVisible
+                ? SCROLL_CUE_LOOP
+                : SCROLL_CUE_REST
+          }
         />
       </span>
-    </motion.a>
+    </m.a>
   );
 }

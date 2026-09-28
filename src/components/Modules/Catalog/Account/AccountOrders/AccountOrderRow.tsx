@@ -1,7 +1,9 @@
 "use client";
 import { ChevronDown, FileText } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 import { useState } from "react";
+import { QuoteNotice } from "@/components/Modules/Catalog/Checkout/QuoteNotice";
 import { formatPrice } from "@/components/Modules/Catalog/Home/Products/product.types";
 import type { PedidoDetalhesDto } from "@/lib/checkout/checkout.types";
 import { cn } from "@/lib/utils/cn";
@@ -20,6 +22,10 @@ function formatDate(iso: string): string {
 export function AccountOrderRow({ order }: AccountOrderRowProps) {
   const [open, setOpen] = useState(false);
   const status = presentOrderStatus(order.status);
+  const hasFinalValue =
+    order.valorFinal !== null &&
+    order.valorFinal > 0 &&
+    order.valorFinal !== order.valorTotal;
   return (
     <div className="overflow-hidden rounded-2xl border border-primary/10 bg-white">
       <button
@@ -60,7 +66,7 @@ export function AccountOrderRow({ order }: AccountOrderRowProps) {
       </button>
       <AnimatePresence initial={false}>
         {open && (
-          <motion.div
+          <m.div
             initial={{ gridTemplateRows: "0fr" }}
             animate={{ gridTemplateRows: "1fr" }}
             exit={{ gridTemplateRows: "0fr" }}
@@ -105,12 +111,32 @@ export function AccountOrderRow({ order }: AccountOrderRowProps) {
                     </div>
                   )}
                   <div className="flex items-center justify-between">
-                    <span className="font-medium text-primary">Total</span>
-                    <span className="font-sans text-base font-semibold tabular-nums text-primary">
+                    <span className="font-medium text-primary">
+                      {hasFinalValue ? "Total estimado" : "Total"}
+                    </span>
+                    <span
+                      className={cn(
+                        "font-sans text-base font-semibold tabular-nums",
+                        hasFinalValue
+                          ? "text-primary/50 line-through"
+                          : "text-primary",
+                      )}
+                    >
                       {formatPrice(order.valorTotal)}
                     </span>
                   </div>
+                  {hasFinalValue && (
+                    <div className="flex items-center justify-between">
+                      <span className="font-medium text-primary">
+                        Total final
+                      </span>
+                      <span className="font-sans text-base font-semibold tabular-nums text-primary">
+                        {formatPrice(order.valorFinal ?? 0)}
+                      </span>
+                    </div>
+                  )}
                 </div>
+                {!hasFinalValue && <QuoteNotice variant="compact" />}
                 {order.parcelas.length > 0 && (
                   <div className="flex flex-col gap-2 border-t border-primary/10 pt-3">
                     <span className="text-[11px] font-semibold tracking-[0.08em] text-primary/60 uppercase">
@@ -149,7 +175,7 @@ export function AccountOrderRow({ order }: AccountOrderRowProps) {
                 </a>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>

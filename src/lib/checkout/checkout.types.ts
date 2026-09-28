@@ -95,10 +95,13 @@ export interface PedidoDetalhesDto {
   dataPrevisao: string | null;
   etapa: string | null;
   status: string | null;
+  statusOmie: string | null;
   mensagemOmie: string | null;
   valorSubtotal: number;
   valorDesconto: number;
   valorTotal: number;
+  valorOrcamento: number | null;
+  valorFinal: number | null;
   itens: PedidoItemDto[];
   parcelas: PedidoParcelaDto[];
 }

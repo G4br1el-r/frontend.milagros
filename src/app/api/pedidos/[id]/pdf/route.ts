@@ -1,12 +1,19 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { parseRequestInput } from "@/lib/api/parse-request";
 import { routeErrorResponse } from "@/lib/api/route-error-response";
 import { UnauthorizedError, UpstreamError } from "@/lib/api-client";
 import { getValidToken, invalidateToken } from "@/lib/auth/token";
+import { orderIdSchema } from "@/lib/checkout/checkout.schemas";
 import { requireEnv } from "@/lib/utils/require-env";
+
+const UNSAFE_FILENAME_CHARS = /[^A-Za-z0-9-]/g;
 
 interface RouteContext {
   params: Promise<{ id: string }>;
+}
+function toPdfFilename(id: string): string {
+  return `pedido-${id.replace(UNSAFE_FILENAME_CHARS, "")}.pdf`;
 }
 async function fetchPdf(id: string, token: string) {
   const response = await fetch(
@@ -25,8 +32,9 @@ async function fetchPdf(id: string, token: string) {
   return response;
 }
 export async function GET(_request: NextRequest, { params }: RouteContext) {
-  const { id } = await params;
+  const { id: rawId } = await params;
   try {
+    const id = parseRequestInput(rawId, orderIdSchema);
     let token = await getValidToken();
     let upstream: Response;
     try {
@@ -40,7 +48,7 @@ export async function GET(_request: NextRequest, { params }: RouteContext) {
     return new NextResponse(upstream.body, {
       headers: {
         "Content-Type": "application/pdf",
-        "Content-Disposition": `inline; filename="pedido-${id}.pdf"`,
+        "Content-Disposition": `inline; filename="${toPdfFilename(id)}"`,
       },
     });
   } catch (error) {

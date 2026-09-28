@@ -1,7 +1,7 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
@@ -49,7 +49,7 @@ export function DocumentForm() {
     }
   }
   return (
-    <motion.form
+    <m.form
       variants={modalContentVariants}
       initial="hidden"
       animate="visible"
@@ -77,7 +77,7 @@ export function DocumentForm() {
           </FieldRow>
         )}
       />
-      <motion.button
+      <m.button
         variants={modalContentVariants}
         type="submit"
         disabled={isSubmitting}
@@ -92,7 +92,7 @@ export function DocumentForm() {
         ) : (
           "Continuar"
         )}
-      </motion.button>
-    </motion.form>
+      </m.button>
+    </m.form>
   );
 }

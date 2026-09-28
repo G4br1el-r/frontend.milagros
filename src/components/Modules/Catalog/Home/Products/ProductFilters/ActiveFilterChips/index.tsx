@@ -1,7 +1,7 @@
 "use client";
 import { X } from "lucide-react";
-import { useProductFiltersUrl } from "@/lib/query-state/use-product-filters-url";
 import { formatPrice } from "../../product.types";
+import { useProductFiltersWithScroll } from "../use-filters-with-scroll";
 
 interface Chip {
   key: string;
@@ -13,13 +13,15 @@ export function ActiveFilterChips() {
     termo,
     letra,
     categoria,
+    subcategoria,
     precoMin,
     precoMax,
     setTermo,
     setLetra,
     setCategoria,
+    setSubcategoria,
     setPrecoRange,
-  } = useProductFiltersUrl();
+  } = useProductFiltersWithScroll();
   const chips: Chip[] = [];
   if (termo) {
     chips.push({
@@ -40,6 +42,13 @@ export function ActiveFilterChips() {
       key: "categoria",
       label: categoria,
       onRemove: () => setCategoria(null),
+    });
+  }
+  if (subcategoria) {
+    chips.push({
+      key: "subcategoria",
+      label: subcategoria,
+      onRemove: () => setSubcategoria(null),
     });
   }
   if (precoMin !== undefined || precoMax !== undefined) {

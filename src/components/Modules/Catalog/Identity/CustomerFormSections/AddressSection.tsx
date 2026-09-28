@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import { useCallback } from "react";
 import {
   type Control,
@@ -7,26 +7,38 @@ import {
   type FieldErrors,
   type UseFormSetValue,
 } from "react-hook-form";
+import {
+  COMPLEMENTO_MAX_LENGTH,
+  UF_LENGTH,
+} from "@/lib/customer/customer.constants";
 import type { CustomerFormValues } from "@/lib/customer/customer.schemas";
 import { useCepLookup } from "@/lib/hooks/use-cep-lookup";
+import { cn } from "@/lib/utils/cn";
 import { CepField } from "../Fields/CepField";
 import { FieldRow } from "../Fields/FieldRow";
 import { NumberField } from "../Fields/NumberField";
 import { TextField } from "../Fields/TextField";
 import { fieldVariants } from "../identity.motion";
+import type { CustomerFormLayout } from "./customer-form-sections.types";
 
-interface RegisterAddressSectionProps {
+const AUTOFILL_OPTIONS = { shouldValidate: true, shouldDirty: true } as const;
+interface AddressSectionProps {
   control: Control<CustomerFormValues>;
   errors: FieldErrors<CustomerFormValues>;
   setValue: UseFormSetValue<CustomerFormValues>;
+  idPrefix: string;
   disabled?: boolean;
+  layout?: CustomerFormLayout;
 }
-export function RegisterAddressSection({
+export function AddressSection({
   control,
   errors,
   setValue,
+  idPrefix,
   disabled,
-}: RegisterAddressSectionProps) {
+  layout = "stack",
+}: AddressSectionProps) {
+  const isGrid = layout === "grid";
   const onFound = useCallback(
     (fields: {
       logradouro: string;
@@ -34,17 +46,27 @@ export function RegisterAddressSection({
       cidade: string;
       uf: string;
     }) => {
-      setValue("logradouro", fields.logradouro, { shouldValidate: true });
-      setValue("bairro", fields.bairro, { shouldValidate: true });
-      setValue("cidade", fields.cidade, { shouldValidate: true });
-      setValue("uf", fields.uf, { shouldValidate: true });
+      setValue("logradouro", fields.logradouro, AUTOFILL_OPTIONS);
+      setValue("bairro", fields.bairro, AUTOFILL_OPTIONS);
+      setValue("cidade", fields.cidade, AUTOFILL_OPTIONS);
+      setValue("uf", fields.uf, AUTOFILL_OPTIONS);
     },
     [setValue],
   );
   const { lookup, isLoading, error } = useCepLookup(onFound);
   return (
-    <motion.fieldset variants={fieldVariants} className="flex flex-col gap-4">
-      <legend className="mb-1 font-display text-sm text-primary">
+    <m.fieldset
+      variants={fieldVariants}
+      className={
+        isGrid ? "grid grid-cols-1 gap-4 sm:grid-cols-2" : "flex flex-col gap-4"
+      }
+    >
+      <legend
+        className={cn(
+          "font-display text-sm text-primary",
+          isGrid ? "mb-4" : "mb-1",
+        )}
+      >
         Endereço
       </legend>
       <Controller
@@ -52,11 +74,12 @@ export function RegisterAddressSection({
         name="cep"
         render={({ field }) => (
           <FieldRow
-            id="cep"
+            id={`${idPrefix}cep`}
             label="CEP"
             error={errors.cep?.message ?? error ?? undefined}
           >
             <CepField
+              id={`${idPrefix}cep`}
               value={field.value}
               onChange={field.onChange}
               onComplete={lookup}
@@ -72,12 +95,12 @@ export function RegisterAddressSection({
         name="logradouro"
         render={({ field }) => (
           <FieldRow
-            id="logradouro"
+            id={`${idPrefix}logradouro`}
             label="Logradouro"
             error={errors.logradouro?.message}
           >
             <TextField
-              id="logradouro"
+              id={`${idPrefix}logradouro`}
               value={field.value}
               onChange={field.onChange}
               onBlur={field.onBlur}
@@ -89,13 +112,18 @@ export function RegisterAddressSection({
           </FieldRow>
         )}
       />
-      <div className="grid grid-cols-2 gap-3">
+      <div className={isGrid ? "contents" : "grid grid-cols-2 gap-3"}>
         <Controller
           control={control}
           name="numero"
           render={({ field }) => (
-            <FieldRow id="numero" label="Número" error={errors.numero?.message}>
+            <FieldRow
+              id={`${idPrefix}numero`}
+              label="Número"
+              error={errors.numero?.message}
+            >
               <NumberField
+                id={`${idPrefix}numero`}
                 value={field.value}
                 onChange={field.onChange}
                 disabled={disabled}
@@ -109,19 +137,19 @@ export function RegisterAddressSection({
           name="complemento"
           render={({ field }) => (
             <FieldRow
-              id="complemento"
+              id={`${idPrefix}complemento`}
               label="Complemento"
               error={errors.complemento?.message}
             >
               <TextField
-                id="complemento"
+                id={`${idPrefix}complemento`}
                 value={field.value}
                 onChange={field.onChange}
                 onBlur={field.onBlur}
                 placeholder="Apto, bloco…"
                 autoComplete="address-line3"
                 disabled={disabled}
-                maxLength={60}
+                maxLength={COMPLEMENTO_MAX_LENGTH}
                 invalid={Boolean(errors.complemento)}
               />
             </FieldRow>
@@ -132,9 +160,13 @@ export function RegisterAddressSection({
         control={control}
         name="bairro"
         render={({ field }) => (
-          <FieldRow id="bairro" label="Bairro" error={errors.bairro?.message}>
+          <FieldRow
+            id={`${idPrefix}bairro`}
+            label="Bairro"
+            error={errors.bairro?.message}
+          >
             <TextField
-              id="bairro"
+              id={`${idPrefix}bairro`}
               value={field.value}
               onChange={field.onChange}
               onBlur={field.onBlur}
@@ -150,9 +182,13 @@ export function RegisterAddressSection({
           control={control}
           name="cidade"
           render={({ field }) => (
-            <FieldRow id="cidade" label="Cidade" error={errors.cidade?.message}>
+            <FieldRow
+              id={`${idPrefix}cidade`}
+              label="Cidade"
+              error={errors.cidade?.message}
+            >
               <TextField
-                id="cidade"
+                id={`${idPrefix}cidade`}
                 value={field.value}
                 onChange={field.onChange}
                 onBlur={field.onBlur}
@@ -167,14 +203,18 @@ export function RegisterAddressSection({
           control={control}
           name="uf"
           render={({ field }) => (
-            <FieldRow id="uf" label="UF" error={errors.uf?.message}>
+            <FieldRow
+              id={`${idPrefix}uf`}
+              label="UF"
+              error={errors.uf?.message}
+            >
               <TextField
-                id="uf"
+                id={`${idPrefix}uf`}
                 value={field.value}
                 onChange={field.onChange}
                 onBlur={field.onBlur}
                 placeholder="UF"
-                maxLength={2}
+                maxLength={UF_LENGTH}
                 uppercase
                 disabled={disabled || isLoading}
                 invalid={Boolean(errors.uf)}
@@ -183,6 +223,6 @@ export function RegisterAddressSection({
           )}
         />
       </div>
-    </motion.fieldset>
+    </m.fieldset>
   );
 }

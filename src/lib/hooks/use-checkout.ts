@@ -9,6 +9,7 @@ import {
   buildCheckoutRequest,
   buildFinalizeRequest,
 } from "@/lib/checkout/checkout.mapper";
+import { SERVER_ERROR_MIN_STATUS } from "@/lib/http/http.constants";
 import { useCartStore } from "@/lib/stores/cart";
 import {
   useCheckoutStore,
@@ -16,6 +17,12 @@ import {
   useSelectedParcela,
 } from "@/lib/stores/checkout";
 import { useCustomerStore } from "@/lib/stores/customer";
+
+function checkoutErrorMessage(error: unknown, fallback: string): string {
+  const isClientError =
+    error instanceof CheckoutApiError && error.status < SERVER_ERROR_MIN_STATUS;
+  return isClientError ? error.message : fallback;
+}
 export function useCheckout() {
   const items = useCartStore((state) => state.items);
   const customer = useCustomerStore((state) => state.customer);
@@ -39,9 +46,10 @@ export function useCheckout() {
       setValidation(resultado);
     } catch (error) {
       failValidation(
-        error instanceof CheckoutApiError && error.status < 500
-          ? error.message
-          : "Nao foi possivel validar o pedido agora. Tente novamente.",
+        checkoutErrorMessage(
+          error,
+          "Nao foi possivel validar o pedido agora. Tente novamente.",
+        ),
       );
     }
   }, [customer, items, startValidation, setValidation, failValidation]);
@@ -62,9 +70,10 @@ export function useCheckout() {
       setResult(resultado);
     } catch (error) {
       failFinalize(
-        error instanceof CheckoutApiError && error.status < 500
-          ? error.message
-          : "Nao foi possivel emitir o pedido agora. Tente novamente.",
+        checkoutErrorMessage(
+          error,
+          "Nao foi possivel emitir o pedido agora. Tente novamente.",
+        ),
       );
     }
   }, [

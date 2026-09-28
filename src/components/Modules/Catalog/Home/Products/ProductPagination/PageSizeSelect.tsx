@@ -2,6 +2,7 @@
 import { useId } from "react";
 import { useProductFiltersUrl } from "@/lib/query-state/use-product-filters-url";
 import { PRODUCTS_PER_PAGE_OPTIONS } from "../product.constants";
+import { scrollToResultsTop } from "../scroll-to-results";
 export function PageSizeSelect() {
   const id = useId();
   const { pageSize, setPageSize } = useProductFiltersUrl();
@@ -14,7 +15,10 @@ export function PageSizeSelect() {
       <select
         id={id}
         value={pageSize}
-        onChange={(event) => setPageSize(Number(event.target.value))}
+        onChange={(event) => {
+          setPageSize(Number(event.target.value));
+          scrollToResultsTop();
+        }}
         className="rounded-full border border-primary/15 bg-white px-3 py-1.5 text-base text-primary focus:outline-none"
       >
         {PRODUCTS_PER_PAGE_OPTIONS.map((option) => (

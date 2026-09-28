@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import {
   CHECKOUT_STEP_LABELS,
   CHECKOUT_STEPS,
@@ -19,7 +19,11 @@ export function CheckoutSteps({ current }: CheckoutStepsProps) {
         const isDone = index < currentIndex;
         const isCurrent = index === currentIndex;
         return (
-          <li key={step} className="flex flex-1 items-center gap-2">
+          <li
+            key={step}
+            aria-current={isCurrent ? "step" : undefined}
+            className="flex flex-1 items-center gap-2"
+          >
             <div className="flex flex-1 flex-col gap-1.5">
               <span
                 className={cn(
@@ -34,7 +38,7 @@ export function CheckoutSteps({ current }: CheckoutStepsProps) {
                 {CHECKOUT_STEP_LABELS[step]}
               </span>
               <span className="relative h-0.5 w-full overflow-hidden rounded-full bg-primary/10">
-                <motion.span
+                <m.span
                   initial={false}
                   animate={{ scaleX: isDone || isCurrent ? 1 : 0 }}
                   transition={springSoft}

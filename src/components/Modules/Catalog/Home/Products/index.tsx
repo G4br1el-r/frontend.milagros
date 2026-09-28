@@ -1,7 +1,7 @@
 import { Sparkle } from "lucide-react";
 import Image from "next/image";
 import { Container } from "@/components/Layout/Container";
-import { StaggerReveal, StaggerItem } from "@/components/motion/ScrollReveal";
+import { StaggerItem, StaggerReveal } from "@/components/motion/ScrollReveal";
 import { ProductsResults } from "./ProductsResults";
 export function Products() {
   return (
@@ -16,7 +16,6 @@ export function Products() {
           fill
           sizes="100vw"
           className="object-cover"
-          priority
         />
         <div className="absolute inset-0 bg-cream/55 sm:bg-linear-to-r sm:from-cream/80 sm:via-cream/40 sm:to-transparent" />
         <Container className="relative w-full">
@@ -26,17 +25,20 @@ export function Products() {
           >
             <StaggerItem distance={20} direction="down">
               <span className="flex items-center justify-center gap-2 text-[10px] font-medium tracking-[0.2em] text-primary-dark uppercase sm:text-sm sm:tracking-[0.38em]">
-                <Sparkle className="size-3 sm:size-4 text-gold" strokeWidth={2} />
+                <Sparkle
+                  className="size-3 sm:size-4 text-gold"
+                  strokeWidth={2}
+                />
                 Catálogo
               </span>
             </StaggerItem>
-            
+
             <StaggerItem distance={20}>
               <h2 className="font-display text-3xl leading-tight text-balance text-primary sm:text-5xl lg:text-6xl">
                 A maior variedade de incensos litúrgicos
               </h2>
             </StaggerItem>
-            
+
             <StaggerItem distance={20}>
               <div className="flex items-center justify-center gap-2 sm:gap-5">
                 <span className="h-px w-8 bg-linear-to-r from-transparent to-primary/40 sm:w-24" />
@@ -46,7 +48,7 @@ export function Products() {
                 <span className="h-px w-8 bg-linear-to-l from-transparent to-primary/40 sm:w-24" />
               </div>
             </StaggerItem>
-            
+
             <StaggerItem distance={20} direction="up">
               <p className="max-w-xl text-balance text-base leading-relaxed text-primary/80 sm:text-lg">
                 Incensos de resina, carvões e acessórios religiosos, para toda

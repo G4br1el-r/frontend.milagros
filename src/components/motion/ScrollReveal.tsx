@@ -1,7 +1,18 @@
 "use client";
-import { motion, type Variants } from "motion/react";
+import type { Variants, ViewportOptions } from "motion/react";
 import type { ReactNode } from "react";
+import { resolveMotionTag } from "@/components/motion/resolve-motion-tag";
+import {
+  SCROLL_REVEAL_DISTANCE_PX,
+  SCROLL_REVEAL_DURATION_SECONDS,
+  SCROLL_REVEAL_EASE,
+  SCROLL_REVEAL_VIEWPORT_AMOUNT,
+  STAGGER_ITEM_SPRING_DAMPING,
+  STAGGER_ITEM_SPRING_STIFFNESS,
+  STAGGER_REVEAL_CHILDREN_INTERVAL_SECONDS,
+} from "@/components/motion/scroll-reveal.constants";
 import { cn } from "@/lib/utils/cn";
+
 export interface ScrollRevealProps {
   children: ReactNode;
   className?: string;
@@ -12,16 +23,16 @@ export interface ScrollRevealProps {
   amount?: "some" | "all" | number;
   direction?: "up" | "down" | "left" | "right";
   as?: React.ElementType;
-  customViewport?: any;
+  customViewport?: ViewportOptions;
 }
 export function ScrollReveal({
   children,
   className,
   delay = 0,
-  duration = 0.5,
-  distance = 30,
+  duration = SCROLL_REVEAL_DURATION_SECONDS,
+  distance = SCROLL_REVEAL_DISTANCE_PX,
   once = true,
-  amount = 0.2,
+  amount = SCROLL_REVEAL_VIEWPORT_AMOUNT,
   direction = "up",
   as: Component = "div",
 }: ScrollRevealProps) {
@@ -51,11 +62,11 @@ export function ScrollReveal({
       transition: {
         duration,
         delay,
-        ease: [0.21, 0.47, 0.32, 0.98],
+        ease: SCROLL_REVEAL_EASE,
       },
     },
   };
-  const MotionComponent = motion.create(Component as any);
+  const MotionComponent = resolveMotionTag(Component);
   return (
     <MotionComponent
       variants={variants}
@@ -71,9 +82,9 @@ export function StaggerReveal({
   children,
   className,
   delay = 0,
-  staggerChildren = 0.1,
+  staggerChildren = STAGGER_REVEAL_CHILDREN_INTERVAL_SECONDS,
   once = true,
-  amount = 0.2,
+  amount = SCROLL_REVEAL_VIEWPORT_AMOUNT,
   as: Component = "div",
   customViewport,
 }: Omit<ScrollRevealProps, "duration" | "distance" | "direction"> & {
@@ -89,7 +100,7 @@ export function StaggerReveal({
       },
     },
   };
-  const MotionComponent = motion.create(Component as any);
+  const MotionComponent = resolveMotionTag(Component);
   return (
     <MotionComponent
       variants={variants}
@@ -105,7 +116,7 @@ export function StaggerReveal({
 export function StaggerItem({
   children,
   className,
-  distance = 30,
+  distance = SCROLL_REVEAL_DISTANCE_PX,
   direction = "up",
   as: Component = "div",
 }: Pick<
@@ -135,10 +146,14 @@ export function StaggerItem({
       opacity: 1,
       x: 0,
       y: 0,
-      transition: { type: "spring", stiffness: 300, damping: 24 },
+      transition: {
+        type: "spring",
+        stiffness: STAGGER_ITEM_SPRING_STIFFNESS,
+        damping: STAGGER_ITEM_SPRING_DAMPING,
+      },
     },
   };
-  const MotionComponent = motion.create(Component as any);
+  const MotionComponent = resolveMotionTag(Component);
   return (
     <MotionComponent variants={itemVariants} className={cn(className)}>
       {children}

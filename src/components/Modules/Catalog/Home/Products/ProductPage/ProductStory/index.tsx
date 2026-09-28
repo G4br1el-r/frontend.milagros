@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 import { PRODUCT_FALLBACK_DESCRIPTION } from "../../product.constants";
 import {
   DETAIL_VIEWPORT,
@@ -21,7 +21,7 @@ export function ProductStory({ description, name }: ProductStoryProps) {
     .map((block) => block.trim())
     .filter(Boolean);
   return (
-    <motion.section
+    <m.section
       aria-labelledby="sobre-produto-heading"
       variants={specStage}
       initial="hidden"
@@ -29,18 +29,18 @@ export function ProductStory({ description, name }: ProductStoryProps) {
       viewport={DETAIL_VIEWPORT}
       className="flex flex-col gap-6"
     >
-      <motion.h2
+      <m.h2
         variants={riseSoft}
         id="sobre-produto-heading"
         className="font-display text-2xl text-primary sm:text-3xl"
       >
         Sobre {name}
-      </motion.h2>
-      <motion.span
+      </m.h2>
+      <m.span
         variants={hairline}
         className="h-px w-24 origin-left bg-linear-to-r from-gold to-transparent"
       />
-      <motion.div
+      <m.div
         variants={riseSoft}
         className="flex w-full flex-col gap-5 text-base leading-[1.75] text-primary/75"
       >
@@ -53,7 +53,7 @@ export function ProductStory({ description, name }: ProductStoryProps) {
             {paragraph}
           </p>
         ))}
-      </motion.div>
-    </motion.section>
+      </m.div>
+    </m.section>
   );
 }

@@ -1,5 +1,11 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import {
+  type FocusEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 interface ScrollState {
   scrolled: boolean;
@@ -10,6 +16,7 @@ export function useScrolled(threshold = 8) {
     scrolled: false,
     hidden: false,
   });
+  const [hasFocusWithin, setHasFocusWithin] = useState(false);
   const lastY = useRef(0);
   useEffect(() => {
     lastY.current = window.scrollY;
@@ -30,5 +37,16 @@ export function useScrolled(threshold = 8) {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, [threshold]);
-  return state;
+  const onFocus = useCallback(() => setHasFocusWithin(true), []);
+  const onBlur = useCallback((event: FocusEvent<HTMLElement>) => {
+    const next = event.relatedTarget;
+    if (next instanceof Node && event.currentTarget.contains(next)) return;
+    setHasFocusWithin(false);
+  }, []);
+  return {
+    scrolled: state.scrolled,
+    hidden: state.hidden && !hasFocusWithin,
+    onFocus,
+    onBlur,
+  };
 }

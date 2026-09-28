@@ -3,13 +3,12 @@ import { motion, useReducedMotion } from "motion/react";
 import { wordmarkReveal } from "../Hero/hero.motion";
 
 const WORDMARK = "MILAGROS";
+const WORDMARK_TEXT = "Milagros — incensos e carvões litúrgicos";
 export function BrandWordmark() {
   const reduceMotion = useReducedMotion();
   return (
-    <h1
-      className="font-brand flex w-full items-end justify-center text-cream uppercase"
-      aria-label={WORDMARK}
-    >
+    <h1 className="font-brand flex w-full items-end justify-center text-cream uppercase">
+      <span className="sr-only normal-case">{WORDMARK_TEXT}</span>
       <motion.span
         aria-hidden="true"
         initial="hidden"

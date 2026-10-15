@@ -3,16 +3,24 @@ import { AnimatePresence } from "motion/react";
 import * as m from "motion/react-m";
 import { type RefObject, useEffect, useState } from "react";
 import { ProductCta } from "../../ProductCta";
-import { formatPrice, type Product } from "../../product.types";
+import {
+  formatPrice,
+  type Product,
+  type ProductVariant,
+} from "../../product.types";
+import { toCartProduct } from "../../product.variants";
 
 interface ProductStickyBarProps {
   product: Product;
+  selectedVariant: ProductVariant | null;
   anchorRef: RefObject<HTMLDivElement | null>;
 }
 export function ProductStickyBar({
   product,
+  selectedVariant,
   anchorRef,
 }: ProductStickyBarProps) {
+  const cartProduct = toCartProduct(product, selectedVariant);
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const anchor = anchorRef.current;
@@ -39,17 +47,17 @@ export function ProductStickyBar({
               <span className="truncate text-xs text-primary/60">
                 {product.name}
               </span>
+              {cartProduct.variantName && (
+                <span className="truncate text-xs font-medium text-primary">
+                  {cartProduct.variantName}
+                </span>
+              )}
               <span className="font-sans text-xl leading-none font-semibold tabular-nums text-primary">
-                {formatPrice(product.price)}
+                {formatPrice(cartProduct.price)}
               </span>
             </div>
             <div className="ml-auto w-44 shrink-0">
-              <ProductCta
-                id={product.id}
-                name={product.name}
-                image={product.image}
-                price={product.price}
-              />
+              <ProductCta item={cartProduct} />
             </div>
           </div>
         </m.div>

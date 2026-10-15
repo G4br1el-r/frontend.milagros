@@ -2,18 +2,34 @@
 import { Star } from "lucide-react";
 import * as m from "motion/react-m";
 import { ProductCta } from "../../ProductCta";
-import { formatPrice, type Product } from "../../product.types";
+import {
+  formatPrice,
+  type Product,
+  type ProductVariant,
+} from "../../product.types";
+import { toCartProduct } from "../../product.variants";
+import { ProductVariantPicker } from "../ProductVariantPicker";
 import { hairline, rise, stage } from "../product-page.motion";
 
 interface ProductBuyPanelProps {
   product: Product;
+  selectedVariant: ProductVariant | null;
+  onSelectVariant: (variantId: string) => void;
 }
 function discountPercent(price: number, compareAt: number) {
   return Math.round(((compareAt - price) / compareAt) * 100);
 }
-export function ProductBuyPanel({ product }: ProductBuyPanelProps) {
-  const { category, compareAtPrice, name, price, rating, reviewCount } =
+export function ProductBuyPanel({
+  product,
+  selectedVariant,
+  onSelectVariant,
+}: ProductBuyPanelProps) {
+  const { category, name, rating, reviewCount, variantLabel, variants } =
     product;
+  const price = selectedVariant?.price ?? product.price;
+  const compareAtPrice = selectedVariant
+    ? selectedVariant.compareAtPrice
+    : product.compareAtPrice;
   const discount = compareAtPrice ? discountPercent(price, compareAtPrice) : 0;
   return (
     <m.div
@@ -68,6 +84,11 @@ export function ProductBuyPanel({ product }: ProductBuyPanelProps) {
         variants={rise}
         className="flex flex-col gap-2 rounded-2xl border border-primary/10 bg-white/60 p-6 backdrop-blur-sm"
       >
+        {selectedVariant && (
+          <span className="text-sm font-medium text-primary/70">
+            {selectedVariant.name}
+          </span>
+        )}
         {compareAtPrice && (
           <span className="font-sans text-sm tabular-nums text-primary/45 line-through">
             {formatPrice(compareAtPrice)}
@@ -81,17 +102,22 @@ export function ProductBuyPanel({ product }: ProductBuyPanelProps) {
             <span className="text-sm text-primary/55">por {product.unit}</span>
           )}
         </div>
+        {variantLabel && variants.length > 0 && (
+          <div className="mt-4">
+            <ProductVariantPicker
+              label={variantLabel}
+              variants={variants}
+              selectedId={selectedVariant?.id ?? null}
+              onSelect={onSelectVariant}
+            />
+          </div>
+        )}
         <p className="mt-1 text-xs leading-relaxed text-primary/55">
           Parcelamento calculado no carrinho, conforme a forma de pagamento
           escolhida. Preço de atacado já aplicado à sua tabela.
         </p>
         <div className="mt-4">
-          <ProductCta
-            id={product.id}
-            name={product.name}
-            image={product.image}
-            price={product.price}
-          />
+          <ProductCta item={toCartProduct(product, selectedVariant)} />
         </div>
       </m.div>
     </m.div>

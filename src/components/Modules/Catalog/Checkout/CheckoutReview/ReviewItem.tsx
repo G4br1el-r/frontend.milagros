@@ -27,6 +27,11 @@ export function ReviewItem({ item }: ReviewItemProps) {
       </div>
       <div className="flex min-w-0 flex-1 flex-col">
         <span className="truncate text-sm text-primary">{item.name}</span>
+        {item.variantName && (
+          <span className="truncate text-xs text-primary/60">
+            {item.variantName}
+          </span>
+        )}
         <span className="text-xs text-primary/55">
           {item.quantity} × {formatPrice(item.price)}
         </span>

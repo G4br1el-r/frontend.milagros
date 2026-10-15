@@ -1,6 +1,6 @@
 import type { Customer } from "@/lib/customer/customer.types";
 import type { CartItem } from "@/lib/stores/cart";
-import { DEFAULT_UNIT } from "./checkout.constants";
+import { DEFAULT_UNIT, ITEM_VARIANT_SEPARATOR } from "./checkout.constants";
 import type {
   CheckoutRequest,
   FinalizarCheckoutRequest,
@@ -12,10 +12,15 @@ import type {
 function toMoney(value: number): number {
   return Math.round(value * 100) / 100;
 }
+function describeItem(item: CartItem): string {
+  return item.variantName
+    ? `${item.name}${ITEM_VARIANT_SEPARATOR}${item.variantName}`
+    : item.name;
+}
 export function cartItemToCheckoutItem(item: CartItem): ItemCheckoutDto {
   return {
     codigoOmie: item.id,
-    descricao: item.name,
+    descricao: describeItem(item),
     unidade: DEFAULT_UNIT,
     quantidade: item.quantity,
     precoUnitario: item.price,

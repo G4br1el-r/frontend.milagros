@@ -1,3 +1,14 @@
+export interface ProdutoVariacaoDto {
+  id: string;
+  codigoOmie: string;
+  idLojaIntegrada: string | null;
+  nome: string;
+  tipoVariacao: string | null;
+  preco: number;
+  precoDe: number | null;
+  estoqueAtual: number | null;
+  ativo: boolean;
+}
 export interface ProdutoCatalogoDto {
   codigoOmie: string;
   nome: string;
@@ -16,6 +27,7 @@ export interface ProdutoCatalogoDto {
   tipo: string | null;
   rating: number | null;
   totalAvaliacoes: number | null;
+  variacoes: ProdutoVariacaoDto[] | null;
 }
 export interface ProdutosPaginadosDto {
   itens: ProdutoCatalogoDto[];
@@ -27,6 +39,13 @@ export interface ProdutosPaginadosDto {
 export interface ProductAttribute {
   label: string;
   value: string;
+}
+export interface ProductVariant {
+  id: string;
+  name: string;
+  type: string | null;
+  price: number;
+  compareAtPrice: number | null;
 }
 export interface Product {
   id: string;
@@ -46,6 +65,8 @@ export interface Product {
   rating: number | null;
   reviewCount: number;
   attributes: ProductAttribute[];
+  variants: ProductVariant[];
+  variantLabel: string | null;
 }
 const currencyFormatter = new Intl.NumberFormat("pt-BR", {
   style: "currency",

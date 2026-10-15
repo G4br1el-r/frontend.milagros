@@ -4,20 +4,18 @@ import { AnimatePresence } from "motion/react";
 import * as m from "motion/react-m";
 import { QuantityStepper } from "@/components/shared/quantity-stepper";
 import { useIdentityGuard } from "@/lib/hooks/use-identity-guard";
-import { useCartStore } from "@/lib/stores/cart";
+import { type CartItem, useCartStore } from "@/lib/stores/cart";
 import { cardCta } from "../product.motion";
 
 interface ProductCtaProps {
-  id: string;
-  name: string;
-  image: string | null;
-  price: number;
+  item: Omit<CartItem, "quantity">;
 }
 const CTA_CLASS =
   "absolute inset-0 flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-full text-sm font-medium transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none";
-export function ProductCta({ id, name, image, price }: ProductCtaProps) {
+export function ProductCta({ item }: ProductCtaProps) {
+  const { id } = item;
   const quantity = useCartStore(
-    (state) => state.items.find((item) => item.id === id)?.quantity ?? 0,
+    (state) => state.items.find((entry) => entry.id === id)?.quantity ?? 0,
   );
   const setQuantity = useCartStore((state) => state.setQuantity);
   const removeItem = useCartStore((state) => state.removeItem);
@@ -45,7 +43,7 @@ export function ProductCta({ id, name, image, price }: ProductCtaProps) {
           <m.button
             key="add"
             type="button"
-            onClick={() => addToCart({ id, name, image, price })}
+            onClick={() => addToCart(item)}
             variants={cardCta}
             initial={{ opacity: 0, scale: 0.94 }}
             animate={{ opacity: 1, scale: 1 }}

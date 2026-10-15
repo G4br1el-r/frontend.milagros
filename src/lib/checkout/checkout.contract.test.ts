@@ -1,10 +1,10 @@
-import { cpf } from "cpf-cnpj-validator";
 import { describe, expect, it } from "vitest";
 import {
   makeCartItem,
   makeCustomer,
   makeFormaPagamento,
   makeParcela,
+  VALID_CNPJ,
 } from "@/test/fixtures";
 import { buildCheckoutRequest, buildFinalizeRequest } from "./checkout.mapper";
 import {
@@ -76,7 +76,7 @@ function sortedKeys(value: object): string[] {
 
 describe("contrato do checkout com o swagger da API", () => {
   it("POST /api/checkout envia exatamente os campos de CheckoutRequest", () => {
-    const payload = buildCheckoutRequest(VARIANT_ITEMS, cpf.generate());
+    const payload = buildCheckoutRequest(VARIANT_ITEMS, VALID_CNPJ);
     expect(sortedKeys(payload)).toEqual([...SWAGGER_CHECKOUT_REQUEST].sort());
     for (const item of payload.itens) {
       expect(sortedKeys(item)).toEqual([...SWAGGER_ITEM_CHECKOUT_DTO].sort());
@@ -87,7 +87,7 @@ describe("contrato do checkout com o swagger da API", () => {
   it("POST /api/checkout/finalizar envia exatamente os campos de FinalizarCheckoutRequest", () => {
     const parcela = makeParcela();
     const payload = buildFinalizeRequest({
-      customer: makeCustomer({ cpfCnpj: cpf.generate() }),
+      customer: makeCustomer({ cpfCnpj: VALID_CNPJ }),
       items: VARIANT_ITEMS,
       forma: makeFormaPagamento({ opcoesParcelamento: [parcela] }),
       parcela,
@@ -106,7 +106,7 @@ describe("contrato do checkout com o swagger da API", () => {
   });
 
   it("itens de variacao saem com o codigo vendavel, nunca o do pai", () => {
-    const payload = buildCheckoutRequest(VARIANT_ITEMS, cpf.generate());
+    const payload = buildCheckoutRequest(VARIANT_ITEMS, VALID_CNPJ);
     expect(payload.itens.map((item) => item.codigoOmie)).toEqual([
       "BYZi05B",
       "BYZi30B",

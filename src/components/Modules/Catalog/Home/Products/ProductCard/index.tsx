@@ -1,12 +1,16 @@
 "use client";
-import { Images, Star } from "lucide-react";
+import { ArrowRight, Images, Star } from "lucide-react";
 import Link from "next/link";
 import { ProductCardShell } from "../ProductCardShell";
 import { ProductCta } from "../ProductCta";
 import { ProductMedia } from "../ProductMedia";
 import { ProductPanel } from "../ProductPanel";
-import { buildProductSlug } from "../product.slug";
 import { formatPrice, type Product } from "../product.types";
+import {
+  buildProductHref,
+  hasVariants,
+  toCartProduct,
+} from "../product.variants";
 
 interface ProductCardProps {
   product: Product;
@@ -25,10 +29,12 @@ export function ProductCard({ product, priority }: ProductCardProps) {
     rating,
     reviewCount,
   } = product;
+  const href = buildProductHref(name, id);
+  const withVariants = hasVariants(product);
   return (
     <ProductCardShell>
       <Link
-        href={`/produtos/${buildProductSlug(name, id)}`}
+        href={href}
         aria-label={`Ver detalhes de ${name}`}
         className="absolute inset-0 z-0 cursor-pointer focus-visible:outline-none"
       />
@@ -96,6 +102,11 @@ export function ProductCard({ product, priority }: ProductCardProps) {
         </h3>
         <div className="mt-auto flex flex-col gap-6 pt-3">
           <div className="flex flex-col">
+            {withVariants && (
+              <span className="text-[10px] tracking-[0.18em] text-primary/55 uppercase">
+                A partir de
+              </span>
+            )}
             {compareAtPrice && (
               <span className="font-sans text-xs tabular-nums text-primary/45 line-through">
                 {formatPrice(compareAtPrice)}
@@ -106,7 +117,18 @@ export function ProductCard({ product, priority }: ProductCardProps) {
             </span>
           </div>
           <div className="pointer-events-auto relative z-10">
-            <ProductCta id={id} name={name} image={image} price={price} />
+            {withVariants ? (
+              <Link
+                href={href}
+                aria-label={`Ver opções de ${name}`}
+                className="flex h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-full border border-primary/20 text-sm font-medium text-primary transition-colors duration-200 hover:border-primary hover:bg-primary hover:text-cream focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:outline-none"
+              >
+                Ver opções
+                <ArrowRight className="size-4" strokeWidth={2} />
+              </Link>
+            ) : (
+              <ProductCta item={toCartProduct(product, null)} />
+            )}
           </div>
         </div>
       </div>

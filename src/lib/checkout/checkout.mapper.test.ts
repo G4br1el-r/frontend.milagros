@@ -30,6 +30,25 @@ describe("cartItemToCheckoutItem", () => {
     });
   });
 
+  it("envia o codigo da variacao e o tamanho na descricao", () => {
+    const item = makeCartItem({
+      id: "BYZi30B",
+      productId: "PAI-1-GREGO-BYZANTINE-INTENSO",
+      name: "#1 GREGO BYZANTINE INTENSO",
+      variantName: "Barrica de 300g",
+      price: 179.77,
+      quantity: 2,
+    });
+    expect(cartItemToCheckoutItem(item)).toEqual({
+      codigoOmie: "BYZi30B",
+      descricao: "#1 GREGO BYZANTINE INTENSO - Barrica de 300g",
+      unidade: DEFAULT_UNIT,
+      quantidade: 2,
+      precoUnitario: 179.77,
+      subtotal: 359.54,
+    });
+  });
+
   it("arredonda o subtotal para centavos", () => {
     expect(
       cartItemToCheckoutItem(makeCartItem({ price: 0.1, quantity: 3 }))

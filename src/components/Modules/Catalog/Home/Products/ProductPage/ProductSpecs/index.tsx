@@ -1,7 +1,7 @@
 "use client";
 import * as m from "motion/react-m";
 import { PRODUCT_FALLBACK_TEXT } from "../../product.constants";
-import type { Product } from "../../product.types";
+import type { Product, ProductVariant } from "../../product.types";
 import {
   DETAIL_VIEWPORT,
   riseSoft,
@@ -11,12 +11,16 @@ import {
 
 interface ProductSpecsProps {
   product: Product;
+  selectedVariant: ProductVariant | null;
 }
 interface SpecEntry {
   label: string;
   value: string;
 }
-function buildSpecs(product: Product): SpecEntry[] {
+function buildSpecs(
+  product: Product,
+  selectedVariant: ProductVariant | null,
+): SpecEntry[] {
   const entries: SpecEntry[] = [];
   if (product.type) entries.push({ label: "Tipo", value: product.type });
   if (product.burnTime)
@@ -31,11 +35,14 @@ function buildSpecs(product: Product): SpecEntry[] {
     (attribute) => attribute.label === "Dimensões",
   );
   if (dimension) entries.push({ label: "Dimensões", value: dimension.value });
-  entries.push({ label: "Código", value: product.id || PRODUCT_FALLBACK_TEXT });
+  if (selectedVariant && product.variantLabel)
+    entries.push({ label: product.variantLabel, value: selectedVariant.name });
+  const code = selectedVariant?.id ?? product.id;
+  entries.push({ label: "Código", value: code || PRODUCT_FALLBACK_TEXT });
   return entries;
 }
-export function ProductSpecs({ product }: ProductSpecsProps) {
-  const specs = buildSpecs(product);
+export function ProductSpecs({ product, selectedVariant }: ProductSpecsProps) {
+  const specs = buildSpecs(product, selectedVariant);
   if (specs.length === 0) return null;
   return (
     <m.section

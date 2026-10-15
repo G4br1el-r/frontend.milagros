@@ -2,7 +2,10 @@ import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { MAIN_CONTENT_ID } from "@/components/Layout/skip-link.constants";
 import { ProductPage } from "@/components/Modules/Catalog/Home/Products/ProductPage";
-import { PRODUCT_FALLBACK_DESCRIPTION } from "@/components/Modules/Catalog/Home/Products/product.constants";
+import {
+  PRODUCT_FALLBACK_DESCRIPTION,
+  VARIANT_QUERY_PARAM,
+} from "@/components/Modules/Catalog/Home/Products/product.constants";
 import { mapProdutoToProduct } from "@/components/Modules/Catalog/Home/Products/product.mapper";
 import { fetchProductByCodeServer } from "@/components/Modules/Catalog/Home/Products/product.server";
 import {
@@ -10,6 +13,12 @@ import {
   parseProductSlug,
 } from "@/components/Modules/Catalog/Home/Products/product.slug";
 import type { Product } from "@/components/Modules/Catalog/Home/Products/product.types";
+import {
+  buildProductHref,
+  findVariant,
+  getPriceRange,
+  hasVariants,
+} from "@/components/Modules/Catalog/Home/Products/product.variants";
 import { serializeJsonLd } from "@/lib/site/json-ld";
 import {
   SITE_LOCALE,
@@ -20,6 +29,32 @@ import { toAbsoluteUrl } from "@/lib/site/site-url";
 
 interface ProductRouteProps {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}
+function readVariantParam(
+  searchParams: Record<string, string | string[] | undefined>,
+): string | null {
+  const value = searchParams[VARIANT_QUERY_PARAM];
+  return typeof value === "string" && value ? value : null;
+}
+function buildOffer(product: Product, url: string) {
+  if (!hasVariants(product)) {
+    return {
+      "@type": "Offer",
+      url,
+      price: product.price,
+      priceCurrency: "BRL",
+    };
+  }
+  const { min, max } = getPriceRange(product);
+  return {
+    "@type": "AggregateOffer",
+    url,
+    lowPrice: min,
+    highPrice: max,
+    offerCount: product.variants.length,
+    priceCurrency: "BRL",
+  };
 }
 async function loadProduct(slug: string) {
   const codigoOmie = parseProductSlug(slug);
@@ -46,10 +81,7 @@ function buildProductJsonLd(product: Product, canonicalPath: string) {
     ...(description ? { description } : {}),
     ...(product.category ? { category: product.category } : {}),
     offers: {
-      "@type": "Offer",
-      url,
-      price: product.price,
-      priceCurrency: "BRL",
+      ...buildOffer(product, url),
       ...(product.stock !== null
         ? {
             availability:
@@ -108,13 +140,20 @@ export async function generateMetadata({
     },
   };
 }
-export default async function ProdutoPage({ params }: ProductRouteProps) {
+export default async function ProdutoPage({
+  params,
+  searchParams,
+}: ProductRouteProps) {
   const { slug } = await params;
   const product = await loadProduct(slug);
   if (!product) notFound();
+  const codigoOmie = parseProductSlug(slug);
+  const requestedVariantId =
+    readVariantParam(await searchParams) ??
+    (findVariant(product, codigoOmie) ? codigoOmie : null);
   const canonical = buildProductSlug(product.name, product.id);
   if (decodeURIComponent(slug) !== decodeURIComponent(canonical)) {
-    redirect(`/produtos/${canonical}`);
+    redirect(buildProductHref(product.name, product.id, requestedVariantId));
   }
   return (
     <main id={MAIN_CONTENT_ID} className="w-full flex-1">

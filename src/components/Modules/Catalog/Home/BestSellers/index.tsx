@@ -27,6 +27,8 @@ const PLACEHOLDER_PRODUCTS: Product[] = [
     rating: 4.9,
     reviewCount: 124,
     attributes: [],
+    variants: [],
+    variantLabel: null,
   },
   {
     id: "URB10",
@@ -49,6 +51,8 @@ const PLACEHOLDER_PRODUCTS: Product[] = [
     rating: 4.8,
     reviewCount: 89,
     attributes: [],
+    variants: [],
+    variantLabel: null,
   },
   {
     id: "JOS05",
@@ -71,6 +75,8 @@ const PLACEHOLDER_PRODUCTS: Product[] = [
     rating: 4.7,
     reviewCount: 67,
     attributes: [],
+    variants: [],
+    variantLabel: null,
   },
   {
     id: "KTNLS",
@@ -93,6 +99,8 @@ const PLACEHOLDER_PRODUCTS: Product[] = [
     rating: 5.0,
     reviewCount: 34,
     attributes: [],
+    variants: [],
+    variantLabel: null,
   },
   {
     id: "NIGsKG",
@@ -115,6 +123,8 @@ const PLACEHOLDER_PRODUCTS: Product[] = [
     rating: 4.6,
     reviewCount: 213,
     attributes: [],
+    variants: [],
+    variantLabel: null,
   },
   {
     id: "NAZiKG",
@@ -137,6 +147,8 @@ const PLACEHOLDER_PRODUCTS: Product[] = [
     rating: 4.5,
     reviewCount: 42,
     attributes: [],
+    variants: [],
+    variantLabel: null,
   },
 ];
 export function BestSellers() {

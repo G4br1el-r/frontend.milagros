@@ -10,7 +10,14 @@ vi.mock("@/lib/toast/toast", () => ({
   appToast: { cartAdded: vi.fn(), cartRemoved: vi.fn() },
 }));
 
-const product = { id: "a", name: "Vela", image: null, price: 10 };
+const product = {
+  id: "a",
+  productId: "a",
+  name: "Vela",
+  variantName: null,
+  image: null,
+  price: 10,
+};
 
 describe("useIdentityGuard", () => {
   beforeEach(() => {

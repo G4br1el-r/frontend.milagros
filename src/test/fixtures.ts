@@ -1,4 +1,8 @@
 import type {
+  ProdutoCatalogoDto,
+  ProdutoVariacaoDto,
+} from "@/components/Modules/Catalog/Home/Products/product.types";
+import type {
   FormaPagamentoDto,
   ParcelaOpcaoDto,
   PedidoDetalhesDto,
@@ -33,7 +37,9 @@ export function makeCustomer(overrides: Partial<Customer> = {}): Customer {
 export function makeCartItem(overrides: Partial<CartItem> = {}): CartItem {
   return {
     id: "produto-1",
+    productId: "produto-1",
     name: "Vela aromatica",
+    variantName: null,
     image: null,
     price: 10,
     quantity: 1,
@@ -127,6 +133,49 @@ export function makePedido(
     valorFinal: null,
     itens: [],
     parcelas: [],
+    ...overrides,
+  };
+}
+
+export function makeVariacaoDto(
+  overrides: Partial<ProdutoVariacaoDto> = {},
+): ProdutoVariacaoDto {
+  return {
+    id: "variacao-1",
+    codigoOmie: "BYZi05B",
+    idLojaIntegrada: "263126902",
+    nome: "Barrica de 50g",
+    tipoVariacao: "Embalagem",
+    preco: 36.25,
+    precoDe: null,
+    estoqueAtual: null,
+    ativo: true,
+    ...overrides,
+  };
+}
+
+export function makeProdutoDto(
+  overrides: Partial<ProdutoCatalogoDto> = {},
+): ProdutoCatalogoDto {
+  return {
+    codigoOmie: "PAI-1-GREGO-BYZANTINE-INTENSO",
+    nome: "#1 GREGO BYZANTINE INTENSO",
+    preco: 36.25,
+    unidade: null,
+    pesoKg: null,
+    altura: null,
+    largura: null,
+    profundidade: null,
+    estoqueAtual: null,
+    descricao: null,
+    categoria: "Incensos",
+    imagens: ["https://cdn.example.com/byzantine.png"],
+    precoDe: null,
+    tempoQueima: null,
+    tipo: null,
+    rating: 5,
+    totalAvaliacoes: 0,
+    variacoes: [],
     ...overrides,
   };
 }

@@ -6,6 +6,7 @@ export const CHECKOUT_STEP_LABELS: Record<CheckoutStep, string> = {
   sucesso: "Concluído",
 };
 export const DEFAULT_UNIT = "UN";
+export const ITEM_VARIANT_SEPARATOR = " - ";
 export const QUOTE_NOTICE_TITLE = "Este é um orçamento";
 export const QUOTE_NOTICE_SHORT = "Valores sujeitos a alteração";
 export const QUOTE_NOTICE_DESCRIPTION =

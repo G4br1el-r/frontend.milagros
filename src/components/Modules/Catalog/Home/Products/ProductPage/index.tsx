@@ -12,11 +12,13 @@ import { ProductStickyBar } from "./ProductStickyBar";
 import { ProductStory } from "./ProductStory";
 import { ProductTrustRow } from "./ProductTrustRow";
 import { revealMedia } from "./product-page.motion";
+import { useProductVariant } from "./use-product-variant";
 
 interface ProductPageProps {
   product: Product;
 }
 export function ProductPage({ product }: ProductPageProps) {
+  const { selectedVariant, selectVariant } = useProductVariant(product);
   const ctaAnchorRef = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
@@ -55,9 +57,13 @@ export function ProductPage({ product }: ProductPageProps) {
           </m.div>
           <div className="flex flex-col gap-14">
             <div ref={ctaAnchorRef}>
-              <ProductBuyPanel product={product} />
+              <ProductBuyPanel
+                product={product}
+                selectedVariant={selectedVariant}
+                onSelectVariant={selectVariant}
+              />
             </div>
-            <ProductSpecs product={product} />
+            <ProductSpecs product={product} selectedVariant={selectedVariant} />
           </div>
         </div>
         <div className="mt-20 flex flex-col gap-20 sm:mt-24 sm:gap-24">
@@ -71,7 +77,11 @@ export function ProductPage({ product }: ProductPageProps) {
           )}
         </div>
       </div>
-      <ProductStickyBar product={product} anchorRef={ctaAnchorRef} />
+      <ProductStickyBar
+        product={product}
+        selectedVariant={selectedVariant}
+        anchorRef={ctaAnchorRef}
+      />
     </div>
   );
 }

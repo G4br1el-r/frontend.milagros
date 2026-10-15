@@ -7,6 +7,11 @@ import type {
   ProductAttribute,
   ProdutoCatalogoDto,
 } from "./product.types";
+import {
+  getVariantLabel,
+  mapVariants,
+  resolveCompareAtPrice,
+} from "./product.variants";
 
 function stripHtml(html: string): string {
   return html
@@ -44,6 +49,12 @@ export function mapProdutoToProduct(dto: ProdutoCatalogoDto): Product {
   const images = dto.imagens?.filter(Boolean) ?? [];
   const image = images[0] ?? null;
   const description = dto.descricao ? stripHtml(dto.descricao) : "";
+  const variants = mapVariants(dto.variacoes);
+  const [defaultVariant] = variants;
+  const price = defaultVariant ? defaultVariant.price : dto.preco;
+  const compareAtPrice = defaultVariant
+    ? defaultVariant.compareAtPrice
+    : resolveCompareAtPrice(dto.preco, dto.precoDe);
   return {
     id: dto.codigoOmie,
     name: dto.nome,
@@ -51,8 +62,8 @@ export function mapProdutoToProduct(dto: ProdutoCatalogoDto): Product {
     image,
     images,
     hasImage: Boolean(image),
-    price: dto.preco,
-    compareAtPrice: dto.precoDe && dto.precoDe > dto.preco ? dto.precoDe : null,
+    price,
+    compareAtPrice,
     category: dto.categoria ? extractCategoryLabel(dto.categoria) : null,
     type: dto.tipo,
     unit: dto.unidade,
@@ -62,5 +73,7 @@ export function mapProdutoToProduct(dto: ProdutoCatalogoDto): Product {
     rating: dto.rating,
     reviewCount: dto.totalAvaliacoes ?? 0,
     attributes: buildAttributes(dto),
+    variants,
+    variantLabel: getVariantLabel(variants),
   };
 }

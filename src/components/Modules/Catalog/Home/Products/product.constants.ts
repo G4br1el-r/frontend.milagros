@@ -8,3 +8,9 @@ export const MAX_PRODUCTS_PER_PAGE = Math.max(...PRODUCTS_PER_PAGE_OPTIONS);
 export const PRODUCT_SKELETON_FALLBACK_COUNT = 12;
 export const PRODUCT_LOAD_ERROR_MESSAGE =
   "Tente novamente em instantes. Se o problema persistir, entre em contato com o suporte.";
+export const VARIANT_TYPE_PACKAGING = "Embalagem";
+export const VARIANT_TYPE_OPTION = "Opção";
+export const VARIANT_LABEL_PACKAGING = "Embalagem";
+export const VARIANT_LABEL_COLOR = "Cor";
+export const VARIANT_LABEL_MIXED = "Opção";
+export const VARIANT_QUERY_PARAM = "variacao";

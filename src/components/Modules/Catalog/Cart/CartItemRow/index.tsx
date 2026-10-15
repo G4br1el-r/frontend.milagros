@@ -4,8 +4,8 @@ import * as m from "motion/react-m";
 import Image from "next/image";
 import Link from "next/link";
 import { ImagePlaceholder } from "@/components/Modules/Catalog/Home/Products/ProductMedia/ImagePlaceholder";
-import { buildProductSlug } from "@/components/Modules/Catalog/Home/Products/product.slug";
 import { formatPrice } from "@/components/Modules/Catalog/Home/Products/product.types";
+import { buildProductHref } from "@/components/Modules/Catalog/Home/Products/product.variants";
 import { QuantityStepper } from "@/components/shared/quantity-stepper";
 import { type CartItem, useCartStore } from "@/lib/stores/cart";
 
@@ -16,7 +16,7 @@ export function CartItemRow({ item }: CartItemRowProps) {
   const setQuantity = useCartStore((state) => state.setQuantity);
   const removeItem = useCartStore((state) => state.removeItem);
   const closeCart = useCartStore((state) => state.close);
-  const productHref = `/produtos/${buildProductSlug(item.name, item.id)}`;
+  const productHref = buildProductHref(item.name, item.productId, item.id);
   return (
     <m.div
       layout
@@ -65,6 +65,11 @@ export function CartItemRow({ item }: CartItemRowProps) {
                 {item.name}
               </Link>
             </h4>
+            {item.variantName && (
+              <span className="-mt-1 truncate text-xs text-primary/60">
+                {item.variantName}
+              </span>
+            )}
             <span className="font-sans text-sm font-medium tabular-nums text-primary/70">
               {formatPrice(item.price)}
             </span>
